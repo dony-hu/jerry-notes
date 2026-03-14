@@ -58,27 +58,91 @@ body {
   cursor: pointer;
 }
 .hidden { display: none; }
-#post-content h1, #post-content h2, #post-content h3 { margin-top: 28px; margin-bottom: 14px; line-height: 1.35; }
-#post-content p { line-height: 2.05; color: #e7edff; margin: 0 0 1.05em; font-size: 17px; letter-spacing: 0.2px; }
-#post-content ul, #post-content ol { line-height: 1.95; padding-left: 1.4em; margin: 0.6em 0 1em; }
-#post-content li { margin-bottom: 0.5em; }
-#post-content blockquote {
-  margin: 1.2em 0;
-  padding: 0.8em 1em;
+.markdown-body {
+  font-size: 17px;
+  line-height: 1.95;
+  color: #e7edff;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+  margin: 1.4em 0 0.6em;
+  line-height: 1.35;
+  color: #f2f6ff;
+}
+
+.markdown-body h1 {
+  font-size: 32px;
+}
+
+.markdown-body h2 {
+  font-size: 24px;
+  padding-bottom: 0.2em;
+  border-bottom: 1px solid rgba(110, 168, 255, 0.25);
+}
+
+.markdown-body h3 {
+  font-size: 20px;
+}
+
+.markdown-body p {
+  margin: 0 0 1.05em;
+  letter-spacing: 0.15px;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  line-height: 1.9;
+  padding-left: 1.5em;
+  margin: 0.5em 0 1em;
+}
+
+.markdown-body li {
+  margin-bottom: 0.45em;
+}
+
+.markdown-body blockquote {
+  margin: 1.15em 0;
+  padding: 0.75em 1em;
   border-left: 3px solid var(--accent);
   background: #0f1a31;
-  color: #d4deff;
+  color: #d7e4ff;
   border-radius: 8px;
 }
-#post-content pre {
+
+.markdown-body pre {
   background: #0c1324;
   border: 1px solid var(--border);
   padding: 14px;
   overflow: auto;
   border-radius: 10px;
   line-height: 1.7;
+  margin: 0.9em 0 1.1em;
 }
-#post-content code { font-family: Consolas, Menlo, monospace; }
+
+.markdown-body code {
+  font-family: Consolas, Menlo, monospace;
+}
+
+.markdown-body :not(pre) > code {
+  background: rgba(110, 168, 255, 0.16);
+  border: 1px solid rgba(110, 168, 255, 0.28);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: 0.9em;
+}
+
+.markdown-body a {
+  color: #86b6ff;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(134, 182, 255, 0.5);
+}
+
+.markdown-body a:hover {
+  color: #a7cbff;
+}
 .posts-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 290px;
