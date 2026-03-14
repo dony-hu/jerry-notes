@@ -1,17 +1,4 @@
-const posts = [
-  {
-    title: '我的个人站上线了（第一版）',
-    slug: 'first-post',
-    date: '2026-03-14',
-    tags: ['建站', '记录']
-  },
-  {
-    title: '为什么先做静态站',
-    slug: 'why-static-site',
-    date: '2026-03-14',
-    tags: ['架构', '效率']
-  }
-];
+let posts = [];
 
 const postListEl = document.getElementById('post-list');
 const viewer = document.getElementById('viewer');
@@ -24,7 +11,7 @@ function renderList() {
   postListEl.innerHTML = posts.map(p => `
     <li>
       <a class="post-link" href="#${p.slug}" data-slug="${p.slug}">${p.title}</a>
-      <div class="post-meta">${p.date} · ${p.tags.join(' / ')}</div>
+      <div class="post-meta">${p.date} · ${(p.tags || []).join(' / ')}</div>
     </li>
   `).join('');
 }
@@ -61,8 +48,20 @@ backBtn.addEventListener('click', () => {
   document.getElementById('posts').classList.remove('hidden');
 });
 
-renderList();
+async function bootstrap() {
+  try {
+    const data = await fetch('./posts/posts.json').then(r => r.json());
+    posts = data;
+  } catch (e) {
+    console.warn('failed to load posts.json, fallback to empty list', e);
+    posts = [];
+  }
 
-if (location.hash) {
-  openPost(location.hash.replace('#', ''));
+  renderList();
+
+  if (location.hash) {
+    openPost(location.hash.replace('#', ''));
+  }
 }
+
+bootstrap();
