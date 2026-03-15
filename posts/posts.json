@@ -1,5 +1,29 @@
 [
   {
+    "title": "公司级 AI 专项周汇报（6页浓缩增强版）",
+    "slug": "company-ai-weekly-report",
+    "date": "2026-03-15",
+    "tags": [
+      "AI专项",
+      "周报汇报",
+      "经营管理",
+      "6页版"
+    ],
+    "type": "webslides",
+    "url": "./company-ai-weekly-report.html"
+  },
+  {
+    "title": "公司级 AI 专项推进报告",
+    "slug": "company-ai-special-initiative-report",
+    "date": "2026-03-15",
+    "tags": [
+      "AI专项",
+      "组织转型",
+      "数据工厂",
+      "决策智能"
+    ]
+  },
+  {
     "title": "地图安全治理框架：从私网部署到隐私合规",
     "slug": "map-security-governance-framework",
     "date": "2026-03-15",

@@ -1,110 +1,16 @@
-#!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-
-function escapeHtml(s = '') {
-  return String(s)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-}
-
-function parseInline(text = '') {
-  let out = escapeHtml(text);
-  out = out.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  out = out.replace(/\*(.+?)\*/g, '<em>$1</em>');
-  out = out.replace(/`([^`]+)`/g, '<code>$1</code>');
-  out = out.replace(/<br\s*\/?>/gi, '<br/>');
-  out = out.replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>');
-  return out;
-}
-
-function parseMd(md) {
-  const chunks = md.split(/\n---\n/g).map((s) => s.trim()).filter(Boolean);
-  const slides = [];
-
-  for (const chunk of chunks) {
-    const lines = chunk.split(/\r?\n/);
-    const slide = {
-      title: '',
-      subtitle: '',
-      tag: '',
-      part: '',
-      notes: '',
-      emphasis: '',
-      bullets: [],
-      buttons: []
-    };
-
-    for (const raw of lines) {
-      const line = raw.trim();
-      if (!line) continue;
-
-      if (line.startsWith('# ')) {
-        slide.title = line.slice(2).trim();
-        continue;
-      }
-      if (line.startsWith('## ')) {
-        slide.subtitle = line.slice(3).trim();
-        continue;
-      }
-
-      if (line.startsWith('@tag:')) { slide.tag = line.slice(5).trim(); continue; }
-      if (line.startsWith('@part:')) { slide.part = line.slice(6).trim(); continue; }
-      if (line.startsWith('@subtitle:')) { slide.subtitle = line.slice(10).trim(); continue; }
-      if (line.startsWith('@notes:')) { slide.notes = line.slice(7).trim(); continue; }
-      if (line.startsWith('@emphasis:')) { slide.emphasis = line.slice(10).trim(); continue; }
-      if (line.startsWith('@button:')) {
-        const body = line.slice(8).trim();
-        const [label, href, variant] = body.split('|').map((s) => (s || '').trim());
-        if (label && href) slide.buttons.push({ label, href, variant: variant || 'primary' });
-        continue;
-      }
-
-      if (/^[-*+]\s+/.test(line)) {
-        slide.bullets.push(line.replace(/^[-*+]\s+/, ''));
-        continue;
-      }
-
-      if (!slide.subtitle) {
-        slide.subtitle = line;
-      } else {
-        slide.bullets.push(line);
-      }
-    }
-
-    if (!slide.title) slide.title = 'Untitled Slide';
-    slides.push(slide);
-  }
-
-  return slides.map((s, i) => ({ id: i + 1, ...s }));
-}
-
-function mapHref(href = '') {
-  if (href === '/') return './index.html';
-  if (href === '/blackboard') return 'https://show-hub-ft.vercel.app/blackboard';
-  return href;
-}
-
-function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' }) {
-  const dataJson = JSON.stringify(slides, null, 2)
-    .replace(/\u2028/g, '\\u2028')
-    .replace(/\u2029/g, '\\u2029');
-  return `<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${escapeHtml(deckTitle)} | Jerry Notes</title>
-  <link rel="stylesheet" href="${outputCss}" />
+  <title>公司级 AI 专项周汇报（6页浓缩增强版） | Jerry Notes</title>
+  <link rel="stylesheet" href="./slides.css?v=202603150835" />
 </head>
 <body class="ai-transformation-root">
   <div class="ai-deck-shell" id="deckShell">
     <div class="ai-deck-topbar">
       <a href="./index.html" class="back">← 返回 Jerry Notes</a>
-      <div class="ai-deck-logo">${escapeHtml(deckTitle)}</div>
+      <div class="ai-deck-logo">公司级 AI 专项周汇报（6页浓缩增强版）</div>
       <div class="ai-deck-shortcuts">←/→ 翻页 · Space 下一页 · N 备注 · O 总览 · F 全屏</div>
       <button id="fullscreenBtn" class="slides-fullscreen-btn" type="button">⤢ 全屏</button>
     </div>
@@ -112,6 +18,7 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
     <div id="overview" class="ai-overview-grid hidden"></div>
 
     <div class="ai-deck-main">
+      <button id="prevBtn" class="slide-nav-btn" type="button" aria-label="上一页">‹</button>
       <div id="slideFrame" class="ai-slide-frame">
         <div class="ai-slide-inner">
           <header class="ai-slide-header">
@@ -132,11 +39,142 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
         </div>
         <aside id="slideNotes" class="ai-slide-notes hidden"></aside>
       </div>
+      <button id="nextBtn" class="slide-nav-btn" type="button" aria-label="下一页">›</button>
     </div>
   </div>
 
   <script>
-    const slides = ${dataJson};
+    const slides = [
+  {
+    "id": 1,
+    "title": "公司级 AI 专项周汇报（截至2026年3月15日）",
+    "subtitle": "专项 Owner：胡达｜汇报周期：本周｜适用：公司经营管理周会",
+    "tag": "封面",
+    "part": "P1/6",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "本次汇报围绕“机制是否跑起来、项目是否形成可复制能力、组织是否完成能力迁移”三件事展开。",
+      "专项定位不变：围绕“业务重构 + 产品重构 + 组织重构”的系统工程推进。",
+      "汇报口径按管理层关注顺序：总体机制 → 本周结果 → 当前覆盖 → 下周动作 → 阶段目标。"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 2,
+    "title": "整体思路、计划与推进机制（浓缩版）",
+    "subtitle": "四项目群推进 + 三轮机制执行 + 3个月滚动节奏",
+    "tag": "总体机制",
+    "part": "P2/6",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "覆盖范围：深圳、江苏、上海、北京四个核心项目群（并与 G1/B2/基础产品协同）。",
+      "执行机制：",
+      "第一轮（需求与认知摸排）：逐项目、逐角色识别痛点、优先级、AI认知现状，并明确后续动作调整。",
+      "第二轮（进展复盘与辅导对齐）：按周检查真实进展，重点看主动性与思路切换，对偏差现场纠偏。",
+      "第三轮（二次验收与人员识别）：检查结果闭环、识别高潜与不匹配岗位，为组织能力建设提供依据。",
+      "时间节奏：",
+      "3月31日前完成第一轮全覆盖",
+      "4月完成第二、第三轮（第三轮以远程为主）",
+      "4月底输出阶段性 AI 转型成果"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 3,
+    "title": "本周关键进展（3月9日-3月15日）",
+    "subtitle": "项目推进、技术底座、管理体系三线并进",
+    "tag": "本周成果",
+    "part": "P3/6",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "项目推进（华东首轮）：",
+      "吴江：已对齐“全智能体”解决方案",
+      "昆山：数据工厂（标注平台）形成明确 AI 提效路径",
+      "上海：地址项目及大数据中心形成明确 AI 提效路径",
+      "技术底座（G1）：",
+      "已确定基于最新 AI 技术的全新框架",
+      "已完成可运行演示系统，关键技术路径可验证",
+      "管理体系（G1）：",
+      "已明确“全数字化管理模式”",
+      "将通过 AI 对人员产出、项目进展、研发效率、协同质量进行统一监控",
+      "阶段判断：专项从“认知驱动”进入“结果驱动”阶段"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 4,
+    "title": "当前总体进度与本周收口目标",
+    "subtitle": "覆盖节奏基本符合计划，关键区域继续扩面",
+    "tag": "当前进度",
+    "part": "P4/6",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "已完成：",
+      "深圳：第二轮沟通完成",
+      "华东：第一轮沟通完成",
+      "本周收口动作：",
+      "推进北京区域第一轮沟通，覆盖 G1 与企业服务产品团队",
+      "完成后，G1 与 B2 核心业务第一轮摸排将基本完成",
+      "管理侧关注点：",
+      "团队是否从“知道AI”转向“使用AI”",
+      "是否形成可复用的方法、模板和组件",
+      "是否出现效率提升和交付质量改善的可量化信号"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 5,
+    "title": "下周计划（3月16日-3月22日）",
+    "subtitle": "武汉推进 + 可部署系统 + 管理基线三项并行",
+    "tag": "下周行动",
+    "part": "P5/6",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "区域推进：",
+      "出差武汉，完成 G1 湖北团队与基础产品团队第一轮沟通",
+      "推进两支团队 AI 工作模式迁移",
+      "产品与交付：",
+      "完成 G1 首个可部署系统，支撑客户演示",
+      "同步支撑 G1 重点项目/产品方向迭代",
+      "管理与评估：",
+      "完成内外网环境管理系统搭建",
+      "周末输出第一版产研输出分析报告，建立后续效能评估基线",
+      "风险控制：",
+      "对“口头认同但执行不到位”团队实施第二轮重点盯办"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 6,
+    "title": "阶段目标、里程碑与交付物",
+    "subtitle": "3月底到4月底形成“覆盖-闭环-成果”完整路径",
+    "tag": "目标与交付",
+    "part": "P6/6",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "里程碑：",
+      "3月底前：完成第一轮覆盖",
+      "4月内：完成第二、第三轮覆盖并形成闭环",
+      "4月底前：输出公司级 AI 转型阶段性成果报告",
+      "报告四个维度：",
+      "方法维度：三轮推进机制的标准化方法",
+      "组织维度：人才分层与组织协作模式变化",
+      "系统维度：可部署系统与管理数字化底座",
+      "效率维度：产研效率、协同质量、交付节奏的量化变化",
+      "管理请求（建议在会中明确）：",
+      "跨部门协同优先级授权",
+      "双周成果评审机制持续执行",
+      "资源向“可复用底座能力”倾斜"
+    ],
+    "buttons": []
+  }
+];
     let currentIndex = 0;
     let showNotes = false;
     let showOverview = false;
@@ -151,11 +189,22 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
     const elOverview = document.getElementById('overview');
     const elFullscreenBtn = document.getElementById('fullscreenBtn');
     const elDeckShell = document.getElementById('deckShell');
+    const elPrevBtn = document.getElementById('prevBtn');
+    const elNextBtn = document.getElementById('nextBtn');
 
     function resolveHref(href) {
       if (href === '/') return './index.html';
       if (href === '/blackboard') return 'https://show-hub-ft.vercel.app/blackboard';
       return href;
+    }
+
+    function syncThemeFromParent() {
+      try {
+        const p = window.parent && window.parent !== window ? window.parent.document.body : null;
+        const t = p?.getAttribute('data-theme');
+        if (t === 'light') document.body.classList.add('theme-light');
+        else document.body.classList.remove('theme-light');
+      } catch (e) {}
     }
 
     function renderOverview() {
@@ -194,10 +243,10 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
         let out = '';
         for (const raw of items) {
           const txt = raw || '';
-          const isSection = /[:：]\s*$/.test(txt);
+          const isSection = /[:：]s*$/.test(txt);
           if (isSection) {
             sec += 1;
-            const title = txt.replace(/[:：]\s*$/, '');
+            const title = txt.replace(/[:：]s*$/, '');
             out += '<li class="bullet-section"><span class="bullet-index">' + sec + '.</span><strong>' + title + '</strong></li>';
           } else {
             out += '<li class="bullet-sub">' + txt + '</li>';
@@ -262,6 +311,9 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
       elFullscreenBtn.addEventListener('click', toggleFullscreen);
     }
 
+    if (elPrevBtn) elPrevBtn.addEventListener('click', goPrev);
+    if (elNextBtn) elNextBtn.addEventListener('click', goNext);
+
     document.addEventListener('fullscreenchange', syncFullscreenUi);
 
     window.addEventListener('keydown', (e) => {
@@ -282,36 +334,10 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
       }
     }, { passive: true });
 
+    syncThemeFromParent();
+    setInterval(syncThemeFromParent, 1500);
     syncFullscreenUi();
     render();
   </script>
 </body>
-</html>`;
-}
-
-function main() {
-  const args = process.argv.slice(2);
-  if (args.length < 2) {
-    console.log('Usage: node scripts/md-to-slides.js <input.md> <output.html> [deckTitle]');
-    process.exit(1);
-  }
-  const [input, output, deckTitleArg] = args;
-
-  const md = fs.readFileSync(path.resolve(input), 'utf8');
-  const slides = parseMd(md).map((s) => ({
-    ...s,
-    title: parseInline(s.title),
-    subtitle: parseInline(s.subtitle || ''),
-    notes: parseInline(s.notes || ''),
-    emphasis: parseInline(s.emphasis || ''),
-    bullets: (s.bullets || []).map(parseInline),
-    buttons: (s.buttons || []).map((b) => ({ ...b, href: mapHref(b.href) }))
-  }));
-
-  const deckTitle = deckTitleArg || (slides[0]?.title?.replace(/<[^>]+>/g, '') || 'Slides');
-  const html = buildHtml({ slides, deckTitle, outputCss: './slides.css?v=202603150835' });
-  fs.writeFileSync(path.resolve(output), html, 'utf8');
-  console.log(`Generated ${slides.length} slides => ${output}`);
-}
-
-main();
+</html>

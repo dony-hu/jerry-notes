@@ -2,6 +2,10 @@
   --bg: #020617;
   --text: #e5e7eb;
   --muted: #9ca3af;
+  --deck-bg: color-mix(in srgb, #121b2e 90%, black 10%);
+  --deck-border: #23304f;
+  --slide-overlay-a: rgba(15,23,42,.85);
+  --slide-overlay-b: rgba(15,23,42,.55);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -9,6 +13,17 @@ body{
   background: radial-gradient(circle at top left, #020617 0%, #020617 45%, #000000 100%);
   color: var(--text);
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+
+body.theme-light {
+  --bg: #f5f8fc;
+  --text: #1f2a3d;
+  --muted: #5d6b86;
+  --deck-bg: #ffffff;
+  --deck-border: #d8e1f2;
+  --slide-overlay-a: rgba(247,250,255,.84);
+  --slide-overlay-b: rgba(240,246,255,.62);
+  background: linear-gradient(180deg, #f8fbff, #edf3fb);
 }
 .hidden{display:none!important}
 
@@ -20,8 +35,8 @@ body{
   display:flex;
   flex-direction:column;
   gap:14px;
-  background:color-mix(in srgb, #121b2e 90%, black 10%);
-  border:1px solid #23304f;
+  background:var(--deck-bg);
+  border:1px solid var(--deck-border);
   border-radius:14px;
   padding:16px;
 }
@@ -49,10 +64,23 @@ body{
 .slides-fullscreen-btn{border:1px solid #2e456f;background:#162544;color:#d7e2ff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12px}
 .slides-fullscreen-btn:hover{background:#214a86;color:#fff}
 
-.ai-deck-main{display:flex;align-items:center;justify-content:center}
+.ai-deck-main{display:flex;align-items:center;justify-content:center;gap:10px}
+
+.slide-nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid var(--deck-border);
+  background: color-mix(in srgb, var(--deck-bg) 82%, #000 18%);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.slide-nav-btn:hover { filter: brightness(1.08); }
+
 .ai-slide-frame{
   position:relative;width:100%;max-width:1440px;aspect-ratio:16/9;border-radius:20px;
-  background:linear-gradient(to top, rgba(15,23,42,.85), rgba(15,23,42,.55)), url('./MachineryAgePage.jpg') center center/cover no-repeat;
+  background:linear-gradient(to top, var(--slide-overlay-a), var(--slide-overlay-b)), url('./MachineryAgePage.jpg') center center/cover no-repeat;
   box-shadow:0 30px 80px rgba(15,23,42,.9);overflow:hidden;
 }
 .ai-slide-inner{position:absolute;inset:0;padding:32px 52px;display:flex;flex-direction:column;justify-content:space-between}
@@ -64,14 +92,38 @@ body{
 
 .ai-slide-main{flex:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:12px}
 .ai-slide-main-title-only{align-items:center;text-align:center}
-.ai-slide-title{font-size:2.2rem;line-height:1.28;margin:0 0 8px}
+.ai-slide-title{font-size:2.2rem;line-height:1.32;margin:0 0 10px;font-weight:700;letter-spacing:.01em}
 .ai-slide-title-key{font-size:2.7rem;color:#e0f2fe}
 .ai-slide-title-compact{font-size:2.25rem}
-.ai-slide-subtitle{font-size:1.1rem;color:#d1d5db;margin:0 0 16px}
+.ai-slide-subtitle{font-size:1.1rem;color:#d1d5db;margin:0 0 18px;line-height:1.6}
 .ai-slide-subtitle-emphasis{font-size:1.2rem;color:#a5b4fc}
-.ai-slide-bullets{margin:8px 0 0;padding-left:1.1rem;font-size:1.03rem;line-height:1.65}
-.ai-slide-bullets li+li{margin-top:8px}
-.ai-slide-bullets strong{color:#60a5fa}
+.ai-slide-bullets{margin:10px 0 0;padding-left:0;font-size:1.03rem;line-height:1.75;max-width:94%;list-style:none}
+.ai-slide-bullets li{margin:8px 0;padding-left:.1rem}
+.ai-slide-bullets li+li{margin-top:10px}
+.ai-slide-bullets strong{color:#60a5fa;font-weight:700}
+
+.ai-slide-bullets .bullet-section{
+  display:flex;
+  align-items:flex-start;
+  gap:.45rem;
+  margin-top:14px;
+  font-size:1.06rem;
+}
+.ai-slide-bullets .bullet-index{
+  min-width:1.4rem;
+  color:#93c5fd;
+  font-weight:700;
+}
+.ai-slide-bullets .bullet-sub{
+  margin-left:1.85rem;
+  position:relative;
+}
+.ai-slide-bullets .bullet-sub::before{
+  content:'•';
+  position:absolute;
+  left:-0.95rem;
+  color:#9fb5d8;
+}
 
 .ai-slide-buttons{margin-top:20px;display:flex;flex-wrap:wrap;gap:12px}
 .ai-slide-button{display:inline-flex;align-items:center;justify-content:center;padding:10px 18px;border-radius:999px;font-size:.9rem;text-decoration:none;border:1px solid rgba(148,163,184,.7);color:#e5e7eb;background:rgba(15,23,42,.85)}
@@ -81,6 +133,21 @@ body{
 .ai-slide-emphasis{margin-top:16px;font-size:1.08rem;color:#fde68a}
 .ai-slide-footer{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:#9ca3af;gap:12px}
 .ai-slide-footer-center{opacity:.9}
+
+body.theme-light .ai-slide-title,
+body.theme-light .ai-slide-title-key,
+body.theme-light .ai-slide-subtitle,
+body.theme-light .ai-slide-bullets,
+body.theme-light .ai-slide-tag,
+body.theme-light .ai-slide-footer,
+body.theme-light .ai-slide-progress,
+body.theme-light .ai-slide-emphasis {
+  color: #1f2a3d;
+}
+
+body.theme-light .ai-slide-bullets strong { color: #204c9a; }
+body.theme-light .ai-slide-bullets .bullet-index { color: #2f5ca8; }
+body.theme-light .ai-slide-bullets .bullet-sub::before { color: #516d99; }
 
 .ai-slide-notes{position:absolute;right:24px;bottom:24px;max-width:min(42%,520px);background:rgba(2,6,23,.88);border:1px solid rgba(148,163,184,.3);border-radius:12px;padding:14px 16px}
 .ai-slide-notes-label{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:#93c5fd;margin-bottom:8px}
@@ -130,11 +197,12 @@ body.embedded-mode .ai-slide-frame {
   .ai-deck-shortcuts{display:none}
   .slides-fullscreen-btn{margin-left:auto}
   .ai-slide-inner{padding:16px}
-  .ai-slide-title{font-size:1.28rem;line-height:1.35}
+  .ai-slide-title{font-size:1.28rem;line-height:1.4;margin-bottom:8px}
   .ai-slide-title-key{font-size:1.5rem}
   .ai-slide-title-compact{font-size:1.35rem}
-  .ai-slide-subtitle{font-size:.9rem}
-  .ai-slide-bullets{font-size:.84rem;line-height:1.5;padding-left:1rem}
+  .ai-slide-subtitle{font-size:.9rem;line-height:1.55;margin-bottom:12px}
+  .ai-slide-bullets{font-size:.84rem;line-height:1.6;padding-left:1.05rem;max-width:100%}
+  .ai-slide-bullets li{margin:6px 0}
   .ai-slide-footer{font-size:.66rem}
   .ai-slide-progress-bar{width:88px}
   .ai-overview-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-height:35vh;overflow:auto}

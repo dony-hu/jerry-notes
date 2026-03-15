@@ -1,110 +1,16 @@
-#!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-
-function escapeHtml(s = '') {
-  return String(s)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-}
-
-function parseInline(text = '') {
-  let out = escapeHtml(text);
-  out = out.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  out = out.replace(/\*(.+?)\*/g, '<em>$1</em>');
-  out = out.replace(/`([^`]+)`/g, '<code>$1</code>');
-  out = out.replace(/<br\s*\/?>/gi, '<br/>');
-  out = out.replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>');
-  return out;
-}
-
-function parseMd(md) {
-  const chunks = md.split(/\n---\n/g).map((s) => s.trim()).filter(Boolean);
-  const slides = [];
-
-  for (const chunk of chunks) {
-    const lines = chunk.split(/\r?\n/);
-    const slide = {
-      title: '',
-      subtitle: '',
-      tag: '',
-      part: '',
-      notes: '',
-      emphasis: '',
-      bullets: [],
-      buttons: []
-    };
-
-    for (const raw of lines) {
-      const line = raw.trim();
-      if (!line) continue;
-
-      if (line.startsWith('# ')) {
-        slide.title = line.slice(2).trim();
-        continue;
-      }
-      if (line.startsWith('## ')) {
-        slide.subtitle = line.slice(3).trim();
-        continue;
-      }
-
-      if (line.startsWith('@tag:')) { slide.tag = line.slice(5).trim(); continue; }
-      if (line.startsWith('@part:')) { slide.part = line.slice(6).trim(); continue; }
-      if (line.startsWith('@subtitle:')) { slide.subtitle = line.slice(10).trim(); continue; }
-      if (line.startsWith('@notes:')) { slide.notes = line.slice(7).trim(); continue; }
-      if (line.startsWith('@emphasis:')) { slide.emphasis = line.slice(10).trim(); continue; }
-      if (line.startsWith('@button:')) {
-        const body = line.slice(8).trim();
-        const [label, href, variant] = body.split('|').map((s) => (s || '').trim());
-        if (label && href) slide.buttons.push({ label, href, variant: variant || 'primary' });
-        continue;
-      }
-
-      if (/^[-*+]\s+/.test(line)) {
-        slide.bullets.push(line.replace(/^[-*+]\s+/, ''));
-        continue;
-      }
-
-      if (!slide.subtitle) {
-        slide.subtitle = line;
-      } else {
-        slide.bullets.push(line);
-      }
-    }
-
-    if (!slide.title) slide.title = 'Untitled Slide';
-    slides.push(slide);
-  }
-
-  return slides.map((s, i) => ({ id: i + 1, ...s }));
-}
-
-function mapHref(href = '') {
-  if (href === '/') return './index.html';
-  if (href === '/blackboard') return 'https://show-hub-ft.vercel.app/blackboard';
-  return href;
-}
-
-function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' }) {
-  const dataJson = JSON.stringify(slides, null, 2)
-    .replace(/\u2028/g, '\\u2028')
-    .replace(/\u2029/g, '\\u2029');
-  return `<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${escapeHtml(deckTitle)} | Jerry Notes</title>
-  <link rel="stylesheet" href="${outputCss}" />
+  <title>公司级 AI 专项周汇报（3页浓缩版） | Jerry Notes</title>
+  <link rel="stylesheet" href="./slides.css?v=202603150835" />
 </head>
 <body class="ai-transformation-root">
   <div class="ai-deck-shell" id="deckShell">
     <div class="ai-deck-topbar">
       <a href="./index.html" class="back">← 返回 Jerry Notes</a>
-      <div class="ai-deck-logo">${escapeHtml(deckTitle)}</div>
+      <div class="ai-deck-logo">公司级 AI 专项周汇报（3页浓缩版）</div>
       <div class="ai-deck-shortcuts">←/→ 翻页 · Space 下一页 · N 备注 · O 总览 · F 全屏</div>
       <button id="fullscreenBtn" class="slides-fullscreen-btn" type="button">⤢ 全屏</button>
     </div>
@@ -112,6 +18,7 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
     <div id="overview" class="ai-overview-grid hidden"></div>
 
     <div class="ai-deck-main">
+      <button id="prevBtn" class="slide-nav-btn" type="button" aria-label="上一页">‹</button>
       <div id="slideFrame" class="ai-slide-frame">
         <div class="ai-slide-inner">
           <header class="ai-slide-header">
@@ -132,11 +39,74 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
         </div>
         <aside id="slideNotes" class="ai-slide-notes hidden"></aside>
       </div>
+      <button id="nextBtn" class="slide-nav-btn" type="button" aria-label="下一页">›</button>
     </div>
   </div>
 
   <script>
-    const slides = ${dataJson};
+    const slides = [
+  {
+    "id": 1,
+    "title": "公司级 AI 专项周汇报（3页浓缩版）",
+    "subtitle": "截至 2026-03-15｜专项 Owner：胡达",
+    "tag": "经营管理周会",
+    "part": "P1/3",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "<strong>专项定位</strong>：围绕“业务重构 + 产品重构 + 组织重构”的系统工程",
+      "<strong>推进范围</strong>：G1 / G2 / B1 / B2 / 基础产品 / 管理底盘",
+      "<strong>推进节奏</strong>：3个月滚动推进（3月完成首轮全覆盖，4月完成二三轮）",
+      "<strong>本周结论</strong>：专项已从“试点探索”进入“可复制推进”阶段"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 2,
+    "title": "本周关键进展（3/9-3/15）",
+    "subtitle": "项目推进 + 技术底座 + 管理数字化三线并进",
+    "tag": "关键成果",
+    "part": "P2/3",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "<strong>项目群推进</strong>",
+      "华东（吴江/昆山/上海）已完成第一轮对齐",
+      "深圳项目群已完成第二轮沟通",
+      "<strong>技术底座进展（G1）</strong>",
+      "已确定最新 AI 技术框架",
+      "可运行演示系统已完成，进入可部署准备",
+      "<strong>管理体系进展（G1）</strong>",
+      "全数字化管理模式明确",
+      "覆盖产出、进度、效率、产研协同质量监控"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 3,
+    "title": "下阶段计划与里程碑",
+    "subtitle": "目标：4月底形成可考核、可复制的阶段成果",
+    "tag": "Next Step",
+    "part": "P3/3",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "<strong>本周/下周动作</strong>",
+      "北京：完成 G1 + B2 第一轮沟通",
+      "武汉：推进 G1 湖北 + 基础产品团队第一轮",
+      "完成 G1 首个可部署版本，支撑客户演示",
+      "输出第一版产研输出分析报告（建立效率基线）",
+      "<strong>里程碑</strong>",
+      "3月底：第一轮全覆盖",
+      "4月：第二轮推进 + 第三轮筛选与组织优化",
+      "4月底：阶段成果报告（方法/组织/系统/效率）",
+      "<strong>管理请求</strong>",
+      "跨部门协同优先级授权",
+      "双周成果评审机制持续执行"
+    ],
+    "buttons": []
+  }
+];
     let currentIndex = 0;
     let showNotes = false;
     let showOverview = false;
@@ -151,11 +121,22 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
     const elOverview = document.getElementById('overview');
     const elFullscreenBtn = document.getElementById('fullscreenBtn');
     const elDeckShell = document.getElementById('deckShell');
+    const elPrevBtn = document.getElementById('prevBtn');
+    const elNextBtn = document.getElementById('nextBtn');
 
     function resolveHref(href) {
       if (href === '/') return './index.html';
       if (href === '/blackboard') return 'https://show-hub-ft.vercel.app/blackboard';
       return href;
+    }
+
+    function syncThemeFromParent() {
+      try {
+        const p = window.parent && window.parent !== window ? window.parent.document.body : null;
+        const t = p?.getAttribute('data-theme');
+        if (t === 'light') document.body.classList.add('theme-light');
+        else document.body.classList.remove('theme-light');
+      } catch (e) {}
     }
 
     function renderOverview() {
@@ -188,27 +169,9 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
       elProgressText.textContent = (currentIndex + 1) + ' / ' + total;
       elProgressFill.style.width = (((currentIndex + 1) / total) * 100) + '%';
 
-      function renderBullets(items) {
-        if (!items?.length) return '';
-        let sec = 0;
-        let out = '';
-        for (const raw of items) {
-          const txt = raw || '';
-          const isSection = /[:：]\s*$/.test(txt);
-          if (isSection) {
-            sec += 1;
-            const title = txt.replace(/[:：]\s*$/, '');
-            out += '<li class="bullet-section"><span class="bullet-index">' + sec + '.</span><strong>' + title + '</strong></li>';
-          } else {
-            out += '<li class="bullet-sub">' + txt + '</li>';
-          }
-        }
-        return '<ul class="ai-slide-bullets">' + out + '</ul>';
-      }
-
       let html = '<h1 class="ai-slide-title">' + (s.title || '') + '</h1>';
       if (s.subtitle) html += '<h2 class="ai-slide-subtitle">' + s.subtitle + '</h2>';
-      if (s.bullets?.length) html += renderBullets(s.bullets);
+      if (s.bullets?.length) html += '<ul class="ai-slide-bullets">' + s.bullets.map((b) => '<li>' + b + '</li>').join('') + '</ul>';
       if (s.buttons?.length) {
         html += '<div class="ai-slide-buttons">' + s.buttons.map((b) => {
           const cls = 'ai-slide-button ' + (b.variant === 'secondary' ? 'secondary' : 'primary');
@@ -262,6 +225,9 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
       elFullscreenBtn.addEventListener('click', toggleFullscreen);
     }
 
+    if (elPrevBtn) elPrevBtn.addEventListener('click', goPrev);
+    if (elNextBtn) elNextBtn.addEventListener('click', goNext);
+
     document.addEventListener('fullscreenchange', syncFullscreenUi);
 
     window.addEventListener('keydown', (e) => {
@@ -282,36 +248,10 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
       }
     }, { passive: true });
 
+    syncThemeFromParent();
+    setInterval(syncThemeFromParent, 1500);
     syncFullscreenUi();
     render();
   </script>
 </body>
-</html>`;
-}
-
-function main() {
-  const args = process.argv.slice(2);
-  if (args.length < 2) {
-    console.log('Usage: node scripts/md-to-slides.js <input.md> <output.html> [deckTitle]');
-    process.exit(1);
-  }
-  const [input, output, deckTitleArg] = args;
-
-  const md = fs.readFileSync(path.resolve(input), 'utf8');
-  const slides = parseMd(md).map((s) => ({
-    ...s,
-    title: parseInline(s.title),
-    subtitle: parseInline(s.subtitle || ''),
-    notes: parseInline(s.notes || ''),
-    emphasis: parseInline(s.emphasis || ''),
-    bullets: (s.bullets || []).map(parseInline),
-    buttons: (s.buttons || []).map((b) => ({ ...b, href: mapHref(b.href) }))
-  }));
-
-  const deckTitle = deckTitleArg || (slides[0]?.title?.replace(/<[^>]+>/g, '') || 'Slides');
-  const html = buildHtml({ slides, deckTitle, outputCss: './slides.css?v=202603150835' });
-  fs.writeFileSync(path.resolve(output), html, 'utf8');
-  console.log(`Generated ${slides.length} slides => ${output}`);
-}
-
-main();
+</html>
