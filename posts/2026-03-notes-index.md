@@ -23,8 +23,7 @@
 - 实时空间计算：让数据在流动中产生价值（`posts/realtime-spatial-computing.md`）
 - 场景化运营：从通用地图到行业套件（`posts/scenario-based-operations.md`）
 - 空间智能Lab：从地图到知识图谱（`posts/spatial-intelligence-lab.md`）
-- 我的个人站上线了（第一版）（`posts/first-post.md`）
-- 为什么先做静态站（`posts/why-static-site.md`）
+
 
 ## 三、本轮合并记录（第二轮）
 
