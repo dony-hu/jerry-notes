@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Talking | Jerry Notes</title>
-  <link rel="stylesheet" href="./slides.css?v=202603151130" />
+  <link rel="stylesheet" href="./slides.css?v=202603151145" />
 </head>
 <body class="ai-transformation-root">
   <div class="ai-deck-shell" id="deckShell">
@@ -50,6 +50,7 @@
     let currentIndex = 0;
     let showNotes = false;
     let showOverview = false;
+    const isEmbedded = new URLSearchParams(location.search).get('embed') === '1';
 
     const elMain = document.getElementById('slideMain');
     const elTag = document.getElementById('slideTag');
@@ -61,6 +62,11 @@
     const elOverview = document.getElementById('overview');
     const elFullscreenBtn = document.getElementById('fullscreenBtn');
     const elDeckShell = document.getElementById('deckShell');
+
+    if (isEmbedded) {
+      document.body.classList.add('embedded-mode');
+      if (elFullscreenBtn) elFullscreenBtn.style.display = 'none';
+    }
 
     function mapHref(href = '') {
       if (href === '/') return './index.html';
@@ -172,7 +178,7 @@
       if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goPrev(); }
       if (e.key === 'n' || e.key === 'N') { e.preventDefault(); showNotes = !showNotes; render(); }
       if (e.key === 'o' || e.key === 'O') { e.preventDefault(); showOverview = !showOverview; render(); }
-      if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFullscreen(); }
+      if (!isEmbedded && (e.key === 'f' || e.key === 'F')) { e.preventDefault(); toggleFullscreen(); }
       if (e.key === 'Escape' && !document.fullscreenElement) { e.preventDefault(); showOverview = !showOverview; render(); }
     });
 

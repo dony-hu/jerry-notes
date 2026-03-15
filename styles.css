@@ -144,14 +144,15 @@ body {
   color: #a7cbff;
 }
 
-.slide-embed-wrap {
-  display: grid;
-  gap: 10px;
+.viewer-toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
-.slide-embed-toolbar {
-  display: flex;
-  justify-content: flex-end;
+.slide-embed-wrap {
+  display: grid;
 }
 
 .slide-embed-iframe {
@@ -160,6 +161,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 12px;
   background: #0a1020;
+  overflow: hidden;
 }
 
 .posts-grid {

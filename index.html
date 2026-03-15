@@ -8,7 +8,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <link rel="stylesheet" href="./styles.css?v=202603151130" />
+  <link rel="stylesheet" href="./styles.css?v=202603151145" />
 </head>
 <body>
   <header class="site-header">
@@ -30,7 +30,11 @@
       </section>
 
       <section id="viewer" class="card hidden">
-        <button id="back-btn" class="btn">← 返回列表</button>
+        <div class="viewer-toolbar">
+          <button id="back-btn" class="btn">← 返回列表</button>
+          <button id="export-pdf-btn" class="btn btn-small">导出PDF</button>
+          <button id="wechat-btn" class="btn btn-small">公众号稿</button>
+        </div>
         <article id="post-content" class="markdown-body"></article>
       </section>
 
@@ -56,6 +60,6 @@
     <div class="container">© <span id="year"></span> 我的个人站</div>
   </footer>
 
-  <script src="./app.js?v=202603151130"></script>
+  <script src="./app.js?v=202603151145"></script>
 </body>
 </html>

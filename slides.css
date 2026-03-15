@@ -93,6 +93,35 @@ body{
 .ai-overview-tag{font-size:.7rem;color:#94a3b8;margin-top:4px}
 .ai-overview-title{font-size:.85rem;line-height:1.35;margin-top:6px}
 
+body.embedded-mode {
+  margin: 0;
+  overflow: hidden;
+}
+
+body.embedded-mode .ai-transformation-root {
+  min-height: auto;
+  padding: 0;
+  display: block;
+}
+
+body.embedded-mode .ai-deck-shell {
+  width: 100%;
+  max-width: none;
+  border: none;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  gap: 0;
+}
+
+body.embedded-mode .ai-deck-topbar {
+  display: none;
+}
+
+body.embedded-mode .ai-slide-frame {
+  border-radius: 10px;
+}
+
 @media (max-width: 900px){
   .ai-transformation-root{padding:10px}
   .ai-deck-shell{width:min(1100px,96vw);padding:10px}

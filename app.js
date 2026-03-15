@@ -10,7 +10,11 @@ const resetFilterBtn = document.getElementById('reset-filter');
 const viewer = document.getElementById('viewer');
 const contentEl = document.getElementById('post-content');
 const backBtn = document.getElementById('back-btn');
+const exportPdfBtn = document.getElementById('export-pdf-btn');
+const wechatBtn = document.getElementById('wechat-btn');
 const postsSection = document.getElementById('posts');
+
+let currentPost = null;
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -206,13 +210,10 @@ function mdToHtml(mdRaw = '') {
 }
 
 function renderEmbeddedSlideDeck(slug, target) {
-  const src = target.url || `./${slug}.html`;
+  const src = (target.url || `./${slug}.html`) + '?embed=1';
   contentEl.innerHTML = `
     <div class="slide-embed-wrap">
-      <div class="slide-embed-toolbar">
-        <a class="btn btn-small" href="${src}" target="_blank" rel="noreferrer">打开独立页面</a>
-      </div>
-      <iframe class="slide-embed-iframe" src="${src}" title="${target.title || slug}" loading="lazy"></iframe>
+      <iframe class="slide-embed-iframe" src="${src}" title="${target.title || slug}" loading="lazy" scrolling="no"></iframe>
     </div>
   `;
 }
@@ -220,6 +221,7 @@ function renderEmbeddedSlideDeck(slug, target) {
 async function openPost(slug) {
   const target = posts.find((p) => p.slug === slug);
   if (!target) return;
+  currentPost = target;
 
   if (target.type === 'webslides') {
     renderEmbeddedSlideDeck(slug, target);
@@ -274,6 +276,27 @@ backBtn.addEventListener('click', () => {
   viewer.classList.add('hidden');
   postsSection.classList.remove('hidden');
 });
+
+if (exportPdfBtn) {
+  exportPdfBtn.addEventListener('click', () => {
+    if (!currentPost) return;
+    const slug = currentPost.slug;
+    const type = currentPost.type === 'webslides' ? 'slides' : 'note';
+    const src = `./posts/${slug}.md`;
+    const cmd = `node scripts/export-pdf.js --source "${src}" --mode ${type} --title "${currentPost.title || slug}" --out "export/${slug}.pdf"`;
+    alert(`请在项目根目录执行:\n\n${cmd}`);
+  });
+}
+
+if (wechatBtn) {
+  wechatBtn.addEventListener('click', () => {
+    if (!currentPost) return;
+    const slug = currentPost.slug;
+    const src = `./posts/${slug}.md`;
+    const cmd = `node scripts/generate-wechat-article.js --source "${src}" --title "${currentPost.title || slug}"`;
+    alert(`请在项目根目录执行:\n\n${cmd}`);
+  });
+}
 
 async function bootstrap() {
   try {
