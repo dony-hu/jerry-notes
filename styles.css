@@ -176,9 +176,22 @@ body {
 
 .viewer-toolbar {
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
   align-items: center;
+  gap: 10px;
   margin-bottom: 12px;
+}
+
+.viewer-toolbar-left,
+.viewer-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.viewer-toolbar-right {
+  margin-left: auto;
+  justify-content: flex-end;
 }
 
 .slide-embed-wrap {
@@ -304,6 +317,14 @@ body {
 
   .site-title-row {
     flex-direction: column;
+  }
+
+  .viewer-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .viewer-toolbar-right {
+    width: 100%;
   }
 
   .index-panel {
