@@ -330,6 +330,15 @@ body.viewing-post .index-panel {
   display: none;
 }
 
+/* fallback: even if JS class not applied, hide right panel when viewer is active */
+.main-layout:has(#viewer:not(.hidden)) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.main-layout:has(#viewer:not(.hidden)) .index-panel {
+  display: none;
+}
+
 .index-panel h3 {
   margin: 14px 0 10px;
   font-size: 14px;
