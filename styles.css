@@ -244,8 +244,8 @@ body {
   width: max-content;
   min-width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: clamp(12px, 0.72vw, 14px);
+  line-height: 1.5;
 }
 
 .md-table thead th {
@@ -259,13 +259,40 @@ body {
 .md-table th,
 .md-table td {
   border-bottom: 1px solid var(--border);
-  padding: 8px 10px;
+  padding: clamp(6px, 0.55vw, 9px) clamp(8px, 0.65vw, 12px);
   text-align: left;
   vertical-align: top;
 }
 
 .md-table tbody tr:nth-child(2n) {
   background: rgba(134, 182, 255, 0.04);
+}
+
+/* 1920x1080 及常见桌面分辨率下的表格列宽约束 */
+@media (min-width: 1366px) {
+  .md-table th:nth-child(1),
+  .md-table td:nth-child(1) { min-width: 220px; max-width: 320px; }
+
+  .md-table th:nth-child(2),
+  .md-table td:nth-child(2) { min-width: 64px; width: 72px; }
+
+  .md-table th:nth-child(3),
+  .md-table td:nth-child(3) { min-width: 260px; max-width: 460px; }
+
+  .md-table th:nth-child(4),
+  .md-table td:nth-child(4) { min-width: 220px; max-width: 420px; }
+
+  .md-table th:nth-child(5),
+  .md-table td:nth-child(5) { min-width: 120px; width: 140px; }
+
+  .md-table th:nth-child(6),
+  .md-table td:nth-child(6) { min-width: 160px; max-width: 280px; }
+}
+
+/* 超长文本折行，避免把整表撑爆 */
+.md-table td,
+.md-table th {
+  word-break: break-word;
 }
 
 .viewer-toolbar {
