@@ -1,5 +1,29 @@
 [
   {
+    "title": "聚合数据 API 全量目录（Markdown版）",
+    "slug": "juhe-api-catalog-full-md",
+    "date": "2026-03-17",
+    "tags": [
+      "聚合数据",
+      "API目录",
+      "Markdown",
+      "数据盘点"
+    ],
+    "type": "note"
+  },
+  {
+    "title": "聚合数据 API 全量目录（CSV版）",
+    "slug": "juhe-api-catalog-full-csv",
+    "date": "2026-03-17",
+    "tags": [
+      "聚合数据",
+      "API目录",
+      "CSV",
+      "数据盘点"
+    ],
+    "type": "note"
+  },
+  {
     "title": "丰图代码仓人员工作分析（汇总版）",
     "slug": "fengtu-people-work-summary",
     "date": "2026-03-17",
