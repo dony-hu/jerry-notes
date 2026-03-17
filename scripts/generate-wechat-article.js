@@ -30,8 +30,14 @@ function stripMd(line) {
     .replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g, '$1（$2）');
 }
 
+function stripFrontMatter(mdRaw = '') {
+  const normalized = String(mdRaw).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  const match = normalized.match(/^---\n[\s\S]*?\n---(?:\n|$)/);
+  return match ? normalized.slice(match[0].length) : normalized;
+}
+
 function parseMd(mdRaw = '') {
-  const lines = mdRaw.replace(/\r\n/g, '\n').split('\n');
+  const lines = stripFrontMatter(mdRaw).split('\n');
   const blocks = [];
 
   for (const raw of lines) {
@@ -141,7 +147,7 @@ function main() {
     process.exit(1);
   }
 
-  const md = fs.readFileSync(abs, 'utf8');
+  const md = stripFrontMatter(fs.readFileSync(abs, 'utf8'));
   const blocks = parseMd(md);
   const h1 = (md.match(/^#\s+(.+)$/m) || [null, path.basename(abs, '.md')])[1];
   const title = args.title || h1;

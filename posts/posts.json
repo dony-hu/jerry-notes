@@ -1,29 +1,5 @@
 [
   {
-    "title": "聚合数据 API 全量目录（Markdown版）",
-    "slug": "juhe-api-catalog-full-md",
-    "date": "2026-03-17",
-    "tags": [
-      "聚合数据",
-      "API目录",
-      "Markdown",
-      "数据盘点"
-    ],
-    "type": "note"
-  },
-  {
-    "title": "聚合数据 API 全量目录（CSV版）",
-    "slug": "juhe-api-catalog-full-csv",
-    "date": "2026-03-17",
-    "tags": [
-      "聚合数据",
-      "API目录",
-      "CSV",
-      "数据盘点"
-    ],
-    "type": "note"
-  },
-  {
     "title": "丰图代码仓人员工作分析（汇总版）",
     "slug": "fengtu-people-work-summary",
     "date": "2026-03-17",
@@ -31,8 +7,7 @@
       "组织分析",
       "研发管理",
       "代码仓盘点"
-    ],
-    "type": "note"
+    ]
   },
   {
     "title": "丰图代码仓人员工作分析（按最近提交）",
@@ -43,20 +18,73 @@
       "代码仓盘点",
       "研发管理",
       "AI专项"
-    ],
-    "type": "note"
+    ]
   },
   {
-    "title": "2026-W12 周报（统一标准版）",
-    "slug": "2026-w12-weekly-report",
-    "date": "2026-03-16",
+    "title": "G1产研相关项目现状总览（v1）",
+    "slug": "g1-tianshu-status-v1",
+    "date": "2026-03-17",
     "tags": [
-      "周报",
-      "webslides",
-      "管理",
-      "团队协作"
+      "天枢项目",
+      "G1",
+      "项目管理",
+      "地图智能体"
+    ]
+  },
+  {
+    "title": "聚合数据 API 全量目录（CSV版）",
+    "slug": "juhe-api-catalog-full-csv",
+    "date": "2026-03-17",
+    "tags": [
+      "聚合数据",
+      "API目录",
+      "CSV",
+      "数据盘点"
+    ]
+  },
+  {
+    "title": "聚合数据 API 全量目录（Markdown版）",
+    "slug": "juhe-api-catalog-full-md",
+    "date": "2026-03-17",
+    "tags": [
+      "聚合数据",
+      "API目录",
+      "Markdown",
+      "数据盘点"
+    ]
+  },
+  {
+    "title": "AI 地图体验框架：从范式到落地",
+    "slug": "ai-map-experience-framework",
+    "date": "2026-03-15",
+    "tags": [
+      "地图产品",
+      "AI体验",
+      "场景编排"
+    ]
+  },
+  {
+    "title": "AI Talking",
+    "slug": "ai-transformation",
+    "date": "2026-03-15",
+    "tags": [
+      "AI演讲",
+      "组织变革",
+      "产品战略"
     ],
-    "type": "note"
+    "type": "webslides",
+    "url": "./ai-transformation.html"
+  },
+  {
+    "title": "公司级 AI 专项推进报告",
+    "slug": "company-ai-special-initiative-report",
+    "date": "2026-03-15",
+    "tags": [
+      "AI专项",
+      "组织转型",
+      "数据工厂",
+      "决策智能"
+    ]
   },
   {
     "title": "公司级 AI 专项周汇报（6页浓缩增强版）",
@@ -72,17 +100,6 @@
     "url": "./company-ai-weekly-report.html"
   },
   {
-    "title": "公司级 AI 专项推进报告",
-    "slug": "company-ai-special-initiative-report",
-    "date": "2026-03-15",
-    "tags": [
-      "AI专项",
-      "组织转型",
-      "数据工厂",
-      "决策智能"
-    ]
-  },
-  {
     "title": "地图安全治理框架：从私网部署到隐私合规",
     "slug": "map-security-governance-framework",
     "date": "2026-03-15",
@@ -90,110 +107,6 @@
       "数据安全",
       "私有化部署",
       "隐私合规"
-    ],
-    "type": "note"
-  },
-  {
-    "title": "AI 地图体验框架：从范式到落地",
-    "slug": "ai-map-experience-framework",
-    "date": "2026-03-15",
-    "tags": [
-      "地图产品",
-      "AI体验",
-      "场景编排"
-    ],
-    "type": "note"
-  },
-  {
-    "title": "AI Talking",
-    "slug": "ai-transformation",
-    "date": "2026-03-15",
-    "tags": [
-      "AI演讲",
-      "组织变革",
-      "产品战略"
-    ],
-    "type": "webslides",
-    "url": "./ai-transformation.html"
-  },
-  {
-    "title": "边缘原生渲染：把地图计算搬到用户端",
-    "slug": "edge-native-rendering",
-    "date": "2026-03-14",
-    "tags": [
-      "地图引擎",
-      "边缘计算",
-      "性能优化"
-    ]
-  },
-  {
-    "title": "场景化运营：从通用地图到行业套件",
-    "slug": "scenario-based-operations",
-    "date": "2026-03-14",
-    "tags": [
-      "行业解决方案",
-      "产品运营",
-      "业务场景"
-    ]
-  },
-  {
-    "title": "多模态地图理解：从像素到语义的跨越",
-    "slug": "multimodal-map-understanding",
-    "date": "2026-03-14",
-    "tags": [
-      "多模态AI",
-      "地图数据",
-      "模型应用"
-    ]
-  },
-  {
-    "title": "共同构建开放有活力的的技术体系",
-    "slug": "open-tech-ecosystem",
-    "date": "2026-03-14",
-    "tags": [
-      "技术文化",
-      "组织协作",
-      "开放生态"
-    ]
-  },
-  {
-    "title": "开放平台3.0：从API到能力网格",
-    "slug": "open-platform-3-0",
-    "date": "2026-03-14",
-    "tags": [
-      "平台架构",
-      "API设计",
-      "工程实践"
-    ]
-  },
-  {
-    "title": "空间智能Lab：从地图到知识图谱",
-    "slug": "spatial-intelligence-lab",
-    "date": "2026-03-14",
-    "tags": [
-      "空间智能",
-      "知识图谱",
-      "应用探索"
-    ]
-  },
-  {
-    "title": "实时空间计算：让数据在流动中产生价值",
-    "slug": "realtime-spatial-computing",
-    "date": "2026-03-14",
-    "tags": [
-      "实时计算",
-      "时空数据",
-      "系统架构"
-    ]
-  },
-  {
-    "title": "数据工厂：从手工作坊到自动化流水线",
-    "slug": "data-factory",
-    "date": "2026-03-14",
-    "tags": [
-      "数据工程",
-      "自动化",
-      "质量体系"
     ]
   },
   {
@@ -217,6 +130,26 @@
     ]
   },
   {
+    "title": "数据工厂：从手工作坊到自动化流水线",
+    "slug": "data-factory",
+    "date": "2026-03-14",
+    "tags": [
+      "数据工程",
+      "自动化",
+      "质量体系"
+    ]
+  },
+  {
+    "title": "边缘原生渲染：把地图计算搬到用户端",
+    "slug": "edge-native-rendering",
+    "date": "2026-03-14",
+    "tags": [
+      "地图引擎",
+      "边缘计算",
+      "性能优化"
+    ]
+  },
+  {
     "title": "GTC2026空间智能机会",
     "slug": "gtc-spatial-intelligence-opportunity",
     "date": "2026-03-14",
@@ -227,14 +160,63 @@
     ]
   },
   {
-    "title": "G1产研相关项目现状总览（v1）",
-    "slug": "g1-tianshu-status-v1",
-    "date": "2026-03-17",
+    "title": "多模态地图理解：从像素到语义的跨越",
+    "slug": "multimodal-map-understanding",
+    "date": "2026-03-14",
     "tags": [
-      "天枢项目",
-      "G1",
-      "项目管理",
-      "地图智能体"
+      "多模态AI",
+      "地图数据",
+      "模型应用"
+    ]
+  },
+  {
+    "title": "开放平台3.0：从API到能力网格",
+    "slug": "open-platform-3-0",
+    "date": "2026-03-14",
+    "tags": [
+      "平台架构",
+      "API设计",
+      "工程实践"
+    ]
+  },
+  {
+    "title": "共同构建开放有活力的的技术体系",
+    "slug": "open-tech-ecosystem",
+    "date": "2026-03-14",
+    "tags": [
+      "技术文化",
+      "组织协作",
+      "开放生态"
+    ]
+  },
+  {
+    "title": "实时空间计算：让数据在流动中产生价值",
+    "slug": "realtime-spatial-computing",
+    "date": "2026-03-14",
+    "tags": [
+      "实时计算",
+      "时空数据",
+      "系统架构"
+    ]
+  },
+  {
+    "title": "场景化运营：从通用地图到行业套件",
+    "slug": "scenario-based-operations",
+    "date": "2026-03-14",
+    "tags": [
+      "行业解决方案",
+      "产品运营",
+      "业务场景"
+    ]
+  },
+  {
+    "title": "空间智能Lab：从地图到知识图谱",
+    "slug": "spatial-intelligence-lab",
+    "date": "2026-03-14",
+    "tags": [
+      "空间智能",
+      "知识图谱",
+      "应用探索"
     ]
   }
 ]

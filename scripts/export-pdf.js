@@ -41,8 +41,14 @@ function parseInline(s = '') {
   return out;
 }
 
+function stripFrontMatter(mdRaw = '') {
+  const normalized = String(mdRaw).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  const match = normalized.match(/^---\n[\s\S]*?\n---(?:\n|$)/);
+  return match ? normalized.slice(match[0].length) : normalized;
+}
+
 function mdToSimpleHtml(mdRaw = '', title = 'Article') {
-  const lines = mdRaw.replace(/\r\n/g, '\n').split('\n');
+  const lines = stripFrontMatter(mdRaw).split('\n');
   const html = [];
   let inUl = false;
   let para = [];
@@ -163,7 +169,7 @@ function main() {
       }
       run(`node "${generator}" "${absSource}" "${htmlFile}" "${title}"`);
     } else {
-      const md = fs.readFileSync(absSource, 'utf8');
+      const md = stripFrontMatter(fs.readFileSync(absSource, 'utf8'));
       const t = (md.match(/^#\s+(.+)$/m) || [null, path.basename(absSource, '.md')])[1];
       fs.writeFileSync(htmlFile, mdToSimpleHtml(md, t), 'utf8');
     }

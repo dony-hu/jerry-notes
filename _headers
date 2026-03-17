@@ -1,0 +1,8 @@
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/posts/posts.json
+  Cache-Control: public, max-age=0, must-revalidate
+
+/posts/*.md
+  Cache-Control: public, max-age=0, must-revalidate

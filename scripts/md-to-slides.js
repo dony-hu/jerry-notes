@@ -21,6 +21,12 @@ function parseInline(text = '') {
   return out;
 }
 
+function stripFrontMatter(mdRaw = '') {
+  const normalized = String(mdRaw).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  const match = normalized.match(/^---\n[\s\S]*?\n---(?:\n|$)/);
+  return match ? normalized.slice(match[0].length) : normalized;
+}
+
 function parseMd(md) {
   const chunks = md.split(/\n---\n/g).map((s) => s.trim()).filter(Boolean);
   const slides = [];
@@ -297,7 +303,7 @@ function main() {
   }
   const [input, output, deckTitleArg] = args;
 
-  const md = fs.readFileSync(path.resolve(input), 'utf8');
+  const md = stripFrontMatter(fs.readFileSync(path.resolve(input), 'utf8'));
   const slides = parseMd(md).map((s) => ({
     ...s,
     title: parseInline(s.title),

@@ -1,3 +1,11 @@
+---
+title: 丰图代码仓人员工作分析（汇总版）
+date: 2026-03-17
+tags:
+  - 组织分析
+  - 研发管理
+  - 代码仓盘点
+---
 # 丰图代码仓人员工作分析（汇总版）
 
 > 来源文件：exports/gitee-export/fengtu-shenzhen/people_work_summary.md

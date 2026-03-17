@@ -102,8 +102,14 @@ function parseInline(text = '') {
   return out;
 }
 
+function stripFrontMatter(mdRaw = '') {
+  const normalized = mdRaw.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  const match = normalized.match(/^---\n[\s\S]*?\n---(?:\n|$)/);
+  return match ? normalized.slice(match[0].length) : normalized;
+}
+
 function mdToHtml(mdRaw = '') {
-  const md = mdRaw.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  const md = stripFrontMatter(mdRaw);
   const lines = md.split('\n');
   const html = [];
 
@@ -307,7 +313,7 @@ if (summaryBtn) {
     const src = `./posts/${slug}.md`;
 
     try {
-      const text = await fetch(src).then((r) => r.text());
+      const text = stripFrontMatter(await fetch(src).then((r) => r.text()));
       const lines = text
         .split(/\r?\n/)
         .map((s) => s.trim())

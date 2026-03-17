@@ -1,3 +1,13 @@
+---
+title: AI Talking
+date: 2026-03-15
+tags:
+  - AI演讲
+  - 组织变革
+  - 产品战略
+type: webslides
+---
+
 # AI 时代，我们正在被重新定义
 
 > 这个文件是 AI Talking 的可维护 MD 源稿（用于本地编辑，再生成 webslides）。

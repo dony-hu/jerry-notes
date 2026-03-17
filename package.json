@@ -1,0 +1,13 @@
+{
+  "name": "jerry-notes",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Jerry Notes static site",
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "generate:posts": "node scripts/generate-posts-index.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
