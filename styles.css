@@ -146,6 +146,8 @@ body {
   font-size: 17px;
   line-height: 1.95;
   color: #e7edff;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .markdown-body h1,
@@ -230,15 +232,17 @@ body {
 
 .table-wrap {
   width: 100%;
+  max-width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   margin: 0.8em 0 1.1em;
   border: 1px solid var(--border);
   border-radius: 10px;
 }
 
 .md-table {
-  width: 100%;
-  min-width: 860px;
+  width: max-content;
+  min-width: 100%;
   border-collapse: collapse;
   font-size: 14px;
   line-height: 1.6;
