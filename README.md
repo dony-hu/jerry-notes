@@ -82,30 +82,26 @@ tags:
 
 ## Cloudflare Pages 部署
 
-推荐方式是直接连接 GitHub 或 GitLab 仓库，让 Cloudflare 在每次 push 后自动构建。
+当前 `jerry-notes.pages.dev` 项目已经确认是 `Direct Upload` 类型，不是 Git 集成。
 
-Cloudflare Pages 里填写：
+因此这里采用的自动发布方案是：
 
-- Production branch：你的主分支
-- Build command：`npm run build`
-- Build output directory：`dist`
-- Node version：仓库里已通过 `.node-version` 固定为 `22.16.0`
+- GitHub 负责托管源码
+- GitHub Actions 在 `push main` 后执行 `npm run build`
+- Wrangler 把 `dist/` 直接上传到现有的 Cloudflare Pages 项目 `jerry-notes`
 
-部署前请确认：
+对应工作流文件：
 
-- 这个目录本身是一个独立 Git 仓库
-- 远程仓库已经创建完成
-- Cloudflare Pages 指向的是这个仓库，而不是上层目录
+- `.github/workflows/deploy-pages-direct-upload.yml`
 
-如果当前目录还不是独立仓库，可以在项目根执行：
+你只需要在 GitHub 仓库里配置两个 Actions Secrets：
 
-```bash
-git init
-git add .
-git commit -m "chore: bootstrap jerry-notes"
-```
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
 
-然后再关联远程仓库。
+详细步骤见：
+
+- `docs/CLOUDFLARE-PAGES-CHECKLIST.md`
 
 ## 当前约束
 
