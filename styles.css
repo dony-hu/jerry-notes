@@ -357,12 +357,18 @@ body.viewing-post .index-panel {
   display: none;
 }
 
-/* 仅在表格场景下收窄阅读区（正常文章保持原比例） */
+/* 仅在大屏表格场景下收窄阅读区（正常文章保持原比例） */
 body.viewing-post .markdown-body .table-wrap {
-  width: min(66vw, 980px);
+  width: 100%;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+}
+
+@media (min-width: 1200px) {
+  body.viewing-post .markdown-body .table-wrap {
+    width: min(66vw, 980px);
+  }
 }
 
 /* 表格区域可换行，避免横向撑开 */
