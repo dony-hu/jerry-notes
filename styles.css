@@ -271,22 +271,22 @@ body {
 /* 1920x1080 及常见桌面分辨率下的表格列宽约束 */
 @media (min-width: 1366px) {
   .md-table th:nth-child(1),
-  .md-table td:nth-child(1) { min-width: 220px; max-width: 320px; }
+  .md-table td:nth-child(1) { width: 20%; }
 
   .md-table th:nth-child(2),
-  .md-table td:nth-child(2) { min-width: 64px; width: 72px; }
+  .md-table td:nth-child(2) { width: 8%; }
 
   .md-table th:nth-child(3),
-  .md-table td:nth-child(3) { min-width: 260px; max-width: 460px; }
+  .md-table td:nth-child(3) { width: 25%; }
 
   .md-table th:nth-child(4),
-  .md-table td:nth-child(4) { min-width: 220px; max-width: 420px; }
+  .md-table td:nth-child(4) { width: 25%; }
 
   .md-table th:nth-child(5),
-  .md-table td:nth-child(5) { min-width: 120px; width: 140px; }
+  .md-table td:nth-child(5) { width: 10%; }
 
   .md-table th:nth-child(6),
-  .md-table td:nth-child(6) { min-width: 160px; max-width: 280px; }
+  .md-table td:nth-child(6) { width: 12%; }
 }
 
 /* 超长文本折行，避免把整表撑爆 */
@@ -355,6 +355,25 @@ body.viewing-post .main-layout {
 
 body.viewing-post .index-panel {
   display: none;
+}
+
+/* 文章阅读区收窄为约当前宽度的 2/3，提高聚焦阅读体验 */
+body.viewing-post #viewer {
+  width: min(66vw, 980px);
+  margin: 0 auto;
+}
+
+/* 收窄时表格改为可换行布局，避免横向撑开 */
+body.viewing-post .md-table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+}
+
+body.viewing-post .md-table th,
+body.viewing-post .md-table td {
+  white-space: normal;
+  word-break: break-word;
 }
 
 /* fallback: even if JS class not applied, hide right panel when viewer is active */
