@@ -11,6 +11,8 @@ tags:
 
 > 本文采用 PDF 页面图片逐页发布，确保与原文版式、图标（含 emoji）、排版完全一致。
 
+- [查看可编辑版（便于复制/整理）](./ai-transformation-meeting-minutes-2026-03-18-editable)
+
 ## 第1页
 
 ![第1页原文](../assets/files/ai-transformation-meeting-minutes-2026-03-18-pages/page-1.png)
