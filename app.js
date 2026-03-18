@@ -253,7 +253,15 @@ function parseInline(text = '') {
   out = out.replace(/`([^`]+)`/g, '<code>$1</code>');
   out = out.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   out = out.replace(/\*(.+?)\*/g, '<em>$1</em>');
-  out = out.replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  out = out.replace(/\[(.*?)\]\(([^\s)]+)\)/g, (_m, text, href) => {
+    const safeHref = String(href || '');
+    if (/^javascript:/i.test(safeHref)) return text;
+    const isExternal = /^https?:\/\//i.test(safeHref);
+    if (isExternal) {
+      return `<a href="${safeHref}" target="_blank" rel="noopener noreferrer">${text}</a>`;
+    }
+    return `<a href="${safeHref}">${text}</a>`;
+  });
 
   // 允许少量安全内联换行标签（避免把 <br/> 原样显示成文本）
   out = out.replace(/&lt;br\s*\/?&gt;/gi, '<br/>');
