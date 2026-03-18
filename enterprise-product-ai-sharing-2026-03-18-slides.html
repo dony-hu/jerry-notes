@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>企服产品经理团队 AI 分享（宣讲版） | Jerry Notes</title>
+  <link rel="stylesheet" href="./slides.css?v=202603150835" />
+</head>
+<body class="ai-transformation-root">
+  <div class="ai-deck-shell" id="deckShell">
+    <div class="ai-deck-topbar" id="deckTopbar">
+      <a href="./index.html" class="back" id="deckBackLink">← 返回 Jerry Notes</a>
+      <div class="ai-deck-logo">企服产品经理团队 AI 分享（宣讲版）</div>
+      <div class="ai-deck-shortcuts">←/→ 翻页 · Space 下一页 · N 备注 · O 总览 · F 全屏</div>
+      <button id="fullscreenBtn" class="slides-fullscreen-btn" type="button">⤢ 全屏</button>
+    </div>
+
+    <div id="overview" class="ai-overview-grid hidden"></div>
+
+    <div class="ai-deck-main">
+      <button id="prevBtn" class="slide-nav-btn" type="button" aria-label="上一页">←</button>
+      <div id="slideFrame" class="ai-slide-frame">
+        <div class="ai-slide-inner">
+          <header class="ai-slide-header">
+            <div id="slideTag" class="ai-slide-tag"></div>
+            <div class="ai-slide-progress">
+              <span id="slideProgressText"></span>
+              <div class="ai-slide-progress-bar"><div id="slideProgressFill" class="ai-slide-progress-fill"></div></div>
+            </div>
+          </header>
+
+          <main id="slideMain" class="ai-slide-main"></main>
+
+          <footer class="ai-slide-footer">
+            <div id="slidePart" class="ai-slide-footer-left"></div>
+            <div class="ai-slide-footer-center">Press N 查看备注</div>
+            <div id="slideTagFooter" class="ai-slide-footer-right"></div>
+          </footer>
+        </div>
+        <aside id="slideNotes" class="ai-slide-notes hidden"></aside>
+      </div>
+      <button id="nextBtn" class="slide-nav-btn" type="button" aria-label="下一页">→</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = [
+  {
+    "id": 1,
+    "title": "企服产品经理团队 AI 分享",
+    "subtitle": "从“写需求”到“编排智能交付”",
+    "tag": "封面",
+    "part": "P1/10",
+    "notes": "开场就讲岗位升级，不讲空泛概念。",
+    "emphasis": "",
+    "bullets": [],
+    "buttons": []
+  },
+  {
+    "id": 2,
+    "title": "为什么现在必须变",
+    "subtitle": "",
+    "tag": "背景",
+    "part": "P2/10",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "AI能力已跨过演示级，进入生产级",
+      "企服场景复杂，越复杂越需要智能编排",
+      "只会写PRD的模式，效率和上限都不够了"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 3,
+    "title": "PM岗位新定义",
+    "subtitle": "",
+    "tag": "角色变化",
+    "part": "P3/10",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "过去：功能管理、流程推动、文档交付",
+      "现在：业务目标翻译 + 人机协同编排 + 结果验收闭环",
+      "核心：把“需求”变成“可验证的智能系统”"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 4,
+    "title": "原来做不到，现在能做到（1）",
+    "subtitle": "",
+    "tag": "能力升级",
+    "part": "P4/10",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "会中实时产出结构化需求（不是会后整理）",
+      "同需求并行生成多方案（保守/平衡/激进）",
+      "一次产出 PRD + 接口草案 + 验收清单"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 5,
+    "title": "原来做不到，现在能做到（2）",
+    "subtitle": "",
+    "tag": "能力升级",
+    "part": "P5/10",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "把团队经验固化为 Prompt/Skill/Agent",
+      "用统一口径做优先级排序（收益/成本/风险）",
+      "自动追踪阻塞、责任人、截止时间"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 6,
+    "title": "原来做不到，现在能做到（3）",
+    "subtitle": "",
+    "tag": "能力升级",
+    "part": "P6/10",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "快速做客户 Story Demo，先验证后投入",
+      "输出标准化验收脚本，减少“口径不一致”",
+      "支持对内对外统一叙事与传播表达"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 7,
+    "title": "PM团队本周就能做的5件事",
+    "subtitle": "",
+    "tag": "立即行动",
+    "part": "P7/10",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "每个项目补一页《AI协同作业图》",
+      "每位PM建立个人Prompt库",
+      "每周一次AI产出复盘会",
+      "每个需求必须附验收口径",
+      "选1个项目做AI原生样板"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 8,
+    "title": "管理层要盯的3个风险",
+    "subtitle": "",
+    "tag": "风险控制",
+    "part": "P8/10",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "把AI当“搜索框升级版”，只能提一点效率",
+      "只追文档速度，不做交付闭环",
+      "忽略安全与部署约束，企服场景会直接卡死"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 9,
+    "title": "团队能力模型（1个核心+3层能力）",
+    "subtitle": "",
+    "tag": "方法论",
+    "part": "P9/10",
+    "notes": "",
+    "emphasis": "",
+    "bullets": [
+      "1个核心：把业务目标翻译为可交付系统",
+      "3层能力：业务抽象、智能编排、交付闭环",
+      "结果标准：可复现、可验收、可复制"
+    ],
+    "buttons": []
+  },
+  {
+    "id": 10,
+    "title": "结论与行动要求",
+    "subtitle": "",
+    "tag": "收尾",
+    "part": "P10/10",
+    "notes": "",
+    "emphasis": "过去比“谁写得全”，现在比“谁更快产出可验证结果”",
+    "bullets": [
+      "先拿一个样板项目跑通",
+      "以周为节奏做复盘与复制",
+      "让AI成为企服PM团队的系统能力，而不是个人技巧"
+    ],
+    "buttons": []
+  }
+];
+    let currentIndex = 0;
+    let showNotes = false;
+    let showOverview = false;
+
+    const elMain = document.getElementById('slideMain');
+    const elTag = document.getElementById('slideTag');
+    const elTagFooter = document.getElementById('slideTagFooter');
+    const elPart = document.getElementById('slidePart');
+    const elProgressText = document.getElementById('slideProgressText');
+    const elProgressFill = document.getElementById('slideProgressFill');
+    const elNotes = document.getElementById('slideNotes');
+    const elOverview = document.getElementById('overview');
+    const elFullscreenBtn = document.getElementById('fullscreenBtn');
+    const elDeckShell = document.getElementById('deckShell');
+    const elDeckTopbar = document.getElementById('deckTopbar');
+    const elDeckBackLink = document.getElementById('deckBackLink');
+    const elPrevBtn = document.getElementById('prevBtn');
+    const elNextBtn = document.getElementById('nextBtn');
+
+    function resolveHref(href) {
+      if (href === '/') return './index.html';
+      if (href === '/blackboard') return 'https://show-hub-ft.vercel.app/blackboard';
+      return href;
+    }
+
+    function renderOverview() {
+      elOverview.innerHTML = slides
+        .map((s, i) => '<button class="ai-overview-item ' + (i === currentIndex ? 'ai-overview-item-active' : '') + '" data-i="' + i + '">' +
+          '<div class="ai-overview-index">' + (i + 1) + '</div>' +
+          '<div class="ai-overview-tag">' + (s.tag || '') + '</div>' +
+          '<div class="ai-overview-title">' + (s.title || '') + '</div>' +
+          '</button>')
+        .join('');
+
+      elOverview.querySelectorAll('button[data-i]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          currentIndex = Number(btn.dataset.i || 0);
+          showOverview = false;
+          render();
+        });
+      });
+    }
+
+    function render() {
+      const s = slides[currentIndex];
+      const total = slides.length;
+      if (!s) return;
+
+      const isTitleOnly = !s.bullets?.length && !s.buttons?.length && !s.emphasis;
+      elTag.textContent = s.tag || '';
+      elTagFooter.textContent = s.tag || '';
+      elPart.textContent = s.part || '';
+      elProgressText.textContent = (currentIndex + 1) + ' / ' + total;
+      elProgressFill.style.width = (((currentIndex + 1) / total) * 100) + '%';
+
+      function renderBullets(items) {
+        if (!items?.length) return '';
+        let sec = 0;
+        let out = '';
+        for (const raw of items) {
+          const txt = raw || '';
+          const isSection = /[:：]s*$/.test(txt);
+          if (isSection) {
+            sec += 1;
+            const title = txt.replace(/[:：]s*$/, '');
+            out += '<li class="bullet-section"><span class="bullet-index">' + sec + '.</span><strong>' + title + '</strong></li>';
+          } else {
+            out += '<li class="bullet-sub">' + txt + '</li>';
+          }
+        }
+        return '<ul class="ai-slide-bullets">' + out + '</ul>';
+      }
+
+      let html = '<h1 class="ai-slide-title">' + (s.title || '') + '</h1>';
+      if (s.subtitle) html += '<h2 class="ai-slide-subtitle">' + s.subtitle + '</h2>';
+      if (s.bullets?.length) html += renderBullets(s.bullets);
+      if (s.buttons?.length) {
+        html += '<div class="ai-slide-buttons">' + s.buttons.map((b) => {
+          const cls = 'ai-slide-button ' + (b.variant === 'secondary' ? 'secondary' : 'primary');
+          return '<a class="' + cls + '" href="' + resolveHref(b.href) + '" target="_blank" rel="noreferrer">' + b.label + '</a>';
+        }).join('') + '</div>';
+      }
+      if (s.emphasis) html += '<p class="ai-slide-emphasis">' + s.emphasis + '</p>';
+
+      elMain.className = 'ai-slide-main' + (isTitleOnly ? ' ai-slide-main-title-only' : '');
+      elMain.innerHTML = html;
+
+      if (showNotes && s.notes) {
+        elNotes.classList.remove('hidden');
+        elNotes.innerHTML = '<div class="ai-slide-notes-label">Speaker Notes</div><p>' + s.notes + '</p>';
+      } else {
+        elNotes.classList.add('hidden');
+        elNotes.innerHTML = '';
+      }
+
+      if (showOverview) {
+        elOverview.classList.remove('hidden');
+        renderOverview();
+      } else {
+        elOverview.classList.add('hidden');
+      }
+    }
+
+    function goNext(){ if(currentIndex < slides.length - 1) currentIndex++; render(); }
+    function goPrev(){ if(currentIndex > 0) currentIndex--; render(); }
+
+    function syncFullscreenUi() {
+      const isFs = !!document.fullscreenElement;
+      if (isFs) {
+        elDeckShell.classList.add('is-fullscreen');
+        elFullscreenBtn.textContent = '⤓ 退出全屏';
+      } else {
+        elDeckShell.classList.remove('is-fullscreen');
+        elFullscreenBtn.textContent = '⤢ 全屏';
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        if (elDeckShell.requestFullscreen) elDeckShell.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    // If this deck is embedded inside notes viewer iframe, hide deck-level back link
+    // to avoid nested homepage-in-homepage confusion.
+    if (window.self !== window.top) {
+      if (elDeckBackLink) elDeckBackLink.style.display = 'none';
+      if (elDeckTopbar) {
+        elDeckTopbar.style.gridTemplateColumns = '1fr auto auto';
+      }
+    }
+
+    if (elFullscreenBtn) {
+      elFullscreenBtn.addEventListener('click', toggleFullscreen);
+    }
+
+    if (elPrevBtn) {
+      elPrevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        goPrev();
+      });
+    }
+
+    if (elNextBtn) {
+      elNextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        goNext();
+      });
+    }
+
+    document.addEventListener('fullscreenchange', syncFullscreenUi);
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goNext(); }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goPrev(); }
+      if (e.key === 'n' || e.key === 'N') { e.preventDefault(); showNotes = !showNotes; render(); }
+      if (e.key === 'o' || e.key === 'O') { e.preventDefault(); showOverview = !showOverview; render(); }
+      if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFullscreen(); }
+      if (e.key === 'Escape' && !document.fullscreenElement) { e.preventDefault(); showOverview = !showOverview; render(); }
+    });
+
+    let touchStartX = 0;
+    window.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    window.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) {
+        if (dx < 0) goNext(); else goPrev();
+      }
+    }, { passive: true });
+
+    syncFullscreenUi();
+    render();
+  </script>
+</body>
+</html>
