@@ -485,11 +485,9 @@ if (resetFilterBtn) {
 }
 
 backBtn.addEventListener('click', () => {
-  if (location.hash) {
-    history.back();
-  } else {
-    closePost();
-  }
+  // Stable return-to-list behavior, even after a hard refresh on a #slug URL.
+  history.pushState({ type: 'list' }, '', `${location.pathname}${location.search}`);
+  closePost();
 });
 
 window.addEventListener('popstate', () => {
