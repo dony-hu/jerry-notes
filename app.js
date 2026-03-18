@@ -436,7 +436,20 @@ async function openPost(slug, { updateHistory = true } = {}) {
   currentPost = target;
 
   if (target.type === 'webslides') {
-    renderEmbeddedSlideDeck(slug, target);
+    const slideUrl = target.url || `./${slug}.html`;
+    try {
+      const probe = await fetch(slideUrl, { method: 'HEAD' });
+      const ct = (probe.headers.get('content-type') || '').toLowerCase();
+      if (probe.ok && ct.includes('text/html')) {
+        renderEmbeddedSlideDeck(slug, target);
+      } else {
+        const text = await fetch(`./posts/${slug}.md`).then((r) => r.text());
+        contentEl.innerHTML = mdToHtml(text);
+      }
+    } catch {
+      const text = await fetch(`./posts/${slug}.md`).then((r) => r.text());
+      contentEl.innerHTML = mdToHtml(text);
+    }
   } else {
     const text = await fetch(`./posts/${slug}.md`).then((r) => r.text());
     contentEl.innerHTML = mdToHtml(text);
