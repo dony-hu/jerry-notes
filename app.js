@@ -254,6 +254,10 @@ function parseInline(text = '') {
   out = out.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   out = out.replace(/\*(.+?)\*/g, '<em>$1</em>');
   out = out.replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+  // 允许少量安全内联换行标签（避免把 <br/> 原样显示成文本）
+  out = out.replace(/&lt;br\s*\/?&gt;/gi, '<br/>');
+
   return out;
 }
 
