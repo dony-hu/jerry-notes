@@ -96,13 +96,14 @@ body {
 .site-title-row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
 }
 
 .site-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 10px;
 }
 
@@ -133,6 +134,9 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  vertical-align: middle;
+  flex: 0 0 34px;
 }
 
 .theme-icon {
@@ -576,14 +580,20 @@ body[data-theme='light'] .month-select {
   .site-actions {
     margin-left: auto;
     gap: 8px;
+    align-items: center;
   }
 
   .site-nav-inline {
     gap: 8px;
+    align-items: center;
+    line-height: 1;
   }
 
   .site-nav-inline a {
     font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
   }
 
   .site-header h1 {
