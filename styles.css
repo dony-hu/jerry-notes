@@ -124,6 +124,21 @@ body {
   margin-right: 0;
   font-size: 15px;
 }
+
+.theme-toggle-icon {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-icon {
+  font-size: 18px;
+  line-height: 1;
+}
 .main-layout {
   padding: 22px 0 48px;
   display: grid;
@@ -149,7 +164,17 @@ body {
 .post-list-featured { margin-bottom: 10px; }
 .post-list-featured li { padding: 10px 0; }
 .post-link { color: #dce6ff; text-decoration: none; font-size: 22px; line-height: 1.35; font-weight: 700; }
-.post-summary { color: color-mix(in srgb, var(--text) 78%, var(--muted) 22%); font-size: 14px; line-height: 1.65; margin-top: 8px; }
+.post-summary {
+  color: color-mix(in srgb, var(--text) 78%, var(--muted) 22%);
+  font-size: 14px;
+  line-height: 1.65;
+  margin-top: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .post-meta { color: var(--muted); font-size: 12px; margin-top: 8px; }
 .btn {
   border: 1px solid var(--border);
@@ -571,10 +596,14 @@ body[data-theme='light'] .month-select {
     font-size: 13px;
   }
 
-  #theme-toggle {
-    padding: 3px 8px;
-    font-size: 12px;
-    white-space: nowrap;
+  #theme-toggle.theme-toggle-icon {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+  }
+
+  .theme-icon {
+    font-size: 16px;
   }
 
   .viewer-toolbar {

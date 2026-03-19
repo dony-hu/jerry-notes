@@ -286,7 +286,7 @@ function renderList() {
     <li>
       <a class="post-link" href="#${p.slug}" data-slug="${p.slug}">${p.title}</a>
       ${summary}
-      <div class="post-meta">${p.date || ''} · ${(p.tags || []).join(' / ')}</div>
+      <div class="post-meta">${p.date || ''}</div>
     </li>
   `;
     })
@@ -680,7 +680,10 @@ function applyTheme(mode) {
   const real = mode === THEME_LIGHT ? THEME_LIGHT : THEME_DARK;
   document.body.setAttribute('data-theme', real);
   if (themeToggleBtn) {
-    themeToggleBtn.textContent = real === THEME_LIGHT ? '主题：白天' : '主题：黑夜';
+    themeToggleBtn.setAttribute('aria-label', real === THEME_LIGHT ? '切换到黑夜主题' : '切换到白天主题');
+    themeToggleBtn.setAttribute('title', real === THEME_LIGHT ? '切换到黑夜主题' : '切换到白天主题');
+    const icon = themeToggleBtn.querySelector('.theme-icon');
+    if (icon) icon.textContent = real === THEME_LIGHT ? '🐭' : '🐁';
   }
 }
 

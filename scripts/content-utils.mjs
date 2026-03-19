@@ -185,18 +185,26 @@ function firstSummary(markdown = '') {
     .filter(Boolean)
     .filter((line) => !line.startsWith('#'))
     .filter((line) => !line.startsWith('>'))
+    .filter((line) => !line.startsWith('@'))
     .filter((line) => !line.startsWith('```'))
     .filter((line) => !line.startsWith('!['))
     .filter((line) => !/^\d+\.\s/.test(line))
     .filter((line) => !/^[-*+]\s/.test(line));
 
-  for (const line of lines.slice(0, 20)) {
+  for (const line of lines.slice(0, 24)) {
     const candidate = stripMarkdownInline(line);
     if (!looksReadableSummary(candidate)) continue;
     return candidate.length > 110 ? `${candidate.slice(0, 110)}…` : candidate;
   }
 
   return '';
+}
+
+function fallbackSummary(title = '') {
+  const t = String(title || '').trim();
+  if (!t) return '这篇文章记录了一个完整主题，建议点开查看正文。';
+  if (t.length <= 22) return `${t}：核心观点与关键信息已整理在正文。`;
+  return `${t.slice(0, 22)}：核心观点与关键信息已整理在正文。`;
 }
 
 function toTimestamp(value) {
@@ -297,7 +305,7 @@ export function collectPosts(rootDir) {
     const typeValue = pickString(data.type);
     const type = typeValue || undefined;
     const url = pickString(data.url) || (type === 'webslides' ? `./${slug}.html` : undefined);
-    const summary = pickString(data.summary, firstSummary(content)) || undefined;
+    const summary = pickString(data.summary, firstSummary(content), fallbackSummary(title)) || undefined;
     const fileErrors = [];
 
     if (!title) {
