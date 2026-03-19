@@ -620,7 +620,7 @@ body[data-theme='light'] .month-select {
     right: 12px;
     bottom: calc(14px + env(safe-area-inset-bottom));
     z-index: 9999;
-    width: min(90vw, 360px);
+    width: auto;
     order: initial;
     padding: 0;
     border: none;
@@ -650,7 +650,11 @@ body[data-theme='light'] .month-select {
   }
 
   .index-panel-body {
-    margin-top: 8px;
+    position: absolute;
+    right: 0;
+    bottom: 44px;
+    width: min(90vw, 360px);
+    margin-top: 0;
     padding: 10px 12px;
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -663,6 +667,10 @@ body[data-theme='light'] .month-select {
 
   .index-panel.collapsed-mobile .index-panel-body {
     display: none;
+  }
+
+  .index-panel:not(.collapsed-mobile) .filter-toggle-btn {
+    border-color: var(--accent);
   }
 
   .chips {
