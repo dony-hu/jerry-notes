@@ -618,6 +618,7 @@ body[data-theme='light'] .month-select {
   .index-panel {
     position: fixed;
     right: 12px;
+    top: auto;
     bottom: calc(14px + env(safe-area-inset-bottom));
     z-index: 9999;
     width: auto;
@@ -638,6 +639,9 @@ body[data-theme='light'] .month-select {
   }
 
   .filter-toggle-btn {
+    position: fixed;
+    right: 12px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
     border-radius: 999px;
     padding: 8px 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
@@ -647,12 +651,13 @@ body[data-theme='light'] .month-select {
     color: var(--text);
     min-width: 60px;
     font-size: 13px;
+    z-index: 10000;
   }
 
   .index-panel-body {
-    position: absolute;
-    right: 0;
-    bottom: 44px;
+    position: fixed;
+    right: 12px;
+    bottom: calc(58px + env(safe-area-inset-bottom));
     width: min(90vw, 360px);
     margin-top: 0;
     padding: 10px 12px;
@@ -663,6 +668,7 @@ body[data-theme='light'] .month-select {
     max-height: 58vh;
     overflow: auto;
     pointer-events: auto;
+    z-index: 9998;
   }
 
   .index-panel.collapsed-mobile .index-panel-body {
