@@ -100,12 +100,29 @@ body {
   gap: 10px;
 }
 
+.site-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-nav-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .site-header h1 { margin: 0 0 8px; }
 .site-header p { margin: 0 0 12px; color: var(--muted); }
 .site-header nav a {
   color: var(--accent);
   text-decoration: none;
   margin-right: 14px;
+}
+
+.site-nav-inline a {
+  margin-right: 0;
+  font-size: 15px;
 }
 .main-layout {
   padding: 22px 0 48px;
@@ -530,23 +547,27 @@ body[data-theme='light'] .month-select {
     gap: 8px;
   }
 
+  .site-actions {
+    margin-left: auto;
+    gap: 8px;
+  }
+
+  .site-nav-inline {
+    gap: 8px;
+  }
+
+  .site-nav-inline a {
+    font-size: 14px;
+  }
+
   .site-header h1 {
     margin: 0 0 4px;
+    font-size: 22px;
   }
 
   .site-header p {
-    margin: 0 0 6px;
-  }
-
-  .site-header nav {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .site-header nav a {
-    margin-right: 0;
-    font-size: 17px;
+    margin: 0;
+    font-size: 13px;
   }
 
   #theme-toggle {
