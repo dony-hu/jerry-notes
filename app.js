@@ -683,7 +683,7 @@ function applyTheme(mode) {
     themeToggleBtn.setAttribute('aria-label', real === THEME_LIGHT ? '切换到黑夜主题' : '切换到白天主题');
     themeToggleBtn.setAttribute('title', real === THEME_LIGHT ? '切换到黑夜主题' : '切换到白天主题');
     const icon = themeToggleBtn.querySelector('.theme-icon');
-    if (icon) icon.textContent = real === THEME_LIGHT ? '🐭' : '🐁';
+    if (icon) icon.textContent = real === THEME_LIGHT ? '◐' : '◑';
   }
 }
 
