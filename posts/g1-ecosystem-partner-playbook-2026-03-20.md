@@ -106,11 +106,15 @@ G1（司南）不是单点助手，也不是纯云平台，而是：
 1. **正文文章**：承载完整逻辑、口径、讲稿结构
 2. **图包附件**：提供宣讲用原图，供转发、培训、PPT二次引用
 
-### 图包目录
+### 嵌入式 PDF 预览（推荐）
 
-存放路径：
+<iframe src="./assets/files/g1-ecosystem-2026-03-20/G1生态伙伴宣讲图册-2026-03-20.pdf" width="100%" height="900" style="border:1px solid #ddd;border-radius:8px;"></iframe>
 
-`assets/files/g1-ecosystem-2026-03-20/`
+- 下载 PDF：`./assets/files/g1-ecosystem-2026-03-20/G1生态伙伴宣讲图册-2026-03-20.pdf`
+
+### 图包目录（原始图片）
+
+存放路径：`assets/files/g1-ecosystem-2026-03-20/`
 
 包含：
 
