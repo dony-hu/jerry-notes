@@ -504,7 +504,7 @@ function mdToHtml(mdRaw = '') {
 
     // allow limited raw HTML blocks (for embedded pdf/slides)
     const raw = line.trim();
-    const allowRawHtml = /^(<iframe\b[^>]*><\/iframe>|<iframe\b[^>]*>|<\/iframe>|<div\b[^>]*>|<\/div>|<figure\b[^>]*>|<\/figure>|<figcaption\b[^>]*>|<\/figcaption>|<img\b[^>]*\/?>)$/i;
+    const allowRawHtml = /^(<div\b[^>]*>|<\/div>|<figure\b[^>]*>|<\/figure>|<figcaption\b[^>]*>|<\/figcaption>|<img\b[^>]*\/?>)$/i;
     if (allowRawHtml.test(raw)) {
       flushPara();
       closeLists();
