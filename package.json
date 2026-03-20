@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node scripts/build-site.mjs",
     "generate:posts": "node scripts/generate-posts-index.mjs",
-    "lint:rich-post": "node scripts/lint-rich-post.mjs"
+    "lint:rich-post": "node scripts/lint-rich-post.mjs",
+    "qc:table-width": "node scripts/qc-table-width.mjs"
   },
   "engines": {
     "node": ">=18"

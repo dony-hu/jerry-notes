@@ -1,0 +1,51 @@
+<svg width="1400" height="980" viewBox="0 0 1400 980" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1020"/>
+      <stop offset="100%" stop-color="#101a34"/>
+    </linearGradient>
+    <linearGradient id="box" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c1f4a"/>
+      <stop offset="100%" stop-color="#0a1530"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#9bbfff"/>
+    </marker>
+    <style>
+      .title{font:700 40px 'PingFang SC','Microsoft YaHei',sans-serif;fill:#eef5ff}
+      .sub{font:500 24px 'PingFang SC','Microsoft YaHei',sans-serif;fill:#d7e7ff}
+      .h{font:700 30px 'PingFang SC','Microsoft YaHei',sans-serif;fill:#eaf2ff}
+      .t{font:500 22px 'PingFang SC','Microsoft YaHei',sans-serif;fill:#d0e0ff}
+      .arr{stroke:#9bbfff;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1400" height="980" fill="url(#bg)"/>
+  <text x="60" y="78" class="title">附：一张图理解整个产品</text>
+
+  <rect x="60" y="120" rx="16" ry="16" width="1280" height="140" fill="url(#box)" stroke="#274a92"/>
+  <text x="90" y="178" class="sub">客户说一句话</text>
+  <text x="90" y="220" class="h">“帮我看看上个月朝阳区的盗窃警情高发点”</text>
+
+  <path d="M700 262 L700 322" class="arr"/>
+
+  <rect x="60" y="330" rx="16" ry="16" width="1280" height="170" fill="url(#box)" stroke="#2b539f"/>
+  <text x="90" y="388" class="h">智能席位（交互平面）</text>
+  <text x="90" y="438" class="t">听懂你的话 → 确认条件 → 展示结果 → 审批确认</text>
+
+  <path d="M700 504 L700 564" class="arr"/>
+
+  <rect x="60" y="572" rx="16" ry="16" width="1280" height="250" fill="url(#box)" stroke="#335fb4"/>
+  <text x="90" y="630" class="h">域内智能中枢（执行平面）— 在客户本地运行</text>
+  <text x="90" y="675" class="t">1. 接入警情数据</text>
+  <text x="90" y="710" class="t">2. 地址清洗标准化（智址引擎）</text>
+  <text x="90" y="745" class="t">3. 空间聚合分析（智算引擎）</text>
+  <text x="90" y="780" class="t">4. 高发点挖掘（智研引擎）</text>
+  <text x="690" y="675" class="t">5. 生成专题地图 + 研判报告 + 巡防建议（智图引擎）</text>
+  <text x="690" y="710" class="t">6. 全程留痕（智律引擎）</text>
+
+  <path d="M700 824 L700 864" class="arr"/>
+
+  <rect x="60" y="870" rx="16" ry="16" width="1280" height="90" fill="url(#box)" stroke="#3b6ac6"/>
+  <text x="90" y="928" class="h">输出结果：高发部位专题地图｜研判报告（可打印）｜巡防勤务单（可下发）｜全程审计留痕</text>
+</svg>

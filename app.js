@@ -565,6 +565,57 @@ function renderEmbeddedSlideDeck(slug, target) {
   `;
 }
 
+function estimateCellWeight(text = '') {
+  let weight = 0;
+  for (const ch of String(text)) {
+    weight += /[\u4e00-\u9fa5]/.test(ch) ? 2 : 1;
+  }
+  return Math.max(1, weight);
+}
+
+function optimizeTables(root = contentEl) {
+  if (!root) return;
+  const tables = root.querySelectorAll('.md-table');
+  tables.forEach((table) => {
+    const rows = Array.from(table.querySelectorAll('tr'));
+    if (!rows.length) return;
+
+    const colCount = rows.reduce((m, r) => Math.max(m, r.children.length), 0);
+    if (!colCount) return;
+
+    const weights = Array(colCount).fill(8);
+    rows.forEach((row, rIdx) => {
+      Array.from(row.children).forEach((cell, cIdx) => {
+        const w = estimateCellWeight(cell.textContent || '');
+        const factor = rIdx === 0 ? 1.2 : 1;
+        weights[cIdx] = Math.max(weights[cIdx], Math.min(72, w * factor));
+      });
+    });
+
+    const sum = weights.reduce((a, b) => a + b, 0);
+    const minPct = colCount <= 4 ? 14 : 10;
+    const maxPct = colCount <= 4 ? 45 : 34;
+    let widths = weights.map((w) => (w / sum) * 100);
+    widths = widths.map((p) => Math.max(minPct, Math.min(maxPct, p)));
+    const sumAfter = widths.reduce((a, b) => a + b, 0) || 100;
+    widths = widths.map((p) => (p / sumAfter) * 100);
+
+    const old = table.querySelector('colgroup');
+    if (old) old.remove();
+    const cg = document.createElement('colgroup');
+    widths.forEach((pct) => {
+      const col = document.createElement('col');
+      col.style.width = `${pct.toFixed(2)}%`;
+      cg.appendChild(col);
+    });
+    table.prepend(cg);
+
+    table.style.setProperty('--col-count', String(colCount));
+    table.style.setProperty('--min-table-width', `${Math.max(620, colCount * 210)}px`);
+    table.classList.toggle('table-compact', colCount >= 5);
+  });
+}
+
 function closePost() {
   viewer.classList.add('hidden');
   postsSection.classList.remove('hidden');
@@ -596,6 +647,8 @@ async function openPost(slug, { updateHistory = true } = {}) {
     const text = await fetch(`./posts/${slug}.md`).then((r) => r.text());
     contentEl.innerHTML = mdToHtml(text);
   }
+
+  optimizeTables(contentEl);
 
   viewer.classList.remove('hidden');
   postsSection.classList.add('hidden');

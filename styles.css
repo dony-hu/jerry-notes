@@ -288,11 +288,16 @@ body {
 }
 
 .md-table {
-  width: max-content;
-  min-width: 100%;
+  width: 100%;
+  min-width: var(--min-table-width, 860px);
   border-collapse: collapse;
+  table-layout: fixed;
   font-size: clamp(12px, 0.72vw, 14px);
   line-height: 1.5;
+}
+
+.md-table.table-compact {
+  font-size: clamp(11px, 0.66vw, 13px);
 }
 
 .md-table thead th {
@@ -421,7 +426,7 @@ body.viewing-post .markdown-body .table-wrap {
 /* 表格区域可换行，避免横向撑开 */
 body.viewing-post .markdown-body .table-wrap .md-table {
   width: 100%;
-  min-width: 0;
+  min-width: var(--min-table-width, 860px);
   table-layout: fixed;
 }
 
