@@ -114,13 +114,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 8px;
 }
 
 .site-nav-inline {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .site-header h1 {
@@ -142,8 +142,8 @@ body {
 }
 
 .theme-toggle-icon {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   padding: 0;
   border-radius: 50%;
   display: inline-flex;
@@ -151,7 +151,7 @@ body {
   justify-content: center;
   margin: 0;
   vertical-align: middle;
-  flex: 0 0 34px;
+  flex: 0 0 30px;
 }
 
 .theme-icon {
@@ -373,10 +373,10 @@ body {
 
 .viewer-toolbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 8px;
+  margin-bottom: 6px;
   max-width: 100%;
 }
 
@@ -636,16 +636,17 @@ body[data-theme='light'] .month-select {
     margin-left: 0;
     gap: 8px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     min-width: 0;
   }
 
   .site-nav-inline {
-    gap: 12px;
+    gap: 10px;
     align-items: center;
+    justify-content: center;
     line-height: 1;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   .site-nav-inline a {
