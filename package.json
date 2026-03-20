@@ -5,7 +5,8 @@
   "description": "Jerry Notes static site",
   "scripts": {
     "build": "node scripts/build-site.mjs",
-    "generate:posts": "node scripts/generate-posts-index.mjs"
+    "generate:posts": "node scripts/generate-posts-index.mjs",
+    "lint:rich-post": "node scripts/lint-rich-post.mjs"
   },
   "engines": {
     "node": ">=18"

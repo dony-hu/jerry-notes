@@ -321,8 +321,23 @@ function renderFilters() {
   syncFilterPanelState();
 }
 
+function sanitizeAttr(value = '') {
+  return escapeHtml(String(value || '').trim());
+}
+
 function parseInline(text = '') {
   let out = escapeHtml(text);
+
+  // markdown image: ![alt](src "title")
+  out = out.replace(/!\[(.*?)\]\(([^\s)]+)(?:\s+"([^"]*)")?\)/g, (_m, alt, src, title) => {
+    const safeSrc = String(src || '');
+    if (!safeSrc || /^javascript:/i.test(safeSrc)) return '';
+    const safeAlt = sanitizeAttr(alt || 'image');
+    const safeTitle = sanitizeAttr(title || '');
+    const caption = safeTitle || safeAlt;
+    return `<figure class="md-figure"><img class="md-image" loading="lazy" decoding="async" src="${safeSrc}" alt="${safeAlt}" ${safeTitle ? `title="${safeTitle}"` : ''} data-lightbox="1"/><figcaption>${caption}</figcaption></figure>`;
+  });
+
   out = out.replace(/`([^`]+)`/g, '<code>$1</code>');
   out = out.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   out = out.replace(/\*(.+?)\*/g, '<em>$1</em>');
@@ -388,6 +403,28 @@ function mdToHtml(mdRaw = '') {
   for (let i = 0; i < lines.length; i += 1) {
     const line = lines[i];
 
+    // custom shortcode block: :::image ... :::
+    if (/^\s*:::image\s*$/.test(line)) {
+      flushPara();
+      closeLists();
+      const meta = {};
+      i += 1;
+      while (i < lines.length && !/^\s*:::\s*$/.test(lines[i])) {
+        const m = lines[i].match(/^\s*([a-zA-Z0-9_-]+)\s*=\s*(.+)\s*$/);
+        if (m) meta[m[1].toLowerCase()] = m[2].trim();
+        i += 1;
+      }
+      const src = String(meta.src || '');
+      const alt = escapeHtml(meta.alt || 'image');
+      const caption = escapeHtml(meta.caption || meta.alt || '');
+      const width = /^\d{2,4}$/.test(String(meta.width || '')) ? Number(meta.width) : null;
+      if (src && !/^javascript:/i.test(src)) {
+        const style = width ? ` style="max-width:${width}px"` : '';
+        html.push(`<figure class="md-figure"${style}><img class="md-image" loading="lazy" decoding="async" src="${src}" alt="${alt}" data-lightbox="1"/>${caption ? `<figcaption>${caption}</figcaption>` : ''}</figure>`);
+      }
+      continue;
+    }
+
     if (line.trim().startsWith('```')) {
       flushPara();
       closeLists();
@@ -412,6 +449,20 @@ function mdToHtml(mdRaw = '') {
     if (!line.trim()) {
       flushPara();
       closeLists();
+      continue;
+    }
+
+    const imageOnly = line.match(/^!\[(.*?)\]\(([^\s)]+)(?:\s+"([^"]*)")?\)\s*$/);
+    if (imageOnly) {
+      flushPara();
+      closeLists();
+      const alt = escapeHtml(imageOnly[1] || 'image');
+      const src = String(imageOnly[2] || '');
+      const ttl = escapeHtml(imageOnly[3] || '');
+      if (src && !/^javascript:/i.test(src)) {
+        const caption = ttl || alt;
+        html.push(`<figure class="md-figure"><img class="md-image" loading="lazy" decoding="async" src="${src}" alt="${alt}" ${ttl ? `title="${ttl}"` : ''} data-lightbox="1"/><figcaption>${caption}</figcaption></figure>`);
+      }
       continue;
     }
 
@@ -731,6 +782,40 @@ async function bootstrap() {
   } else {
     history.replaceState({ type: 'list' }, '', location.pathname + location.search);
   }
+}
+
+function ensureLightbox() {
+  if (document.getElementById('lightbox-overlay')) return;
+  const overlay = document.createElement('div');
+  overlay.id = 'lightbox-overlay';
+  overlay.className = 'lightbox-overlay hidden';
+  overlay.innerHTML = `
+    <button class="lightbox-close" aria-label="关闭预览">×</button>
+    <img class="lightbox-image" alt="preview" />
+  `;
+  document.body.appendChild(overlay);
+
+  const close = () => overlay.classList.add('hidden');
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.classList.contains('lightbox-close')) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+}
+
+if (viewer) {
+  viewer.addEventListener('click', (e) => {
+    const img = e.target.closest('img[data-lightbox="1"]');
+    if (!img) return;
+    ensureLightbox();
+    const overlay = document.getElementById('lightbox-overlay');
+    const big = overlay?.querySelector('.lightbox-image');
+    if (!overlay || !big) return;
+    big.src = img.getAttribute('src') || '';
+    big.alt = img.getAttribute('alt') || 'preview';
+    overlay.classList.remove('hidden');
+  });
 }
 
 bootstrap();
