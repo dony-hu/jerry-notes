@@ -1,5 +1,5 @@
 ---
-title: "G1生态伙伴宣讲手册（图文分离发布版）"
+title: "G1生态伙伴宣讲手册（图文混编版）"
 date: "2026-03-20"
 tags:
   - "AI战略与转型"
@@ -106,11 +106,23 @@ G1（司南）不是单点助手，也不是纯云平台，而是：
 1. **正文文章**：承载完整逻辑、口径、讲稿结构
 2. **图包附件**：提供宣讲用原图，供转发、培训、PPT二次引用
 
-### 嵌入式 PDF 预览（推荐）
+### 图文混编（直接嵌入图片）
 
-<iframe src="./assets/files/g1-ecosystem-2026-03-20/G1生态伙伴宣讲图册-2026-03-20.pdf" width="100%" height="900" style="border:1px solid #ddd;border-radius:8px;"></iframe>
+<div class="mix-image-block">
+  <img src="./assets/files/g1-ecosystem-2026-03-20/01-产品体系总览.png" alt="G1产品体系总览" />
+</div>
 
-- 下载 PDF：`./assets/files/g1-ecosystem-2026-03-20/G1生态伙伴宣讲图册-2026-03-20.pdf`
+<div class="mix-image-block">
+  <img src="./assets/files/g1-ecosystem-2026-03-20/02-部署形态与报价逻辑.png" alt="G1部署形态与报价逻辑" />
+</div>
+
+<div class="mix-image-block">
+  <img src="./assets/files/g1-ecosystem-2026-03-20/03-产品边界与安全口径.png" alt="G1产品边界与安全口径" />
+</div>
+
+<div class="mix-image-block">
+  <img src="./assets/files/g1-ecosystem-2026-03-20/04-技术能力与引擎体系.png" alt="G1技术能力与引擎体系" />
+</div>
 
 ### 图包目录（原始图片）
 
