@@ -1,5 +1,17 @@
 [
   {
+    "title": "G1生态伙伴宣讲手册（图文混编版 v2）",
+    "slug": "g1-ecosystem-partner-playbook-2026-03-20-v2",
+    "date": "2026-03-20",
+    "datetime": "2026-03-20 23:55:26",
+    "tags": [
+      "AI战略与转型",
+      "平台与架构",
+      "项目与交付"
+    ],
+    "summary": "修复内嵌渲染与缓存问题后的v2版本，支持正文+嵌入PDF混编。"
+  },
+  {
     "title": "G1生态伙伴宣讲手册（图文分离发布版）",
     "slug": "g1-ecosystem-partner-playbook-2026-03-20",
     "date": "2026-03-20",
