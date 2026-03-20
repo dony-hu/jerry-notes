@@ -166,6 +166,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 18px;
+  max-width: 100%;
 }
 .post-list { list-style: none; margin: 0; padding: 0; }
 .post-list li { padding: 14px 0 16px; border-bottom: 1px dashed var(--border); }
@@ -212,6 +213,9 @@ body {
   margin: 1.4em 0 0.6em;
   line-height: 1.35;
   color: #f2f6ff;
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .markdown-body h1 {
@@ -251,6 +255,8 @@ body {
   background: #0f1a31;
   color: #d7e4ff;
   border-radius: 8px;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .markdown-body pre {
@@ -361,6 +367,7 @@ body {
   align-items: center;
   gap: 10px;
   margin-bottom: 12px;
+  max-width: 100%;
 }
 
 .viewer-toolbar-left,
@@ -803,6 +810,26 @@ body[data-theme='light'] .month-select {
 @media (max-width: 980px) {
   .posts-grid {
     grid-template-columns: 1fr;
+  }
+
+  .container,
+  .main-layout,
+  .content-column,
+  #viewer,
+  #post-content,
+  .markdown-body {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .markdown-body {
+    font-size: 16px;
+    line-height: 1.85;
   }
 
   .markdown-body img,
