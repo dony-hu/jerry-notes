@@ -806,8 +806,13 @@ function ensureLightbox() {
 
 if (viewer) {
   viewer.addEventListener('click', (e) => {
-    const img = e.target.closest('img[data-lightbox="1"]');
+    const img = e.target.closest('.markdown-body img');
     if (!img) return;
+    // ignore tiny ui icons if any
+    const w = Number(img.naturalWidth || img.clientWidth || 0);
+    const h = Number(img.naturalHeight || img.clientHeight || 0);
+    if (w < 80 || h < 80) return;
+
     ensureLightbox();
     const overlay = document.getElementById('lightbox-overlay');
     const big = overlay?.querySelector('.lightbox-image');

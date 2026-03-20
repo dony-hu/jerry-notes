@@ -710,15 +710,24 @@ body[data-theme='light'] .month-select {
   text-align: center;
 }
 
-.md-image {
-  width: 100%;
-  max-width: 980px;
+.md-image,
+.markdown-body img {
+  width: min(100%, var(--img-max-width, 980px));
+  height: auto;
   border: 1px solid var(--border);
   border-radius: 10px;
   display: block;
   margin: 0 auto;
   cursor: zoom-in;
   background: #0c1324;
+}
+
+/* default image containers should follow screen width */
+.markdown-body p > img,
+.markdown-body .mix-image-block > img,
+.markdown-body figure > img {
+  width: 100%;
+  max-width: 100%;
 }
 
 .md-figure figcaption {
@@ -767,5 +776,22 @@ body[data-theme='light'] .month-select {
 @media (max-width: 980px) {
   .posts-grid {
     grid-template-columns: 1fr;
+  }
+
+  .markdown-body img,
+  .md-image {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  .md-figure {
+    margin: 0.9em 0 1.1em;
+  }
+
+  .md-figure figcaption {
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 0 2px;
   }
 }
