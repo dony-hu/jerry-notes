@@ -610,9 +610,12 @@ function optimizeTables(root = contentEl) {
     });
     table.prepend(cg);
 
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    const minWidth = isMobile ? Math.max(420, colCount * 150) : Math.max(620, colCount * 210);
+
     table.style.setProperty('--col-count', String(colCount));
-    table.style.setProperty('--min-table-width', `${Math.max(620, colCount * 210)}px`);
-    table.classList.toggle('table-compact', colCount >= 5);
+    table.style.setProperty('--min-table-width', `${minWidth}px`);
+    table.classList.toggle('table-compact', colCount >= 5 || isMobile);
   });
 }
 
