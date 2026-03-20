@@ -451,6 +451,16 @@ function mdToHtml(mdRaw = '') {
       continue;
     }
 
+    // allow limited raw HTML blocks (for embedded pdf/slides)
+    const raw = line.trim();
+    const allowRawHtml = /^(<iframe\b[^>]*><\/iframe>|<iframe\b[^>]*>|<\/iframe>|<div\b[^>]*>|<\/div>|<figure\b[^>]*>|<\/figure>|<figcaption\b[^>]*>|<\/figcaption>|<img\b[^>]*\/?>)$/i;
+    if (allowRawHtml.test(raw)) {
+      flushPara();
+      closeLists();
+      html.push(raw);
+      continue;
+    }
+
     const quote = line.match(/^>\s?(.*)$/);
     if (quote) {
       flushPara();
