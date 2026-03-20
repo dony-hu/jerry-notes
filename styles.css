@@ -583,12 +583,33 @@ body[data-theme='light'] .month-select {
 }
 
 @media (max-width: 900px) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0;
+  }
+
   .main-layout {
     grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
+    gap: 12px;
+    padding: 14px 0 28px;
   }
 
   .site-header {
-    padding: 14px 0 12px;
+    padding: 12px 0 10px;
+  }
+
+  .content-column,
+  #posts,
+  #viewer,
+  #about {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
   }
 
   .site-title-row {
