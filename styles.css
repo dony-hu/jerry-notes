@@ -105,6 +105,11 @@ body {
   flex-wrap: wrap;
 }
 
+.site-title-row > div:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .site-actions {
   display: flex;
   align-items: center;
@@ -118,7 +123,12 @@ body {
   gap: 12px;
 }
 
-.site-header h1 { margin: 0 0 8px; }
+.site-header h1 {
+  margin: 0 0 8px;
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
 .site-header p { margin: 0 0 12px; color: var(--muted); }
 .site-header nav a {
   color: var(--accent);
@@ -639,7 +649,7 @@ body[data-theme='light'] .month-select {
   }
 
   .site-nav-inline a {
-    font-size: 16px;
+    font-size: 14px;
     display: inline-flex;
     align-items: center;
     line-height: 1;
@@ -648,7 +658,7 @@ body[data-theme='light'] .month-select {
 
   .site-header h1 {
     margin: 0 0 4px;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 1.25;
     word-break: break-word;
     overflow-wrap: anywhere;
