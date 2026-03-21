@@ -9,7 +9,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <link rel="icon" type="image/svg+xml" href="./assets/mouse-favicon.svg" />
-  <link rel="stylesheet" href="./styles.css?v=202603212155" />
+  <link rel="stylesheet" href="./styles.css?v=202603221135" />
 </head>
 <body>
   <header class="site-header">
@@ -21,7 +21,9 @@
           <p>写点东西，记录一些有意思的事。</p>
         </div>
         <div class="site-actions">
-          <button id="theme-toggle" class="btn btn-small" type="button">主题：黑夜</button>
+          <button id="theme-toggle" class="btn btn-small theme-toggle-icon" type="button" aria-label="切换主题" title="切换主题">
+            <span class="theme-icon" aria-hidden="true">🌙</span>
+          </button>
           <div class="auth-controls">
             <a id="login-btn" class="btn btn-small hidden" href="/api/auth/feishu/login">飞书登录</a>
             <div id="user-session" class="user-session hidden">
@@ -86,6 +88,6 @@
     <div class="container">© <span id="year"></span> 我的个人站</div>
   </footer>
 
-  <script src="./app.js?v=202603212155"></script>
+  <script src="./app.js?v=202603221135"></script>
 </body>
 </html>

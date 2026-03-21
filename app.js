@@ -22,6 +22,7 @@ const userAvatarEl = document.getElementById('user-avatar');
 const userNameEl = document.getElementById('user-name');
 const userTenantEl = document.getElementById('user-tenant');
 const authNoteEl = document.getElementById('auth-note');
+const themeIconEl = themeToggleBtn?.querySelector('.theme-icon');
 
 let currentPost = null;
 let pendingAuthMessage = '';
@@ -435,7 +436,7 @@ function renderAuthState(authState = {}) {
 
   const user = authState.user || {};
   userNameEl.textContent = user.name || '飞书用户';
-  userTenantEl.textContent = user.tenantKey ? `tenant: ${user.tenantKey}` : '已通过飞书登录';
+  userTenantEl.textContent = '已通过飞书登录';
 
   if (user.avatarUrl) {
     userAvatarEl.src = user.avatarUrl;
@@ -593,7 +594,11 @@ function applyTheme(mode) {
   const real = mode === THEME_LIGHT ? THEME_LIGHT : THEME_DARK;
   document.body.setAttribute('data-theme', real);
   if (themeToggleBtn) {
-    themeToggleBtn.textContent = real === THEME_LIGHT ? '主题：白天' : '主题：黑夜';
+    themeToggleBtn.setAttribute('aria-label', real === THEME_LIGHT ? '切换到黑夜主题' : '切换到白天主题');
+    themeToggleBtn.setAttribute('title', real === THEME_LIGHT ? '切换到黑夜主题' : '切换到白天主题');
+  }
+  if (themeIconEl) {
+    themeIconEl.textContent = real === THEME_LIGHT ? '🌙' : '☀️';
   }
 }
 
