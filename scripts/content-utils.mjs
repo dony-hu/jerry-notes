@@ -172,7 +172,6 @@ function looksReadableSummary(text = '') {
   const ratio = readableChars / Math.max(clean.length, 1);
   if (ratio < 0.88) return false;
 
-  // avoid OCR garbage patterns such as sparse symbols or mixed broken fragments
   const hasCJK = /[\u4e00-\u9fff]/.test(text);
   const hasLatinWord = /[A-Za-z]{3,}/.test(text);
   return hasCJK || hasLatinWord;
@@ -212,7 +211,6 @@ function toTimestamp(value) {
   const input = String(value).trim();
   if (!input) return Number.NaN;
 
-  // "YYYY-MM-DD HH:mm" -> "YYYY-MM-DDTHH:mm" (local time)
   const normalized = /\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}(:\d{2})?$/.test(input)
     ? input.replace(' ', 'T')
     : input;
@@ -235,7 +233,6 @@ function resolvePostTimestamp(post) {
     if (!Number.isNaN(t)) return t;
   }
 
-  // Fallback: file modification time to keep same-day new posts in front.
   if (post.sourcePath) {
     try {
       return fs.statSync(post.sourcePath).mtimeMs;
@@ -264,6 +261,7 @@ function toRecord(post) {
     slug: post.slug,
     date: post.date,
     tags: post.tags,
+    owner: post.owner || 'jerry',
   };
 
   if (post.datetime) record.datetime = post.datetime;
@@ -306,6 +304,7 @@ export function collectPosts(rootDir) {
     const type = typeValue || undefined;
     const url = pickString(data.url) || (type === 'webslides' ? `./${slug}.html` : undefined);
     const summary = pickString(data.summary, firstSummary(content), fallbackSummary(title)) || undefined;
+    const owner = pickString(data.owner).toLowerCase() || 'jerry';
     const fileErrors = [];
 
     if (!title) {
@@ -314,6 +313,10 @@ export function collectPosts(rootDir) {
 
     if (!date) {
       fileErrors.push(`${file}: missing date (add front matter date: YYYY-MM-DD)`);
+    }
+
+    if (!['jerry', 'irene'].includes(owner)) {
+      fileErrors.push(`${file}: invalid owner "${owner}" (use owner: jerry or owner: irene)`);
     }
 
     if (fileErrors.length) {
@@ -327,6 +330,7 @@ export function collectPosts(rootDir) {
       date,
       datetime,
       tags,
+      owner,
       type,
       url,
       summary,
