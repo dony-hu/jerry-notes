@@ -143,7 +143,7 @@ summary: 一句话摘要
 
 优点：
 
-- 不依赖 Pages Git integration
+- 不依赖 Pages 原生仓库集成
 - 可以继续复用现有 Direct Upload 项目
 - 构建过程与发布步骤都在仓库里显式可见
 
