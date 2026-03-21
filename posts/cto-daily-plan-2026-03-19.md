@@ -6,6 +6,7 @@ tags:
   - "项目与交付"
   - "平台与架构"
   - "AI战略与转型"
+visibility: internal
 ---
 
 ## 昨日小结

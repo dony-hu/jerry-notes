@@ -93,6 +93,7 @@ summary: 一句话摘要
 - `visibility`
   - 可选；支持 `public` / `external` 与 `internal` / `private`
   - 默认 `public`
+  - 如果标题或 slug 呈现出高置信度内部信号（如计划、日志、纪要、周报、学习手册、客户交流方案），构建会要求显式改成 `internal`
 - `draft`
   - 可选；`true` 时跳过发布
 - `summary`
@@ -185,6 +186,7 @@ summary: 一句话摘要
 
 - front matter 缺少 `title`
 - front matter 缺少 `date`
+- 文章明显属于内部工作材料，却仍标记为 `public`
 
 构建阶段跳过的情况：
 

@@ -1,5 +1,192 @@
 [
   {
+    "title": "AI转型读后感汇总（原文合并）",
+    "slug": "ai-transformation-reading-notes-collection-2026-03-21",
+    "date": "2026-03-21",
+    "tags": [
+      "组织与管理",
+      "项目与交付",
+      "报告与盘点"
+    ],
+    "visibility": "internal",
+    "summary": "收录AI转型读后感原文共55篇，按源目录文件名顺序合并，正文不改写。"
+  },
+  {
+    "title": "AI转型读后感汇总（自动排版版）",
+    "slug": "ai-transformation-reading-notes-typeset-2026-03-21",
+    "date": "2026-03-21",
+    "tags": [
+      "组织与管理",
+      "项目与交付",
+      "报告与盘点"
+    ],
+    "visibility": "internal",
+    "summary": "共收录55篇AI转型读后感，自动排版便于阅读，正文保持原文内容。"
+  },
+  {
+    "title": "今日工作计划（2026-03-21~2026-03-22）",
+    "slug": "cto-daily-plan-2026-03-21",
+    "date": "2026-03-21",
+    "tags": [
+      "组织与管理",
+      "项目与交付",
+      "AI战略与转型",
+      "研发效能"
+    ],
+    "visibility": "internal"
+  },
+  {
+    "title": "丰图研发日报（2026-03-20，特性版）",
+    "slug": "fengtu-rd-daily-2026-03-20-feature-version",
+    "date": "2026-03-21",
+    "tags": [
+      "研发效能",
+      "项目与交付",
+      "报告与盘点",
+      "组织与管理"
+    ],
+    "visibility": "internal",
+    "summary": "面向管理决策的研发日报，按项目与人员输出“新增特性”并标注未命中作者ID整改清单。"
+  },
+  {
+    "title": "丰图 泛政一部产品体系内部学习手册",
+    "slug": "g1-product-system-learning-handbook-2026-03-21",
+    "date": "2026-03-21",
+    "tags": [
+      "项目与交付",
+      "平台与架构",
+      "行业与场景"
+    ],
+    "visibility": "internal"
+  },
+  {
+    "title": "今日工作计划（2026-03-20）",
+    "slug": "cto-daily-plan-2026-03-20",
+    "date": "2026-03-20",
+    "tags": [
+      "组织与管理",
+      "项目与交付",
+      "平台与架构",
+      "AI战略与转型"
+    ],
+    "visibility": "internal"
+  },
+  {
+    "title": "宝安项目团队工作日志汇总（原文合并）",
+    "slug": "fengtu-team-worklogs-collection-2026-03-20",
+    "date": "2026-03-20",
+    "tags": [
+      "组织与管理",
+      "项目与交付",
+      "研发效能",
+      "报告与盘点"
+    ],
+    "visibility": "internal"
+  },
+  {
+    "title": "今日工作计划（2026-03-19）",
+    "slug": "cto-daily-plan-2026-03-19",
+    "date": "2026-03-19",
+    "tags": [
+      "组织与管理",
+      "项目与交付",
+      "平台与架构",
+      "AI战略与转型"
+    ],
+    "visibility": "internal"
+  },
+  {
+    "title": "AI转型会议纪要（可编辑版）",
+    "slug": "ai-transformation-meeting-minutes-2026-03-18-editable",
+    "date": "2026-03-18",
+    "tags": [
+      "组织与管理",
+      "项目与交付",
+      "报告与盘点"
+    ],
+    "visibility": "internal"
+  },
+  {
+    "title": "AI转型会议纪要（原文版式保真）",
+    "slug": "ai-transformation-meeting-minutes-2026-03-18-original",
+    "date": "2026-03-18",
+    "tags": [
+      "组织与管理",
+      "项目与交付",
+      "报告与盘点"
+    ],
+    "visibility": "internal"
+  },
+  {
+    "title": "今日工作计划（2026-03-18）",
+    "slug": "daily-work-brief-2026-03-18",
+    "date": "2026-03-18",
+    "tags": [
+      "组织与管理",
+      "项目与交付",
+      "报告与盘点"
+    ],
+    "visibility": "internal"
+  },
+  {
+    "title": "给企服产品经理团队的AI分享建议（能力与行业导向版）",
+    "slug": "enterprise-product-ai-sharing-2026-03-18",
+    "date": "2026-03-18",
+    "tags": [
+      "产品与体验",
+      "AI战略与转型",
+      "组织与管理"
+    ],
+    "visibility": "internal"
+  },
+  {
+    "title": "企服产品经理团队 AI 分享（宣讲版）",
+    "slug": "enterprise-product-ai-sharing-2026-03-18-slides",
+    "date": "2026-03-18",
+    "tags": [
+      "产品与体验",
+      "AI战略与转型",
+      "组织与管理"
+    ],
+    "visibility": "internal",
+    "type": "webslides",
+    "url": "./slides/enterprise-product-ai-sharing-2026-03-18-slides.html"
+  },
+  {
+    "title": "北京经开区招商局交流方案（丰图能力融合版）",
+    "slug": "beijing-jkq-fengtu-integrated-solution-v2-2026-03-17",
+    "date": "2026-03-17",
+    "tags": [
+      "AI战略与转型",
+      "行业与场景"
+    ],
+    "visibility": "internal",
+    "type": "note"
+  },
+  {
+    "title": "北京经开区招商局交流思路（纯招商与产业服务版）",
+    "slug": "beijing-jkq-zhaoshang-article-2026-03-17",
+    "date": "2026-03-17",
+    "tags": [
+      "AI战略与转型",
+      "行业与场景"
+    ],
+    "visibility": "internal",
+    "type": "note"
+  },
+  {
+    "title": "北京情指客户交流方案（软硬件一体，面向G1总体规划）",
+    "slug": "beijing-qingzhi-soft-hardware-solution-2026-03-17",
+    "date": "2026-03-17",
+    "tags": [
+      "行业与场景",
+      "项目与交付"
+    ],
+    "visibility": "internal",
+    "type": "webslides",
+    "url": "./slides/beijing-qingzhi-soft-hardware-solution-2026-03-17.html"
+  },
+  {
     "title": "丰图代码仓人员工作分析（汇总版）",
     "slug": "fengtu-people-work-summary",
     "date": "2026-03-17",
@@ -35,26 +222,24 @@
     "visibility": "internal"
   },
   {
-    "title": "聚合数据 API 全量目录（CSV版）",
+    "title": "聚合数据 API 全量目录（CSV转Markdown表格）",
     "slug": "juhe-api-catalog-full-csv",
     "date": "2026-03-17",
     "tags": [
-      "聚合数据",
-      "API目录",
-      "CSV",
-      "数据盘点"
+      "数据与智能",
+      "平台与架构",
+      "报告与盘点"
     ],
     "visibility": "public"
   },
   {
-    "title": "聚合数据 API 全量目录（Markdown版）",
+    "title": "聚合数据 API 全量目录（美化版）",
     "slug": "juhe-api-catalog-full-md",
     "date": "2026-03-17",
     "tags": [
-      "聚合数据",
-      "API目录",
-      "Markdown",
-      "数据盘点"
+      "数据与智能",
+      "平台与架构",
+      "报告与盘点"
     ],
     "visibility": "public"
   },
@@ -63,9 +248,8 @@
     "slug": "ai-map-experience-framework",
     "date": "2026-03-15",
     "tags": [
-      "地图产品",
-      "AI体验",
-      "场景编排"
+      "AI战略与转型",
+      "产品与体验"
     ],
     "visibility": "public"
   },
@@ -113,9 +297,8 @@
     "slug": "map-security-governance-framework",
     "date": "2026-03-15",
     "tags": [
-      "数据安全",
-      "私有化部署",
-      "隐私合规"
+      "产品与体验",
+      "安全与合规"
     ],
     "visibility": "public"
   },
@@ -124,9 +307,8 @@
     "slug": "ai-engineer-evolution",
     "date": "2026-03-14",
     "tags": [
-      "AI工程",
-      "组织变革",
-      "技术趋势"
+      "AI战略与转型",
+      "组织与管理"
     ],
     "visibility": "public"
   },
@@ -135,9 +317,8 @@
     "slug": "ai-plus-product",
     "date": "2026-03-14",
     "tags": [
-      "产品战略",
-      "AI治理",
-      "方法论"
+      "AI战略与转型",
+      "产品与体验"
     ],
     "visibility": "public"
   },
@@ -146,9 +327,9 @@
     "slug": "data-factory",
     "date": "2026-03-14",
     "tags": [
-      "数据工程",
-      "自动化",
-      "质量体系"
+      "研发效能",
+      "数据与智能",
+      "工程实践"
     ],
     "visibility": "public"
   },
@@ -157,9 +338,8 @@
     "slug": "edge-native-rendering",
     "date": "2026-03-14",
     "tags": [
-      "地图引擎",
-      "边缘计算",
-      "性能优化"
+      "产品与体验",
+      "工程实践"
     ],
     "visibility": "public"
   },
@@ -168,9 +348,8 @@
     "slug": "gtc-spatial-intelligence-opportunity",
     "date": "2026-03-14",
     "tags": [
-      "空间智能",
-      "技术趋势",
-      "战略分析"
+      "AI战略与转型",
+      "空间智能"
     ],
     "visibility": "public"
   },
@@ -179,9 +358,8 @@
     "slug": "multimodal-map-understanding",
     "date": "2026-03-14",
     "tags": [
-      "多模态AI",
-      "地图数据",
-      "模型应用"
+      "产品与体验",
+      "数据与智能"
     ],
     "visibility": "public"
   },
@@ -190,8 +368,7 @@
     "slug": "open-platform-3-0",
     "date": "2026-03-14",
     "tags": [
-      "平台架构",
-      "API设计",
+      "平台与架构",
       "工程实践"
     ],
     "visibility": "public"
@@ -201,9 +378,8 @@
     "slug": "open-tech-ecosystem",
     "date": "2026-03-14",
     "tags": [
-      "技术文化",
-      "组织协作",
-      "开放生态"
+      "组织与管理",
+      "平台与架构"
     ],
     "visibility": "public"
   },
@@ -212,9 +388,9 @@
     "slug": "realtime-spatial-computing",
     "date": "2026-03-14",
     "tags": [
-      "实时计算",
-      "时空数据",
-      "系统架构"
+      "数据与智能",
+      "平台与架构",
+      "工程实践"
     ],
     "visibility": "public"
   },
@@ -223,9 +399,8 @@
     "slug": "scenario-based-operations",
     "date": "2026-03-14",
     "tags": [
-      "行业解决方案",
-      "产品运营",
-      "业务场景"
+      "产品与体验",
+      "行业与场景"
     ],
     "visibility": "public"
   },
@@ -234,9 +409,9 @@
     "slug": "spatial-intelligence-lab",
     "date": "2026-03-14",
     "tags": [
-      "空间智能",
-      "知识图谱",
-      "应用探索"
+      "产品与体验",
+      "数据与智能",
+      "空间智能"
     ],
     "visibility": "public"
   }

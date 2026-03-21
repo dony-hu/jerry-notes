@@ -5,6 +5,7 @@ tags:
   - 组织与管理
   - 项目与交付
   - 报告与盘点
+visibility: internal
 ---
 
 # AI转型会议纪要（原文版式保真）

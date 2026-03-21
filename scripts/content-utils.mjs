@@ -153,6 +153,50 @@ function normalizeVisibility(value) {
   return '';
 }
 
+const LIKELY_INTERNAL_SLUG_PATTERNS = [
+  { pattern: /(?:^|-)daily-plan(?:-|$)/i, reason: 'slug looks like a daily plan' },
+  { pattern: /(?:^|-)daily-work-brief(?:-|$)/i, reason: 'slug looks like a work brief' },
+  { pattern: /(?:^|-)meeting-minutes(?:-|$)/i, reason: 'slug looks like meeting minutes' },
+  { pattern: /(?:^|-)reading-notes(?:-|$)/i, reason: 'slug looks like an internal reading-notes collection' },
+  { pattern: /(?:^|-)worklogs?(?:-|$)/i, reason: 'slug looks like a work log' },
+  { pattern: /(?:^|-)rd-daily(?:-|$)/i, reason: 'slug looks like an R&D daily report' },
+  { pattern: /(?:^|-)learning-handbook(?:-|$)/i, reason: 'slug looks like a learning handbook' },
+  { pattern: /(?:^|-)weekly-report(?:-|$)/i, reason: 'slug looks like a weekly report' },
+  { pattern: /(?:^|-)special-initiative-report(?:-|$)/i, reason: 'slug looks like an initiative report' },
+  { pattern: /(?:^|-)people-work-(?:summary|analysis)(?:-|$)/i, reason: 'slug looks like a people/work analysis' },
+  { pattern: /(?:^|-)tianshu-status(?:-|$)/i, reason: 'slug looks like a project status summary' },
+  { pattern: /(?:^|-)product-code-analysis(?:-|$)/i, reason: 'slug looks like a code analysis report' },
+];
+
+const LIKELY_INTERNAL_TITLE_PATTERNS = [
+  { pattern: /工作计划|今日工作计划/, reason: 'title looks like a work plan' },
+  { pattern: /工作日志/, reason: 'title looks like a work log' },
+  { pattern: /会议纪要/, reason: 'title looks like meeting minutes' },
+  { pattern: /学习手册/, reason: 'title looks like an internal handbook' },
+  { pattern: /周汇报|周报|日报|月报/, reason: 'title looks like a report' },
+  { pattern: /读后感汇总/, reason: 'title looks like a collection of employee sharing notes' },
+  { pattern: /交流方案|交流思路/, reason: 'title looks like a customer/internal solution deck' },
+  { pattern: /代码分析报告/, reason: 'title looks like an internal analysis report' },
+  { pattern: /现状总览/, reason: 'title looks like a project status summary' },
+  { pattern: /推进报告/, reason: 'title looks like an initiative progress report' },
+  { pattern: /团队 AI 分享|分享建议/, reason: 'title looks like an internal team sharing material' },
+  { pattern: /工作分析/, reason: 'title looks like an internal work analysis' },
+];
+
+function findLikelyInternalReasons({ slug = '', title = '' }) {
+  const reasons = new Set();
+
+  for (const { pattern, reason } of LIKELY_INTERNAL_SLUG_PATTERNS) {
+    if (pattern.test(slug)) reasons.add(reason);
+  }
+
+  for (const { pattern, reason } of LIKELY_INTERNAL_TITLE_PATTERNS) {
+    if (pattern.test(title)) reasons.add(reason);
+  }
+
+  return [...reasons];
+}
+
 function firstHeading(markdown = '') {
   const match = normalizeLineEndings(markdown).match(/^#\s+(.+)$/m);
   return match ? match[1].trim() : '';
@@ -226,6 +270,15 @@ export function collectPosts(rootDir) {
 
     if (!visibility) {
       fileErrors.push(`${file}: invalid visibility (use public/external or internal/private)`);
+    }
+
+    if (visibility === 'public') {
+      const likelyInternalReasons = findLikelyInternalReasons({ slug, title });
+      if (likelyInternalReasons.length) {
+        fileErrors.push(
+          `${file}: likely internal content is marked public (${likelyInternalReasons.join('; ')}); set visibility: internal`,
+        );
+      }
     }
 
     if (fileErrors.length) {

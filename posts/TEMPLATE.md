@@ -5,6 +5,7 @@ tags:
   - 标签1
   - 标签2
 # visibility 省略时默认 public；内部资料请改成 internal
+# 工作计划 / 日志 / 纪要 / 学习手册 / 内部分享 / 客户方案等工作材料必须标 internal
 # visibility: internal
 # type 省略时默认按普通文章处理；需要幻灯片时改成 webslides
 # type: webslides

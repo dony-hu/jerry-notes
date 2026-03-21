@@ -4,6 +4,7 @@ date: 2026-03-17
 tags:
   - AI战略与转型
   - 行业与场景
+visibility: internal
 type: note
 ---
 

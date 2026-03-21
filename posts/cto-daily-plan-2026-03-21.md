@@ -6,6 +6,7 @@ tags:
   - "项目与交付"
   - "AI战略与转型"
   - "研发效能"
+visibility: internal
 ---
 
 ## 昨日小结
