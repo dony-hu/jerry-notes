@@ -22,7 +22,6 @@ const userAvatarEl = document.getElementById('user-avatar');
 const userNameEl = document.getElementById('user-name');
 const userTenantEl = document.getElementById('user-tenant');
 const authNoteEl = document.getElementById('auth-note');
-const accessBannerEl = document.getElementById('access-banner');
 
 let currentPost = null;
 let pendingAuthMessage = '';
@@ -293,66 +292,6 @@ function setAuthNote(message = '') {
   authNoteEl.classList.toggle('hidden', !message);
 }
 
-function renderAccessBanner(authState = {}) {
-  if (!accessBannerEl) return;
-
-  const enabled = Boolean(authState.enabled);
-  const authenticated = Boolean(authState.authenticated && authState.user);
-  const degraded = Boolean(authState.degraded);
-  const actionHref = buildAuthUrl('login');
-
-  accessBannerEl.classList.remove('hidden', 'is-public-only', 'is-authenticated', 'is-disabled', 'is-degraded');
-
-  if (!enabled && !degraded) {
-    accessBannerEl.classList.add('is-disabled');
-    accessBannerEl.innerHTML = `
-      <div class="access-banner-head">
-        <span class="access-banner-kicker">访问控制</span>
-        <span class="access-banner-state">未配置</span>
-      </div>
-      <h3>登录能力尚未启用</h3>
-      <p>当前站点还没完成飞书登录配置，因此内部内容保护不会完整生效。</p>
-    `;
-    return;
-  }
-
-  if (authenticated) {
-    const user = authState.user || {};
-    accessBannerEl.classList.add('is-authenticated');
-    accessBannerEl.innerHTML = `
-      <div class="access-banner-head">
-        <span class="access-banner-kicker">访问控制</span>
-        <span class="access-banner-state">已解锁内部内容</span>
-      </div>
-      <h3>当前可查看外部 + 内部文章</h3>
-      <p>工作计划、会议纪要、周报、学习手册、团队分享和客户方案等内部材料已经对你开放。</p>
-      <div class="access-banner-meta">
-        <span class="access-pill is-public">外部</span>
-        <span class="access-pill is-internal">内部</span>
-        <span class="access-banner-user">${escapeHtml(user.name || '飞书用户')}</span>
-      </div>
-    `;
-    return;
-  }
-
-  accessBannerEl.classList.add(degraded ? 'is-degraded' : 'is-public-only');
-  accessBannerEl.innerHTML = `
-    <div class="access-banner-head">
-      <span class="access-banner-kicker">访问控制</span>
-      <span class="access-banner-state">${degraded ? '状态读取失败' : '当前仅显示外部内容'}</span>
-    </div>
-    <h3>登录后可查看内部文章</h3>
-    <p>工作计划、日志、纪要、学习手册、内部分享、项目状态盘点和客户交流方案等内容，只有完成飞书登录后才会显示并允许打开。</p>
-    <div class="access-banner-meta">
-      <span class="access-pill is-public">外部公开</span>
-      <span class="access-pill is-internal">内部需登录</span>
-    </div>
-    <div class="access-banner-actions">
-      <a class="btn" href="${actionHref}">使用飞书登录</a>
-    </div>
-  `;
-}
-
 function mapAuthError(code) {
   const messages = {
     access_denied: '你取消了飞书授权，本次未登录。',
@@ -386,13 +325,11 @@ function renderAuthState(authState = {}) {
 
   if (!enabled) {
     setAuthNote('飞书登录尚未配置。请先在 Cloudflare Pages 中补齐飞书环境变量。');
-    renderAccessBanner(authState);
     return;
   }
 
   if (!authenticated) {
     setAuthNote(pendingAuthMessage || '当前仅显示外部文章，登录后可查看内部内容。');
-    renderAccessBanner(authState);
     pendingAuthMessage = '';
     return;
   }
@@ -410,7 +347,6 @@ function renderAuthState(authState = {}) {
   }
 
   setAuthNote('');
-  renderAccessBanner(authState);
   pendingAuthMessage = '';
 }
 
@@ -428,7 +364,6 @@ async function loadAuthState() {
   } catch (e) {
     console.warn('failed to load auth state', e);
     setAuthNote('飞书登录状态读取失败，请稍后刷新重试。');
-    renderAccessBanner({ enabled: true, authenticated: false, degraded: true });
   }
 }
 

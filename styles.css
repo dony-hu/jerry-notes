@@ -89,57 +89,6 @@ body[data-theme='light'] .post-visibility.is-internal {
   border-color: #f3d18a;
 }
 
-body[data-theme='light'] .access-banner {
-  background:
-    radial-gradient(circle at top right, rgba(47, 115, 255, 0.12), transparent 34%),
-    linear-gradient(135deg, rgba(244, 248, 255, 0.96), rgba(238, 244, 255, 0.92));
-}
-
-body[data-theme='light'] .access-banner.is-authenticated {
-  background:
-    radial-gradient(circle at top right, rgba(45, 180, 125, 0.16), transparent 34%),
-    linear-gradient(135deg, rgba(240, 251, 246, 0.96), rgba(233, 247, 239, 0.92));
-}
-
-body[data-theme='light'] .access-banner.is-disabled,
-body[data-theme='light'] .access-banner.is-degraded {
-  background:
-    radial-gradient(circle at top right, rgba(255, 176, 32, 0.14), transparent 34%),
-    linear-gradient(135deg, rgba(255, 250, 241, 0.96), rgba(255, 245, 228, 0.92));
-}
-
-body[data-theme='light'] .access-banner-kicker {
-  border-color: rgba(47, 115, 255, 0.18);
-  background: rgba(47, 115, 255, 0.08);
-  color: #2f5dab;
-}
-
-body[data-theme='light'] .access-banner-state,
-body[data-theme='light'] .access-banner-user {
-  background: rgba(31, 42, 61, 0.05);
-  color: #314667;
-  border-color: rgba(31, 42, 61, 0.08);
-}
-
-body[data-theme='light'] .access-banner h3 {
-  color: #17325c;
-}
-
-body[data-theme='light'] .access-banner p {
-  color: #4f6284;
-}
-
-body[data-theme='light'] .access-pill.is-public {
-  background: #edf3ff;
-  color: #38527c;
-}
-
-body[data-theme='light'] .access-pill.is-internal {
-  background: #fff4de;
-  color: #9a6600;
-  border-color: #f3d18a;
-}
-
 * { box-sizing: border-box; }
 body {
   margin: 0;
@@ -255,112 +204,6 @@ body {
   padding: 18px;
 }
 
-.access-banner {
-  margin: 14px 0 18px;
-  padding: 16px 18px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background:
-    radial-gradient(circle at top right, rgba(110, 168, 255, 0.14), transparent 34%),
-    linear-gradient(135deg, rgba(17, 27, 46, 0.96), rgba(13, 21, 38, 0.92));
-  display: grid;
-  gap: 10px;
-}
-
-.access-banner.is-authenticated {
-  background:
-    radial-gradient(circle at top right, rgba(67, 199, 135, 0.18), transparent 34%),
-    linear-gradient(135deg, rgba(15, 34, 31, 0.96), rgba(11, 26, 24, 0.92));
-}
-
-.access-banner.is-disabled,
-.access-banner.is-degraded {
-  background:
-    radial-gradient(circle at top right, rgba(255, 176, 32, 0.16), transparent 34%),
-    linear-gradient(135deg, rgba(39, 28, 11, 0.95), rgba(26, 19, 9, 0.92));
-}
-
-.access-banner-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.access-banner-kicker,
-.access-banner-state {
-  display: inline-flex;
-  align-items: center;
-  min-height: 28px;
-  padding: 0 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.access-banner-kicker {
-  border: 1px solid rgba(110, 168, 255, 0.3);
-  background: rgba(110, 168, 255, 0.12);
-  color: #bdd4ff;
-}
-
-.access-banner-state {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.06);
-  color: #eef4ff;
-}
-
-.access-banner h3,
-.access-banner p {
-  margin: 0;
-}
-
-.access-banner h3 {
-  font-size: 20px;
-  line-height: 1.35;
-}
-
-.access-banner p {
-  color: #ccd8f7;
-  line-height: 1.7;
-}
-
-.access-banner-meta,
-.access-banner-actions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.access-pill,
-.access-banner-user {
-  display: inline-flex;
-  align-items: center;
-  min-height: 30px;
-  padding: 0 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  font-size: 12px;
-}
-
-.access-pill.is-public {
-  background: rgba(110, 168, 255, 0.1);
-  color: #b9d1ff;
-}
-
-.access-pill.is-internal {
-  background: rgba(255, 176, 32, 0.16);
-  border-color: rgba(255, 176, 32, 0.24);
-  color: #ffd28a;
-}
-
-.access-banner-user {
-  background: rgba(255, 255, 255, 0.06);
-  color: #eef4ff;
-}
 .post-list { list-style: none; margin: 0; padding: 0; }
 .post-list li { padding: 12px 0; border-bottom: 1px dashed var(--border); }
 .post-list li:last-child { border-bottom: none; }
@@ -677,14 +520,6 @@ body {
   .user-session {
     justify-content: space-between;
     flex-wrap: wrap;
-  }
-
-  .access-banner {
-    padding: 14px;
-  }
-
-  .access-banner-head {
-    align-items: flex-start;
   }
 
   .viewer-toolbar {
