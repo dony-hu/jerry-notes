@@ -164,6 +164,7 @@ visibility: public
   - `posts/posts.json`
   - `posts/*.md`
   - `slides/*.html`
+- 其中 `posts/*.md` 与 `slides/*.html` 使用目录级 `_middleware` 先于静态资源执行，避免被直链绕过
 
 这意味着内部文章不仅在前端列表里隐藏，也不能通过直链绕过查看。
 

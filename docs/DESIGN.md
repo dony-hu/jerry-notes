@@ -55,10 +55,10 @@ flowchart LR
   - 对 `webslides` 直接嵌入 `slides/<slug>.html`
 - `functions/posts/posts.json.js`
   - 根据登录态过滤 `public / internal` 文章索引
-- `functions/posts/[slug].js`
-  - 对内部 Markdown 正文做服务端鉴权
-- `functions/slides/[slug].js`
-  - 对内部幻灯片做服务端鉴权
+- `functions/posts/_middleware.js`
+  - 在静态 Markdown 返回前对内部正文做服务端鉴权
+- `functions/slides/_middleware.js`
+  - 在静态 slides 返回前对内部幻灯片做服务端鉴权
 
 ## 4. 内容模型
 
@@ -200,9 +200,9 @@ summary: 一句话摘要
 - 未登录请求 `posts/posts.json`
   - 自动过滤掉内部文章
 - 未登录请求 `posts/<slug>.md`
-  - 返回 401
+  - 由 `functions/posts/_middleware.js` 返回 401
 - 未登录请求 `slides/<slug>.html`
-  - 返回登录提示页
+  - 由 `functions/slides/_middleware.js` 返回登录提示页
 
 这样可以同时覆盖首页列表、正文直链与 slides 直链，避免只靠前端隐藏。
 
