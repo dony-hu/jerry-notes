@@ -18,6 +18,13 @@ if (!fs.existsSync(p)) {
 const s = fs.readFileSync(p, 'utf8');
 const lines = s.split(/\r?\n/);
 
+// frontmatter override for archival/aggregation posts
+const head = lines.slice(0, 60).join('\n');
+if (/qc_table_width_ignore\s*:\s*true/i.test(head)) {
+  console.log('[qc-table-width] skipped by frontmatter override (qc_table_width_ignore=true)');
+  process.exit(0);
+}
+
 let tableCount = 0;
 let issues = [];
 
