@@ -9,7 +9,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <link rel="icon" type="image/svg+xml" href="./assets/mouse-favicon.svg" />
-  <link rel="stylesheet" href="./styles.css?v=202603210100-headerfinal" />
+  <link rel="stylesheet" href="./styles.css?v=202603151205" />
 </head>
 <body>
   <header class="site-header">
@@ -21,11 +21,25 @@
           <p>写点东西，记录一些有意思的事。</p>
         </div>
         <div class="site-actions">
-          <button id="theme-toggle" class="btn btn-small theme-toggle-icon" type="button" aria-label="切换主题" title="切换主题">
-            <span class="theme-icon" aria-hidden="true">🌙</span>
-          </button>
+          <button id="theme-toggle" class="btn btn-small" type="button">主题：黑夜</button>
+          <div class="auth-controls">
+            <a id="login-btn" class="btn btn-small hidden" href="/api/auth/feishu/login">飞书登录</a>
+            <div id="user-session" class="user-session hidden">
+              <img id="user-avatar" class="user-avatar hidden" alt="飞书头像" />
+              <div class="user-meta">
+                <strong id="user-name">飞书用户</strong>
+                <span id="user-tenant">已通过飞书登录</span>
+              </div>
+              <button id="logout-btn" class="btn btn-small" type="button">退出</button>
+            </div>
+            <div id="auth-note" class="auth-note hidden" aria-live="polite"></div>
+          </div>
         </div>
       </div>
+      <nav>
+        <a href="#posts">文章</a>
+        <a href="#about">关于</a>
+      </nav>
     </div>
   </header>
 
@@ -41,7 +55,11 @@
           <div class="viewer-toolbar-left">
             <button id="back-btn" class="btn">← 返回列表</button>
           </div>
-
+          <div class="viewer-toolbar-right">
+            <button id="export-pdf-btn" class="btn">导出PDF</button>
+            <button id="wechat-btn" class="btn">公众号稿</button>
+            <button id="summary-btn" class="btn">3条摘要</button>
+          </div>
         </div>
         <article id="post-content" class="markdown-body"></article>
       </section>
@@ -52,22 +70,15 @@
       </section>
     </section>
 
-    <aside id="index-panel" class="index-panel">
-      <div class="index-panel-head">
-        <div class="filter-title">索引筛选</div>
-        <button id="filter-toggle" class="btn btn-small filter-toggle-btn" type="button" aria-expanded="true">收起</button>
-      </div>
+    <aside class="index-panel">
+      <div class="filter-title">索引筛选</div>
+      <button id="reset-filter" class="btn btn-small">重置筛选</button>
 
-      <div class="index-panel-body" id="index-panel-body">
-        <button id="reset-filter" class="btn btn-small">重置筛选</button>
+      <h3>按主题标签</h3>
+      <div id="tag-filter" class="chips"></div>
 
-        <h3>按主题标签</h3>
-        <div id="tag-filter" class="chips"></div>
-        <button id="tag-more" class="btn btn-small tag-more-btn hidden" type="button">展开更多标签</button>
-
-        <h3>按年月</h3>
-        <select id="month-filter" class="month-select" aria-label="按年月筛选"></select>
-      </div>
+      <h3>按年月</h3>
+      <div id="month-filter" class="chips"></div>
     </aside>
   </main>
 
@@ -75,6 +86,6 @@
     <div class="container">© <span id="year"></span> 我的个人站</div>
   </footer>
 
-  <script src="./app.js?v=202603181145"></script>
+  <script src="./app.js?v=202603151205"></script>
 </body>
 </html>

@@ -1,0 +1,7 @@
+FEISHU_APP_ID=cli_xxxxxxxxxxxxxxxxx
+FEISHU_APP_SECRET=xxxxxxxxxxxxxxxxxxxxxxxx
+AUTH_SESSION_SECRET=replace-with-a-long-random-secret
+# FEISHU_SCOPE=offline_access
+# FEISHU_REDIRECT_URI=http://127.0.0.1:8788/api/auth/feishu/callback
+# FEISHU_ALLOWED_TENANT_KEYS=tenant_key_1,tenant_key_2
+# AUTH_SESSION_MAX_AGE_SEC=7200

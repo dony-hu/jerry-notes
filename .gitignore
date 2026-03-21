@@ -3,5 +3,10 @@ export/
 tmp/
 dist/
 node_modules/
+.dev.vars
+.dev.vars.*
+.env
+.env.*
+!.dev.vars.example
 .DS_Store
 .obsidian/

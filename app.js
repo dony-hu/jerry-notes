@@ -2,196 +2,10 @@ let posts = [];
 let activeTag = null;
 let activeMonth = null;
 
-// 固定标签体系（最多 12 个）
-const FIXED_TAGS = [
-  'AI战略与转型',
-  '组织与管理',
-  '研发效能',
-  '产品与体验',
-  '数据与智能',
-  '平台与架构',
-  '工程实践',
-  '安全与合规',
-  '空间智能',
-  '行业与场景',
-  '项目与交付',
-  '报告与盘点',
-];
-
-const TAG_ALIAS_MAP = {
-  // AI 与战略
-  AI专项: 'AI战略与转型',
-  AI演讲: 'AI战略与转型',
-  组织转型: 'AI战略与转型',
-  决策智能: 'AI战略与转型',
-  技术趋势: 'AI战略与转型',
-  战略分析: 'AI战略与转型',
-  AI工程: 'AI战略与转型',
-  AI治理: 'AI战略与转型',
-  丰图: 'AI战略与转型',
-
-  // 组织与管理
-  组织分析: '组织与管理',
-  研发管理: '组织与管理',
-  项目管理: '组织与管理',
-  组织变革: '组织与管理',
-  技术文化: '组织与管理',
-  组织协作: '组织与管理',
-  经营管理: '组织与管理',
-  项目治理: '组织与管理',
-
-  // 研发效能
-  代码仓盘点: '研发效能',
-  代码分析: '研发效能',
-  质量体系: '研发效能',
-
-  // 产品与体验
-  地图产品: '产品与体验',
-  AI体验: '产品与体验',
-  场景编排: '产品与体验',
-  产品战略: '产品与体验',
-  产品运营: '产品与体验',
-  方法论: '产品与体验',
-
-  // 数据与智能
-  数据工厂: '数据与智能',
-  多模态AI: '数据与智能',
-  模型应用: '数据与智能',
-  数据工程: '数据与智能',
-  聚合数据: '数据与智能',
-  地图数据: '数据与智能',
-  知识图谱: '数据与智能',
-  时空数据: '数据与智能',
-
-  // 平台与架构
-  开放生态: '平台与架构',
-  开放平台: '平台与架构',
-  API目录: '平台与架构',
-  API设计: '平台与架构',
-  系统架构: '平台与架构',
-
-  // 工程实践
-  边缘计算: '工程实践',
-  性能优化: '工程实践',
-  实时计算: '工程实践',
-  自动化: '工程实践',
-
-  // 安全与合规
-  数据安全: '安全与合规',
-  私有化部署: '安全与合规',
-  隐私合规: '安全与合规',
-
-  // 空间智能
-  地图智能体: '空间智能',
-  天枢: '空间智能',
-
-  // 行业与场景
-  行业解决方案: '行业与场景',
-  业务场景: '行业与场景',
-  应用探索: '行业与场景',
-  北京: '行业与场景',
-  北京经开区: '行业与场景',
-  产业服务: '行业与场景',
-  情指: '行业与场景',
-  顺丰: '行业与场景',
-  招商局: '行业与场景',
-  方案: '行业与场景',
-  软硬件一体: '行业与场景',
-
-  // 项目与交付
-  天枢项目: '项目与交付',
-  G1: '项目与交付',
-
-  // 报告与盘点
-  周报汇报: '报告与盘点',
-  数据盘点: '报告与盘点',
-  CSV: '报告与盘点',
-  Markdown: '报告与盘点',
-};
-
-const TAG_RULES = [
-  { keys: ['周报', '汇报', '目录', '盘点', 'report', 'summary', 'catalog'], tag: '报告与盘点' },
-  { keys: ['repo', '代码仓', '效能', 'commit', '提交'], tag: '研发效能' },
-  { keys: ['g1', '天枢', '交付', '项目'], tag: '项目与交付' },
-  { keys: ['安全', '合规', '隐私', '私网'], tag: '安全与合规' },
-  { keys: ['空间智能'], tag: '空间智能' },
-  { keys: ['地图', '体验', '产品'], tag: '产品与体验' },
-  { keys: ['平台', 'api', '架构'], tag: '平台与架构' },
-  { keys: ['数据', '知识图谱', '多模态'], tag: '数据与智能' },
-  { keys: ['组织', '管理', '变革'], tag: '组织与管理' },
-  { keys: ['实时', '边缘', '自动化', '工程'], tag: '工程实践' },
-  { keys: ['场景', '行业', '招商', '经开区'], tag: '行业与场景' },
-  { keys: ['ai', '智能体'], tag: 'AI战略与转型' },
-];
-
-function normalizePostTags(post = {}) {
-  const normalized = [];
-  const sourceTags = Array.isArray(post.tags) ? post.tags : [];
-
-  sourceTags.forEach((tag) => {
-    if (FIXED_TAGS.includes(tag)) {
-      if (!normalized.includes(tag)) normalized.push(tag);
-      return;
-    }
-    const mapped = TAG_ALIAS_MAP[tag];
-    if (mapped && !normalized.includes(mapped)) normalized.push(mapped);
-  });
-
-  const hintText = `${post.title || ''} ${post.slug || ''}`.toLowerCase();
-  TAG_RULES.forEach(({ keys, tag }) => {
-    const matched = keys.some((k) => hintText.includes(String(k).toLowerCase()));
-    if (matched && !normalized.includes(tag)) normalized.push(tag);
-  });
-
-  if (!normalized.length) normalized.push('报告与盘点');
-
-  // 保持固定顺序，并限制每篇最多 3 个标签
-  return FIXED_TAGS.filter((t) => normalized.includes(t)).slice(0, 3);
-}
-
-function toTimestamp(value) {
-  if (!value) return Number.NaN;
-  const input = String(value).trim();
-  if (!input) return Number.NaN;
-  const normalized = /\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}(:\d{2})?$/.test(input)
-    ? input.replace(' ', 'T')
-    : input;
-  const t = Date.parse(normalized);
-  return Number.isNaN(t) ? Number.NaN : t;
-}
-
-function postSortTime(post = {}) {
-  const candidates = [post.datetime, post.dateTime, post.publishedAt, post.published_at, post.date];
-  for (const value of candidates) {
-    const t = toTimestamp(value);
-    if (!Number.isNaN(t)) return t;
-  }
-  return 0;
-}
-
-function comparePosts(a, b) {
-  const ta = postSortTime(a);
-  const tb = postSortTime(b);
-  if (ta !== tb) return tb - ta;
-  return b.slug.localeCompare(a.slug, 'zh-CN');
-}
-
-function normalizePosts(raw = []) {
-  return (Array.isArray(raw) ? raw : [])
-    .map((post) => ({
-      ...post,
-      tags: normalizePostTags(post),
-    }))
-    .sort(comparePosts);
-}
-
 const postListEl = document.getElementById('post-list');
 const tagFilterEl = document.getElementById('tag-filter');
 const monthFilterEl = document.getElementById('month-filter');
 const resetFilterBtn = document.getElementById('reset-filter');
-const filterToggleBtn = document.getElementById('filter-toggle');
-const indexPanelEl = document.getElementById('index-panel');
-const tagMoreBtn = document.getElementById('tag-more');
 
 const viewer = document.getElementById('viewer');
 const contentEl = document.getElementById('post-content');
@@ -201,36 +15,16 @@ const wechatBtn = document.getElementById('wechat-btn');
 const summaryBtn = document.getElementById('summary-btn');
 const themeToggleBtn = document.getElementById('theme-toggle');
 const postsSection = document.getElementById('posts');
+const loginBtn = document.getElementById('login-btn');
+const logoutBtn = document.getElementById('logout-btn');
+const userSessionEl = document.getElementById('user-session');
+const userAvatarEl = document.getElementById('user-avatar');
+const userNameEl = document.getElementById('user-name');
+const userTenantEl = document.getElementById('user-tenant');
+const authNoteEl = document.getElementById('auth-note');
 
 let currentPost = null;
-let isMobileFilterOpen = false;
-let showAllMobileTags = false;
-
-function isMobileViewport() {
-  return window.matchMedia('(max-width: 900px)').matches;
-}
-
-function selectedFilterCount() {
-  return Number(Boolean(activeTag)) + Number(Boolean(activeMonth));
-}
-
-function syncFilterPanelState() {
-  if (!indexPanelEl || !filterToggleBtn) return;
-
-  const count = selectedFilterCount();
-  const suffix = count > 0 ? `(${count})` : '';
-
-  if (isMobileViewport()) {
-    indexPanelEl.classList.toggle('collapsed-mobile', !isMobileFilterOpen);
-    filterToggleBtn.textContent = isMobileFilterOpen ? `收起${suffix}` : `筛选${suffix}`;
-    filterToggleBtn.setAttribute('aria-expanded', isMobileFilterOpen ? 'true' : 'false');
-  } else {
-    indexPanelEl.classList.remove('collapsed-mobile');
-    const collapsed = indexPanelEl.classList.contains('collapsed-desktop');
-    filterToggleBtn.textContent = collapsed ? `展开${suffix}` : `收起${suffix}`;
-    filterToggleBtn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
-  }
-}
+let pendingAuthMessage = '';
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -250,8 +44,7 @@ function toMonth(dateStr = '') {
 function getAllTags(list) {
   const set = new Set();
   list.forEach((p) => (p.tags || []).forEach((t) => set.add(t)));
-  // 永远按固定标签顺序展示，保证数量与顺序稳定
-  return FIXED_TAGS.filter((tag) => set.has(tag));
+  return Array.from(set);
 }
 
 function getAllMonths(list) {
@@ -280,16 +73,14 @@ function renderList() {
   }
 
   postListEl.innerHTML = current
-    .map((p) => {
-      const summary = p.summary ? `<div class="post-summary">${escapeHtml(p.summary)}</div>` : '';
-      return `
+    .map(
+      (p) => `
     <li>
       <a class="post-link" href="#${p.slug}" data-slug="${p.slug}">${p.title}</a>
-      ${summary}
-      <div class="post-meta">${p.date || ''}</div>
+      <div class="post-meta">${p.date || ''} · ${(p.tags || []).join(' / ')}</div>
     </li>
-  `;
-    })
+  `,
+    )
     .join('');
 }
 
@@ -297,63 +88,25 @@ function renderFilters() {
   const tags = getAllTags(posts);
   const months = getAllMonths(posts);
 
-  const visibleTags =
-    isMobileViewport() && !showAllMobileTags && !activeTag ? tags.slice(0, 6) : tags;
-
-  tagFilterEl.innerHTML = visibleTags
+  tagFilterEl.innerHTML = tags
     .map(
       (tag) => `<button class="chip ${activeTag === tag ? 'active' : ''}" data-tag="${tag}">${tag}</button>`,
     )
     .join('');
 
-  if (tagMoreBtn) {
-    const shouldShow = isMobileViewport() && tags.length > 6 && !activeTag;
-    tagMoreBtn.classList.toggle('hidden', !shouldShow);
-    if (shouldShow) {
-      tagMoreBtn.textContent = showAllMobileTags ? '收起标签' : '展开更多标签';
-    }
-  }
-
-  monthFilterEl.innerHTML = [`<option value="">全部月份</option>`]
-    .concat(months.map((m) => `<option value="${m}" ${activeMonth === m ? 'selected' : ''}>${m}</option>`))
+  monthFilterEl.innerHTML = months
+    .map(
+      (m) => `<button class="chip ${activeMonth === m ? 'active' : ''}" data-month="${m}">${m}</button>`,
+    )
     .join('');
-
-  syncFilterPanelState();
-}
-
-function sanitizeAttr(value = '') {
-  return escapeHtml(String(value || '').trim());
 }
 
 function parseInline(text = '') {
   let out = escapeHtml(text);
-
-  // markdown image: ![alt](src "title")
-  out = out.replace(/!\[(.*?)\]\(([^\s)]+)(?:\s+"([^"]*)")?\)/g, (_m, alt, src, title) => {
-    const safeSrc = String(src || '');
-    if (!safeSrc || /^javascript:/i.test(safeSrc)) return '';
-    const safeAlt = sanitizeAttr(alt || 'image');
-    const safeTitle = sanitizeAttr(title || '');
-    const caption = safeTitle || safeAlt;
-    return `<figure class="md-figure"><img class="md-image" loading="lazy" decoding="async" src="${safeSrc}" alt="${safeAlt}" ${safeTitle ? `title="${safeTitle}"` : ''} data-lightbox="1"/><figcaption>${caption}</figcaption></figure>`;
-  });
-
   out = out.replace(/`([^`]+)`/g, '<code>$1</code>');
   out = out.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   out = out.replace(/\*(.+?)\*/g, '<em>$1</em>');
-  out = out.replace(/\[(.*?)\]\(([^\s)]+)\)/g, (_m, text, href) => {
-    const safeHref = String(href || '');
-    if (/^javascript:/i.test(safeHref)) return text;
-    const isExternal = /^https?:\/\//i.test(safeHref);
-    if (isExternal) {
-      return `<a href="${safeHref}" target="_blank" rel="noopener noreferrer">${text}</a>`;
-    }
-    return `<a href="${safeHref}">${text}</a>`;
-  });
-
-  // 允许少量安全内联换行标签（避免把 <br/> 原样显示成文本）
-  out = out.replace(/&lt;br\s*\/?&gt;/gi, '<br/>');
-
+  out = out.replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
   return out;
 }
 
@@ -374,14 +127,6 @@ function mdToHtml(mdRaw = '') {
   let inOl = false;
   let para = [];
 
-  const isTableSep = (line = '') => /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line);
-  const splitTableRow = (line = '') => {
-    let row = line.trim();
-    if (row.startsWith('|')) row = row.slice(1);
-    if (row.endsWith('|')) row = row.slice(0, -1);
-    return row.split('|').map((c) => c.trim());
-  };
-
   const flushPara = () => {
     if (para.length) {
       html.push(`<p>${parseInline(para.join('<br/>'))}</p>`);
@@ -400,31 +145,7 @@ function mdToHtml(mdRaw = '') {
     }
   };
 
-  for (let i = 0; i < lines.length; i += 1) {
-    const line = lines[i];
-
-    // custom shortcode block: :::image ... :::
-    if (/^\s*:::image\s*$/.test(line)) {
-      flushPara();
-      closeLists();
-      const meta = {};
-      i += 1;
-      while (i < lines.length && !/^\s*:::\s*$/.test(lines[i])) {
-        const m = lines[i].match(/^\s*([a-zA-Z0-9_-]+)\s*=\s*(.+)\s*$/);
-        if (m) meta[m[1].toLowerCase()] = m[2].trim();
-        i += 1;
-      }
-      const src = String(meta.src || '');
-      const alt = escapeHtml(meta.alt || 'image');
-      const caption = escapeHtml(meta.caption || meta.alt || '');
-      const width = /^\d{2,4}$/.test(String(meta.width || '')) ? Number(meta.width) : null;
-      if (src && !/^javascript:/i.test(src)) {
-        const style = width ? ` style="max-width:${width}px"` : '';
-        html.push(`<figure class="md-figure"${style}><img class="md-image" loading="lazy" decoding="async" src="${src}" alt="${alt}" data-lightbox="1"/>${caption ? `<figcaption>${caption}</figcaption>` : ''}</figure>`);
-      }
-      continue;
-    }
-
+  for (const line of lines) {
     if (line.trim().startsWith('```')) {
       flushPara();
       closeLists();
@@ -452,63 +173,12 @@ function mdToHtml(mdRaw = '') {
       continue;
     }
 
-    const imageOnly = line.match(/^!\[(.*?)\]\(([^\s)]+)(?:\s+"([^"]*)")?\)\s*$/);
-    if (imageOnly) {
-      flushPara();
-      closeLists();
-      const alt = escapeHtml(imageOnly[1] || 'image');
-      const src = String(imageOnly[2] || '');
-      const ttl = escapeHtml(imageOnly[3] || '');
-      if (src && !/^javascript:/i.test(src)) {
-        const caption = ttl || alt;
-        html.push(`<figure class="md-figure"><img class="md-image" loading="lazy" decoding="async" src="${src}" alt="${alt}" ${ttl ? `title="${ttl}"` : ''} data-lightbox="1"/><figcaption>${caption}</figcaption></figure>`);
-      }
-      continue;
-    }
-
     const heading = line.match(/^(#{1,6})\s+(.*)$/);
     if (heading) {
       flushPara();
       closeLists();
       const level = heading[1].length;
       html.push(`<h${level}>${parseInline(heading[2])}</h${level}>`);
-      continue;
-    }
-
-    // markdown table support
-    if (line.includes('|') && i + 1 < lines.length && isTableSep(lines[i + 1])) {
-      flushPara();
-      closeLists();
-
-      const headers = splitTableRow(line);
-      html.push('<div class="table-wrap"><table class="md-table"><thead><tr>');
-      headers.forEach((h) => html.push(`<th>${parseInline(h)}</th>`));
-      html.push('</tr></thead><tbody>');
-
-      i += 2; // skip header + separator
-      while (i < lines.length) {
-        const rowLine = lines[i];
-        if (!rowLine || !rowLine.includes('|') || /^\s*$/.test(rowLine)) {
-          i -= 1;
-          break;
-        }
-        const cols = splitTableRow(rowLine);
-        html.push('<tr>');
-        cols.forEach((c) => html.push(`<td>${parseInline(c)}</td>`));
-        html.push('</tr>');
-        i += 1;
-      }
-      html.push('</tbody></table></div>');
-      continue;
-    }
-
-    // allow limited raw HTML blocks (for embedded pdf/slides)
-    const raw = line.trim();
-    const allowRawHtml = /^(<div\b[^>]*>|<\/div>|<figure\b[^>]*>|<\/figure>|<figcaption\b[^>]*>|<\/figcaption>|<img\b[^>]*\/?>)$/i;
-    if (allowRawHtml.test(raw)) {
-      flushPara();
-      closeLists();
-      html.push(raw);
       continue;
     }
 
@@ -520,8 +190,7 @@ function mdToHtml(mdRaw = '') {
       continue;
     }
 
-    // 支持缩进列表（例如两级列表："  - item"）
-    const ul = line.match(/^\s*[-*+]\s+(.*)$/);
+    const ul = line.match(/^[-*+]\s+(.*)$/);
     if (ul) {
       flushPara();
       if (!inUl) {
@@ -565,100 +234,109 @@ function renderEmbeddedSlideDeck(slug, target) {
   `;
 }
 
-function estimateCellWeight(text = '') {
-  let weight = 0;
-  for (const ch of String(text)) {
-    weight += /[\u4e00-\u9fa5]/.test(ch) ? 2 : 1;
-  }
-  return Math.max(1, weight);
-}
-
-function optimizeTables(root = contentEl) {
-  if (!root) return;
-  const tables = root.querySelectorAll('.md-table');
-  tables.forEach((table) => {
-    const rows = Array.from(table.querySelectorAll('tr'));
-    if (!rows.length) return;
-
-    const colCount = rows.reduce((m, r) => Math.max(m, r.children.length), 0);
-    if (!colCount) return;
-
-    const weights = Array(colCount).fill(8);
-    rows.forEach((row, rIdx) => {
-      Array.from(row.children).forEach((cell, cIdx) => {
-        const w = estimateCellWeight(cell.textContent || '');
-        const factor = rIdx === 0 ? 1.2 : 1;
-        weights[cIdx] = Math.max(weights[cIdx], Math.min(72, w * factor));
-      });
-    });
-
-    const sum = weights.reduce((a, b) => a + b, 0);
-    const minPct = colCount <= 4 ? 14 : 10;
-    const maxPct = colCount <= 4 ? 45 : 34;
-    let widths = weights.map((w) => (w / sum) * 100);
-    widths = widths.map((p) => Math.max(minPct, Math.min(maxPct, p)));
-    const sumAfter = widths.reduce((a, b) => a + b, 0) || 100;
-    widths = widths.map((p) => (p / sumAfter) * 100);
-
-    const old = table.querySelector('colgroup');
-    if (old) old.remove();
-    const cg = document.createElement('colgroup');
-    widths.forEach((pct) => {
-      const col = document.createElement('col');
-      col.style.width = `${pct.toFixed(2)}%`;
-      cg.appendChild(col);
-    });
-    table.prepend(cg);
-
-    const isMobile = window.matchMedia('(max-width: 900px)').matches;
-    const minWidth = isMobile ? Math.max(420, colCount * 150) : Math.max(620, colCount * 210);
-
-    table.style.setProperty('--col-count', String(colCount));
-    table.style.setProperty('--min-table-width', `${minWidth}px`);
-    table.classList.toggle('table-compact', colCount >= 5 || isMobile);
-  });
-}
-
-function closePost() {
-  viewer.classList.add('hidden');
-  postsSection.classList.remove('hidden');
-  document.body.classList.remove('viewing-post');
-  currentPost = null;
-}
-
-async function openPost(slug, { updateHistory = true } = {}) {
+async function openPost(slug) {
   const target = posts.find((p) => p.slug === slug);
   if (!target) return;
   currentPost = target;
 
   if (target.type === 'webslides') {
-    const slideUrl = target.url || `./${slug}.html`;
-    try {
-      const probe = await fetch(slideUrl, { method: 'HEAD' });
-      const ct = (probe.headers.get('content-type') || '').toLowerCase();
-      if (probe.ok && ct.includes('text/html')) {
-        renderEmbeddedSlideDeck(slug, target);
-      } else {
-        const text = await fetch(`./posts/${slug}.md`).then((r) => r.text());
-        contentEl.innerHTML = mdToHtml(text);
-      }
-    } catch {
-      const text = await fetch(`./posts/${slug}.md`).then((r) => r.text());
-      contentEl.innerHTML = mdToHtml(text);
-    }
+    renderEmbeddedSlideDeck(slug, target);
   } else {
     const text = await fetch(`./posts/${slug}.md`).then((r) => r.text());
     contentEl.innerHTML = mdToHtml(text);
   }
 
-  optimizeTables(contentEl);
-
   viewer.classList.remove('hidden');
   postsSection.classList.add('hidden');
-  document.body.classList.add('viewing-post');
+}
 
-  if (updateHistory) {
-    history.pushState({ type: 'post', slug }, '', `#${slug}`);
+function getCurrentReturnTo() {
+  return `${location.pathname}${location.search}${location.hash}`;
+}
+
+function buildAuthUrl(action) {
+  return `/api/auth/feishu/${action}?return_to=${encodeURIComponent(getCurrentReturnTo())}`;
+}
+
+function setAuthNote(message = '') {
+  if (!authNoteEl) return;
+
+  authNoteEl.textContent = message;
+  authNoteEl.classList.toggle('hidden', !message);
+}
+
+function mapAuthError(code) {
+  const messages = {
+    access_denied: '你取消了飞书授权，本次未登录。',
+    invalid_state: '登录状态校验失败，请重新发起飞书登录。',
+    login_failed: '飞书登录失败，请检查应用配置后重试。',
+    tenant_not_allowed: '当前飞书企业不在允许名单内。',
+  };
+
+  return messages[code] || '飞书登录未完成，请稍后再试。';
+}
+
+function consumeAuthError() {
+  const url = new URL(location.href);
+  const authError = url.searchParams.get('auth_error');
+
+  if (!authError) return;
+
+  pendingAuthMessage = mapAuthError(authError);
+  url.searchParams.delete('auth_error');
+  history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+}
+
+function renderAuthState(authState = {}) {
+  if (!loginBtn || !userSessionEl) return;
+
+  const enabled = Boolean(authState.enabled);
+  const authenticated = Boolean(authState.authenticated && authState.user);
+
+  loginBtn.classList.toggle('hidden', !enabled || authenticated);
+  userSessionEl.classList.toggle('hidden', !enabled || !authenticated);
+
+  if (!enabled) {
+    setAuthNote('飞书登录尚未配置。请先在 Cloudflare Pages 中补齐飞书环境变量。');
+    return;
+  }
+
+  if (!authenticated) {
+    setAuthNote(pendingAuthMessage);
+    pendingAuthMessage = '';
+    return;
+  }
+
+  const user = authState.user || {};
+  userNameEl.textContent = user.name || '飞书用户';
+  userTenantEl.textContent = user.tenantKey ? `tenant: ${user.tenantKey}` : '已通过飞书登录';
+
+  if (user.avatarUrl) {
+    userAvatarEl.src = user.avatarUrl;
+    userAvatarEl.classList.remove('hidden');
+  } else {
+    userAvatarEl.removeAttribute('src');
+    userAvatarEl.classList.add('hidden');
+  }
+
+  setAuthNote('');
+  pendingAuthMessage = '';
+}
+
+async function loadAuthState() {
+  consumeAuthError();
+
+  if (!loginBtn || !userSessionEl) return;
+
+  loginBtn.href = buildAuthUrl('login');
+
+  try {
+    const response = await fetch('/api/auth/feishu/me', { cache: 'no-store' });
+    const authState = await response.json();
+    renderAuthState(authState);
+  } catch (e) {
+    console.warn('failed to load auth state', e);
+    setAuthNote('飞书登录状态读取失败，请稍后刷新重试。');
   }
 }
 
@@ -675,22 +353,17 @@ if (tagFilterEl) {
     if (!el) return;
     const tag = el.dataset.tag;
     activeTag = activeTag === tag ? null : tag;
-    if (activeTag) showAllMobileTags = true;
     renderFilters();
     renderList();
   });
 }
 
-if (tagMoreBtn) {
-  tagMoreBtn.addEventListener('click', () => {
-    showAllMobileTags = !showAllMobileTags;
-    renderFilters();
-  });
-}
-
 if (monthFilterEl) {
-  monthFilterEl.addEventListener('change', () => {
-    activeMonth = monthFilterEl.value || null;
+  monthFilterEl.addEventListener('click', (e) => {
+    const el = e.target.closest('button[data-month]');
+    if (!el) return;
+    const month = el.dataset.month;
+    activeMonth = activeMonth === month ? null : month;
     renderFilters();
     renderList();
   });
@@ -700,44 +373,14 @@ if (resetFilterBtn) {
   resetFilterBtn.addEventListener('click', () => {
     activeTag = null;
     activeMonth = null;
-    showAllMobileTags = false;
     renderFilters();
     renderList();
   });
 }
 
-if (filterToggleBtn) {
-  filterToggleBtn.addEventListener('click', () => {
-    if (isMobileViewport()) {
-      isMobileFilterOpen = !isMobileFilterOpen;
-    } else {
-      indexPanelEl?.classList.toggle('collapsed-desktop');
-    }
-    syncFilterPanelState();
-  });
-}
-
-window.addEventListener('resize', () => {
-  if (!isMobileViewport()) {
-    isMobileFilterOpen = false;
-  }
-  syncFilterPanelState();
-  renderFilters();
-});
-
 backBtn.addEventListener('click', () => {
-  // Stable return-to-list behavior, even after a hard refresh on a #slug URL.
-  history.pushState({ type: 'list' }, '', `${location.pathname}${location.search}`);
-  closePost();
-});
-
-window.addEventListener('popstate', () => {
-  const slug = location.hash.replace('#', '');
-  if (slug) {
-    openPost(slug, { updateHistory: false });
-  } else {
-    closePost();
-  }
+  viewer.classList.add('hidden');
+  postsSection.classList.remove('hidden');
 });
 
 if (exportPdfBtn) {
@@ -789,6 +432,19 @@ if (summaryBtn) {
   });
 }
 
+if (loginBtn) {
+  loginBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    location.assign(buildAuthUrl('login'));
+  });
+}
+
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    location.assign(buildAuthUrl('logout'));
+  });
+}
+
 const THEME_KEY = 'jerry-notes-theme';
 const THEME_LIGHT = 'light';
 const THEME_DARK = 'dark';
@@ -797,10 +453,7 @@ function applyTheme(mode) {
   const real = mode === THEME_LIGHT ? THEME_LIGHT : THEME_DARK;
   document.body.setAttribute('data-theme', real);
   if (themeToggleBtn) {
-    themeToggleBtn.setAttribute('aria-label', real === THEME_LIGHT ? '切换到黑夜主题' : '切换到白天主题');
-    themeToggleBtn.setAttribute('title', real === THEME_LIGHT ? '切换到黑夜主题' : '切换到白天主题');
-    const icon = themeToggleBtn.querySelector('.theme-icon');
-    if (icon) icon.textContent = real === THEME_LIGHT ? '🌙' : '☀️';
+    themeToggleBtn.textContent = real === THEME_LIGHT ? '主题：白天' : '主题：黑夜';
   }
 }
 
@@ -821,62 +474,20 @@ function initTheme() {
 async function bootstrap() {
   try {
     const data = await fetch('./posts/posts.json').then((r) => r.json());
-    posts = normalizePosts(data);
+    posts = data;
   } catch (e) {
     console.warn('failed to load posts.json, fallback to empty list', e);
     posts = [];
   }
 
   initTheme();
-  isMobileFilterOpen = false;
-  syncFilterPanelState();
+  await loadAuthState();
   renderFilters();
   renderList();
 
   if (location.hash) {
-    openPost(location.hash.replace('#', ''), { updateHistory: false });
-  } else {
-    history.replaceState({ type: 'list' }, '', location.pathname + location.search);
+    openPost(location.hash.replace('#', ''));
   }
-}
-
-function ensureLightbox() {
-  if (document.getElementById('lightbox-overlay')) return;
-  const overlay = document.createElement('div');
-  overlay.id = 'lightbox-overlay';
-  overlay.className = 'lightbox-overlay hidden';
-  overlay.innerHTML = `
-    <button class="lightbox-close" aria-label="关闭预览">×</button>
-    <img class="lightbox-image" alt="preview" />
-  `;
-  document.body.appendChild(overlay);
-
-  const close = () => overlay.classList.add('hidden');
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay || e.target.classList.contains('lightbox-close')) close();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') close();
-  });
-}
-
-if (viewer) {
-  viewer.addEventListener('click', (e) => {
-    const img = e.target.closest('.markdown-body img');
-    if (!img) return;
-    // ignore tiny ui icons if any
-    const w = Number(img.naturalWidth || img.clientWidth || 0);
-    const h = Number(img.naturalHeight || img.clientHeight || 0);
-    if (w < 80 || h < 80) return;
-
-    ensureLightbox();
-    const overlay = document.getElementById('lightbox-overlay');
-    const big = overlay?.querySelector('.lightbox-image');
-    if (!overlay || !big) return;
-    big.src = img.getAttribute('src') || '';
-    big.alt = img.getAttribute('alt') || 'preview';
-    overlay.classList.remove('hidden');
-  });
 }
 
 bootstrap();
