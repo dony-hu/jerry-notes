@@ -21,8 +21,31 @@ const lines = s.split(/\r?\n/);
 let tableCount = 0;
 let issues = [];
 
+let inFence = false;
+let fenceChar = '`';
+let fenceLen = 0;
 for (let i = 0; i < lines.length; i += 1) {
   const line = lines[i];
+
+  const m = line.match(/^\s*(`{3,}|~{3,})/);
+  if (m) {
+    const token = m[1];
+    const ch = token[0];
+    const len = token.length;
+    if (!inFence) {
+      inFence = true;
+      fenceChar = ch;
+      fenceLen = len;
+      continue;
+    }
+    if (inFence && ch === fenceChar && len >= fenceLen) {
+      inFence = false;
+      fenceLen = 0;
+      continue;
+    }
+  }
+  if (inFence) continue;
+
   if (line.includes('|') && i + 1 < lines.length && /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(lines[i + 1])) {
     tableCount += 1;
 
