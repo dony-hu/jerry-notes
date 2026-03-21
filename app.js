@@ -109,10 +109,29 @@ function renderFilters() {
 
 function parseInline(text = '') {
   let out = escapeHtml(text);
+
+  out = out.replace(/!\[(.*?)\]\(([^\s)]+)(?:\s+"([^"]*)")?\)/g, (_m, alt, src, title) => {
+    const safeSrc = String(src || '');
+    if (!safeSrc || /^javascript:/i.test(safeSrc)) return '';
+    const safeAlt = escapeHtml(alt || 'image');
+    const safeTitle = escapeHtml(title || '');
+    const caption = safeTitle || safeAlt;
+    return `<figure class="md-figure"><img class="md-image" loading="lazy" decoding="async" src="${safeSrc}" alt="${safeAlt}" ${safeTitle ? `title="${safeTitle}"` : ''} data-lightbox="1"/><figcaption>${caption}</figcaption></figure>`;
+  });
+
   out = out.replace(/`([^`]+)`/g, '<code>$1</code>');
   out = out.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   out = out.replace(/\*(.+?)\*/g, '<em>$1</em>');
-  out = out.replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  out = out.replace(/\[(.*?)\]\(([^\s)]+)\)/g, (_m, textValue, href) => {
+    const safeHref = String(href || '');
+    if (/^javascript:/i.test(safeHref)) return textValue;
+    const isExternal = /^https?:\/\//i.test(safeHref);
+    if (isExternal) {
+      return `<a href="${safeHref}" target="_blank" rel="noopener noreferrer">${textValue}</a>`;
+    }
+    return `<a href="${safeHref}">${textValue}</a>`;
+  });
+  out = out.replace(/&lt;br\s*\/?&gt;/gi, '<br/>');
   return out;
 }
 
@@ -133,6 +152,14 @@ function mdToHtml(mdRaw = '') {
   let inOl = false;
   let para = [];
 
+  const isTableSep = (line = '') => /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line);
+  const splitTableRow = (line = '') => {
+    let row = line.trim();
+    if (row.startsWith('|')) row = row.slice(1);
+    if (row.endsWith('|')) row = row.slice(0, -1);
+    return row.split('|').map((cell) => cell.trim());
+  };
+
   const flushPara = () => {
     if (para.length) {
       html.push(`<p>${parseInline(para.join('<br/>'))}</p>`);
@@ -151,7 +178,9 @@ function mdToHtml(mdRaw = '') {
     }
   };
 
-  for (const line of lines) {
+  for (let i = 0; i < lines.length; i += 1) {
+    const line = lines[i];
+
     if (line.trim().startsWith('```')) {
       flushPara();
       closeLists();
@@ -179,12 +208,59 @@ function mdToHtml(mdRaw = '') {
       continue;
     }
 
+    if (/^\s*---+\s*$/.test(line)) {
+      flushPara();
+      closeLists();
+      html.push('<hr/>');
+      continue;
+    }
+
+    const imageOnly = line.match(/^!\[(.*?)\]\(([^\s)]+)(?:\s+"([^"]*)")?\)\s*$/);
+    if (imageOnly) {
+      flushPara();
+      closeLists();
+      const alt = escapeHtml(imageOnly[1] || 'image');
+      const src = String(imageOnly[2] || '');
+      const title = escapeHtml(imageOnly[3] || '');
+      if (src && !/^javascript:/i.test(src)) {
+        const caption = title || alt;
+        html.push(`<figure class="md-figure"><img class="md-image" loading="lazy" decoding="async" src="${src}" alt="${alt}" ${title ? `title="${title}"` : ''} data-lightbox="1"/><figcaption>${caption}</figcaption></figure>`);
+      }
+      continue;
+    }
+
     const heading = line.match(/^(#{1,6})\s+(.*)$/);
     if (heading) {
       flushPara();
       closeLists();
       const level = heading[1].length;
       html.push(`<h${level}>${parseInline(heading[2])}</h${level}>`);
+      continue;
+    }
+
+    if (line.includes('|') && i + 1 < lines.length && isTableSep(lines[i + 1])) {
+      flushPara();
+      closeLists();
+
+      const headers = splitTableRow(line);
+      html.push('<div class="table-wrap"><table class="md-table"><thead><tr>');
+      headers.forEach((header) => html.push(`<th>${parseInline(header)}</th>`));
+      html.push('</tr></thead><tbody>');
+
+      i += 2;
+      while (i < lines.length) {
+        const rowLine = lines[i];
+        if (!rowLine || !rowLine.includes('|') || /^\s*$/.test(rowLine)) {
+          i -= 1;
+          break;
+        }
+        const cols = splitTableRow(rowLine);
+        html.push('<tr>');
+        cols.forEach((cell) => html.push(`<td>${parseInline(cell)}</td>`));
+        html.push('</tr>');
+        i += 1;
+      }
+      html.push('</tbody></table></div>');
       continue;
     }
 
@@ -229,6 +305,29 @@ function mdToHtml(mdRaw = '') {
   if (inCode) html.push('</code></pre>');
 
   return html.join('\n');
+}
+
+function ensureLightbox() {
+  if (document.getElementById('lightbox-overlay')) return;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'lightbox-overlay';
+  overlay.className = 'lightbox-overlay hidden';
+  overlay.innerHTML = `
+    <button class="lightbox-close" aria-label="关闭预览">×</button>
+    <img class="lightbox-image" alt="preview" />
+  `;
+  document.body.appendChild(overlay);
+
+  const close = () => overlay.classList.add('hidden');
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.classList.contains('lightbox-close')) {
+      close();
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
 }
 
 function renderEmbeddedSlideDeck(slug, target) {
@@ -409,6 +508,20 @@ backBtn.addEventListener('click', () => {
   viewer.classList.add('hidden');
   postsSection.classList.remove('hidden');
 });
+
+if (viewer) {
+  viewer.addEventListener('click', (e) => {
+    const img = e.target.closest('img[data-lightbox="1"]');
+    if (!img) return;
+    ensureLightbox();
+    const overlay = document.getElementById('lightbox-overlay');
+    const big = overlay?.querySelector('.lightbox-image');
+    if (!overlay || !big) return;
+    big.src = img.getAttribute('src') || '';
+    big.alt = img.getAttribute('alt') || 'preview';
+    overlay.classList.remove('hidden');
+  });
+}
 
 if (exportPdfBtn) {
   exportPdfBtn.addEventListener('click', () => {
