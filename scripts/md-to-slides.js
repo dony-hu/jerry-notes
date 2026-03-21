@@ -89,12 +89,12 @@ function parseMd(md) {
 }
 
 function mapHref(href = '') {
-  if (href === '/') return './index.html';
+  if (href === '/') return '/';
   if (href === '/blackboard') return 'https://show-hub-ft.vercel.app/blackboard';
   return href;
 }
 
-function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' }) {
+function buildHtml({ slides, deckTitle = 'Slides', outputCss = '/slides.css', homeHref = '/' }) {
   const dataJson = JSON.stringify(slides, null, 2)
     .replace(/\u2028/g, '\\u2028')
     .replace(/\u2029/g, '\\u2029');
@@ -108,8 +108,8 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
 </head>
 <body class="ai-transformation-root">
   <div class="ai-deck-shell" id="deckShell">
-    <div class="ai-deck-topbar" id="deckTopbar">
-      <a href="./index.html" class="back" id="deckBackLink">← 返回 Jerry Notes</a>
+    <div class="ai-deck-topbar">
+      <a href="${homeHref}" class="back">← 返回 Jerry Notes</a>
       <div class="ai-deck-logo">${escapeHtml(deckTitle)}</div>
       <div class="ai-deck-shortcuts">←/→ 翻页 · Space 下一页 · N 备注 · O 总览 · F 全屏</div>
       <button id="fullscreenBtn" class="slides-fullscreen-btn" type="button">⤢ 全屏</button>
@@ -118,7 +118,6 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
     <div id="overview" class="ai-overview-grid hidden"></div>
 
     <div class="ai-deck-main">
-      <button id="prevBtn" class="slide-nav-btn" type="button" aria-label="上一页">←</button>
       <div id="slideFrame" class="ai-slide-frame">
         <div class="ai-slide-inner">
           <header class="ai-slide-header">
@@ -139,7 +138,6 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
         </div>
         <aside id="slideNotes" class="ai-slide-notes hidden"></aside>
       </div>
-      <button id="nextBtn" class="slide-nav-btn" type="button" aria-label="下一页">→</button>
     </div>
   </div>
 
@@ -159,13 +157,9 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
     const elOverview = document.getElementById('overview');
     const elFullscreenBtn = document.getElementById('fullscreenBtn');
     const elDeckShell = document.getElementById('deckShell');
-    const elDeckTopbar = document.getElementById('deckTopbar');
-    const elDeckBackLink = document.getElementById('deckBackLink');
-    const elPrevBtn = document.getElementById('prevBtn');
-    const elNextBtn = document.getElementById('nextBtn');
 
     function resolveHref(href) {
-      if (href === '/') return './index.html';
+      if (href === '/') return '/';
       if (href === '/blackboard') return 'https://show-hub-ft.vercel.app/blackboard';
       return href;
     }
@@ -270,31 +264,8 @@ function buildHtml({ slides, deckTitle = 'Slides', outputCss = './slides.css' })
       }
     }
 
-    // If this deck is embedded inside notes viewer iframe, hide deck-level back link
-    // to avoid nested homepage-in-homepage confusion.
-    if (window.self !== window.top) {
-      if (elDeckBackLink) elDeckBackLink.style.display = 'none';
-      if (elDeckTopbar) {
-        elDeckTopbar.style.gridTemplateColumns = '1fr auto auto';
-      }
-    }
-
     if (elFullscreenBtn) {
       elFullscreenBtn.addEventListener('click', toggleFullscreen);
-    }
-
-    if (elPrevBtn) {
-      elPrevBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        goPrev();
-      });
-    }
-
-    if (elNextBtn) {
-      elNextBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        goNext();
-      });
     }
 
     document.addEventListener('fullscreenchange', syncFullscreenUi);
@@ -344,7 +315,7 @@ function main() {
   }));
 
   const deckTitle = deckTitleArg || (slides[0]?.title?.replace(/<[^>]+>/g, '') || 'Slides');
-  const html = buildHtml({ slides, deckTitle, outputCss: './slides.css?v=202603150835' });
+  const html = buildHtml({ slides, deckTitle, outputCss: '/slides.css?v=202603150835', homeHref: '/' });
   fs.writeFileSync(path.resolve(output), html, 'utf8');
   console.log(`Generated ${slides.length} slides => ${output}`);
 }

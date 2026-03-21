@@ -82,6 +82,7 @@ date: 2026-03-17
 tags:
   - AI
   - Notes
+visibility: public
 # type: webslides
 # draft: true
 ---
@@ -94,9 +95,18 @@ tags:
 - `slug` 默认来自文件名，例如 `posts/hello-world.md` -> `hello-world`
 - `title` 和 `date` 建议必填
 - `tags` 可选
-- `type: webslides` 时，构建会自动生成 `./<slug>.html`
+- `visibility` 可选；默认 `public`
+- `visibility: internal` 的文章只对已登录飞书用户开放
+- `type: webslides` 时，构建会自动生成 `./slides/<slug>.html`
 - `draft: true` 的文章不会进入站点产物
 - 没有 front matter 的 Markdown 不会自动发布
+
+内容建议这样区分：
+
+- `public`
+  - 适合外部公开传播的观点、方法论、泛化后的行业文章
+- `internal`
+  - 工作计划、周报、会议纪要、部门学习手册、项目状态盘点、包含内部员工姓名或组织细节的分享材料
 
 ## Cloudflare Pages 部署
 
@@ -139,6 +149,21 @@ tags:
 1. 在 **安全设置** 中加入回调地址：
    `https://jerry-notes.pages.dev/api/auth/feishu/callback`
 2. 如果你在 `FEISHU_SCOPE` 中声明了额外 scope，需要先在飞书开放平台里为应用申请对应权限
+
+## 内外部访问控制
+
+当前站点已经支持文章的 `public / internal` 双可见性：
+
+- 未登录访客：
+  - 只能看到 `public` 文章
+- 已登录飞书用户：
+  - 可以看到 `public + internal` 文章
+- 服务端会拦截：
+  - `posts/posts.json`
+  - `posts/*.md`
+  - `slides/*.html`
+
+这意味着内部文章不仅在前端列表里隐藏，也不能通过直链绕过查看。
 
 ## 当前约束
 

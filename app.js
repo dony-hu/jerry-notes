@@ -77,7 +77,13 @@ function renderList() {
       (p) => `
     <li>
       <a class="post-link" href="#${p.slug}" data-slug="${p.slug}">${p.title}</a>
-      <div class="post-meta">${p.date || ''} · ${(p.tags || []).join(' / ')}</div>
+      <div class="post-meta">
+        <span>${p.date || ''}</span>
+        <span class="post-visibility ${p.visibility === 'internal' ? 'is-internal' : 'is-public'}">
+          ${p.visibility === 'internal' ? '内部' : '外部'}
+        </span>
+        <span>${(p.tags || []).join(' / ')}</span>
+      </div>
     </li>
   `,
     )
@@ -226,10 +232,23 @@ function mdToHtml(mdRaw = '') {
 }
 
 function renderEmbeddedSlideDeck(slug, target) {
-  const src = (target.url || `./${slug}.html`) + '?embed=1';
+  const src = (target.url || `./slides/${slug}.html`) + '?embed=1';
   contentEl.innerHTML = `
     <div class="slide-embed-wrap">
       <iframe class="slide-embed-iframe" src="${src}" title="${target.title || slug}" loading="lazy" scrolling="no"></iframe>
+    </div>
+  `;
+}
+
+function renderProtectedPostMessage() {
+  contentEl.innerHTML = `
+    <div class="protected-post">
+      <h2>这篇内容属于内部资料</h2>
+      <p>当前登录态已失效，或你还没有完成飞书登录。</p>
+      <p>登录成功后再返回当前页面，就可以继续查看。</p>
+      <div class="protected-post-actions">
+        <a class="btn" href="${buildAuthUrl('login')}">使用飞书登录</a>
+      </div>
     </div>
   `;
 }
@@ -242,7 +261,15 @@ async function openPost(slug) {
   if (target.type === 'webslides') {
     renderEmbeddedSlideDeck(slug, target);
   } else {
-    const text = await fetch(`./posts/${slug}.md`).then((r) => r.text());
+    const response = await fetch(`./posts/${slug}.md`);
+    if (response.status === 401) {
+      renderProtectedPostMessage();
+      viewer.classList.remove('hidden');
+      postsSection.classList.add('hidden');
+      return;
+    }
+
+    const text = await response.text();
     contentEl.innerHTML = mdToHtml(text);
   }
 
@@ -302,7 +329,7 @@ function renderAuthState(authState = {}) {
   }
 
   if (!authenticated) {
-    setAuthNote(pendingAuthMessage);
+    setAuthNote(pendingAuthMessage || '当前仅显示外部文章，登录后可查看内部内容。');
     pendingAuthMessage = '';
     return;
   }

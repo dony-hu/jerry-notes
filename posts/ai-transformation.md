@@ -2,10 +2,19 @@
 title: AI Talking
 date: 2026-03-15
 tags:
-  - AI战略与转型
-  - 组织与管理
-  - 产品与体验
+  - AI演讲
+  - 组织变革
+  - 产品战略
 type: webslides
+visibility: internal
+---
+
+# AI 时代，我们正在被重新定义
+
+> 这个文件是 AI Talking 的可维护 MD 源稿（用于本地编辑，再生成 webslides）。
+
+> 生成命令：`node scripts/md-to-slides.js posts/ai-talking.md ai-transformation.html "AI Talking"`
+
 ---
 
 # AI 时代，我们正在被重新定义
@@ -23,9 +32,9 @@ type: webslides
 @part: Intro
 @notes: 轻松过一遍结构，不展开细节。提醒听众：从“我与 AI”起步，逐步放大到“组织”与“产品”。
 
-- **Part 1 · 我与 AI**：从行业共识，到真正敢把活交给 AI 的转折
-- **Part 2 · 大家与 AI**：每个人、每位主管，如何把 AI 装进自己的工作方式
-- **Part 3 · 产品与 AI**：丰图在 AI 时代的定力、主线和加速信心
+- <strong>Part 1 · 我与 AI</strong><br/>从行业共识，到真正敢把活交给 AI 的转折
+- <strong>Part 2 · 大家与 AI</strong><br/>每个人、每位主管，如何把 AI 装进自己的工作方式
+- <strong>Part 3 · 产品与 AI</strong><br/>丰图在 AI 时代的定力、主线和加速信心
 
 ---
 
@@ -53,7 +62,7 @@ type: webslides
 
 @tag: Part 1 · Phase 2
 @part: Part 1
-@notes: 不否定热度，也不泼冷水，而是提醒大家：**情绪高涨 ≠ 生产方式已经被改写**。真正的转折点在后面。
+@notes: 不否定热度，也不泼冷水，而是提醒大家：<strong>情绪高涨 ≠ 生产方式已经被改写</strong>。真正的转折点在后面。
 
 - “DeepSeek + X” 产品在很短时间内快速爆发
 - 朋友圈、发布会、媒体都非常热闹，Demo 一个比一个惊艳
@@ -157,8 +166,7 @@ type: webslides
 
 ---
 
-# 我们看得见的物理机器人在2025年实现了飞速的成长
-## 我们看不见的脑力机器人其实已经走到了我们身边
+# 我们看得见的物理机器人在2025年实现了飞速的成长<br/>我们看不见的脑力机器人其实已经走到了我们身边
 
 @tag: Part 2 · Key Point
 @part: Part 2
@@ -227,6 +235,5 @@ type: webslides
 
 @tag: Thanks
 @part: Closing
-@subtitle: 感谢 ChatGPT · GitHub Copilot · Google Nano Banana
-@emphasis: 感谢 AI 时代
+@subtitle: 感谢 ChatGPT · GitHub Copilot · Google Nano Banana<br/>感谢 AI 时代
 @notes: 轻松一点收尾：真诚感谢这次协作中的几位“隐形队友”——ChatGPT、GitHub Copilot 和 Google Nana Banana。也把整套演讲的主题再确认一遍：一个人和 AI 配合，可以完成过去需要一个小团队才能做完的事。

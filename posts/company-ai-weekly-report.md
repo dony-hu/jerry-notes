@@ -2,10 +2,12 @@
 title: 公司级 AI 专项周汇报（6页浓缩增强版）
 date: 2026-03-15
 tags:
-  - AI战略与转型
-  - 组织与管理
-  - 研发效能
+  - AI专项
+  - 周报汇报
+  - 经营管理
+  - 6页版
 type: webslides
+visibility: internal
 ---
 # 公司级 AI 专项周进展汇报
 

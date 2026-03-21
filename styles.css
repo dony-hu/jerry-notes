@@ -78,6 +78,17 @@ body[data-theme='light'] .user-avatar {
   border-color: rgba(31, 42, 61, 0.12);
 }
 
+body[data-theme='light'] .post-visibility.is-public {
+  background: #edf3ff;
+  color: #38527c;
+}
+
+body[data-theme='light'] .post-visibility.is-internal {
+  background: #fff4de;
+  color: #9a6600;
+  border-color: #f3d18a;
+}
+
 * { box-sizing: border-box; }
 body {
   margin: 0;
@@ -198,7 +209,52 @@ body {
 .post-list-featured { margin-bottom: 10px; }
 .post-list-featured li { padding: 10px 0; }
 .post-link { color: #dce6ff; text-decoration: none; font-size: 18px; font-weight: 600; }
-.post-meta { color: var(--muted); font-size: 13px; margin-top: 4px; }
+.post-meta {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.post-visibility {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.post-visibility.is-public {
+  background: rgba(110, 168, 255, 0.08);
+  color: #9ec0ff;
+}
+
+.post-visibility.is-internal {
+  background: rgba(255, 176, 32, 0.14);
+  border-color: rgba(255, 176, 32, 0.28);
+  color: #ffcf7b;
+}
+
+.protected-post {
+  display: grid;
+  gap: 10px;
+}
+
+.protected-post h2,
+.protected-post p {
+  margin: 0;
+}
+
+.protected-post-actions {
+  margin-top: 6px;
+}
 .btn {
   border: 1px solid var(--border);
   border-radius: 8px;

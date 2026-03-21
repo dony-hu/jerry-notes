@@ -1,451 +1,243 @@
 [
   {
-    "title": "AI转型读后感汇总（自动排版版）",
-    "slug": "ai-transformation-reading-notes-typeset-2026-03-21",
-    "date": "2026-03-21",
-    "tags": [
-      "组织与管理",
-      "项目与交付",
-      "报告与盘点"
-    ],
-    "owner": "jerry",
-    "datetime": "2026-03-21 12:01:10",
-    "summary": "共收录55篇AI转型读后感，自动排版便于阅读，正文保持原文内容。"
-  },
-  {
-    "title": "AI转型读后感汇总（原文合并）",
-    "slug": "ai-transformation-reading-notes-collection-2026-03-21",
-    "date": "2026-03-21",
-    "tags": [
-      "组织与管理",
-      "项目与交付",
-      "报告与盘点"
-    ],
-    "owner": "jerry",
-    "datetime": "2026-03-21 11:51:40",
-    "summary": "收录AI转型读后感原文共55篇，按源目录文件名顺序合并，正文不改写。"
-  },
-  {
-    "title": "丰图研发日报（2026-03-20，特性版）",
-    "slug": "fengtu-rd-daily-2026-03-20-feature-version",
-    "date": "2026-03-21",
-    "tags": [
-      "研发效能",
-      "项目与交付",
-      "报告与盘点",
-      "组织与管理"
-    ],
-    "owner": "jerry",
-    "datetime": "2026-03-21 11:06:41",
-    "summary": "面向管理决策的研发日报，按项目与人员输出“新增特性”并标注未命中作者ID整改清单。"
-  },
-  {
-    "title": "丰图 泛政一部产品体系内部学习手册",
-    "slug": "g1-product-system-learning-handbook-2026-03-21",
-    "date": "2026-03-21",
-    "tags": [
-      "项目与交付",
-      "平台与架构",
-      "行业与场景"
-    ],
-    "owner": "jerry",
-    "summary": "泛政一部产品 不是一个软件工具，也不是一个 AI 聊天机器人。"
-  },
-  {
-    "title": "今日工作计划（2026-03-21~2026-03-22）",
-    "slug": "cto-daily-plan-2026-03-21",
-    "date": "2026-03-21",
-    "tags": [
-      "组织与管理",
-      "项目与交付",
-      "AI战略与转型",
-      "研发效能"
-    ],
-    "owner": "jerry",
-    "summary": "今日工作计划（2026-03-21~2026：核心观点与关键信息已整理在正文。"
-  },
-  {
-    "title": "宝安项目团队工作日志汇总（原文合并）",
-    "slug": "fengtu-team-worklogs-collection-2026-03-20",
-    "date": "2026-03-20",
-    "tags": [
-      "组织与管理",
-      "项目与交付",
-      "研发效能",
-      "报告与盘点"
-    ],
-    "owner": "jerry",
-    "summary": "3、完善视频动作的部署文档和依赖方便在内网无外部环境网络依赖的时候部署，下一步尝试跟前端做联调"
-  },
-  {
-    "title": "今日工作计划（2026-03-20）",
-    "slug": "cto-daily-plan-2026-03-20",
-    "date": "2026-03-20",
-    "tags": [
-      "组织与管理",
-      "项目与交付",
-      "平台与架构",
-      "AI战略与转型"
-    ],
-    "owner": "jerry",
-    "summary": "4）第一迭代 story 拆解与产品定义（概念/架构/边界）"
-  },
-  {
-    "title": "今日工作计划（2026-03-19）",
-    "slug": "cto-daily-plan-2026-03-19",
-    "date": "2026-03-19",
-    "tags": [
-      "组织与管理",
-      "项目与交付",
-      "平台与架构",
-      "AI战略与转型"
-    ],
-    "owner": "jerry",
-    "summary": "1）基线产品大数据量验证与分布式运维推进"
-  },
-  {
-    "title": "企服产品经理团队 AI 分享（宣讲版）",
-    "slug": "enterprise-product-ai-sharing-2026-03-18-slides",
-    "date": "2026-03-18",
-    "tags": [
-      "产品与体验",
-      "AI战略与转型",
-      "组织与管理"
-    ],
-    "owner": "jerry",
-    "type": "webslides",
-    "url": "./enterprise-product-ai-sharing-2026-03-18-slides.html",
-    "summary": "企服产品经理团队 AI 分享（宣讲版）：核心观点与关键信息已整理在正文。"
-  },
-  {
-    "title": "给企服产品经理团队的AI分享建议（能力与行业导向版）",
-    "slug": "enterprise-product-ai-sharing-2026-03-18",
-    "date": "2026-03-18",
-    "tags": [
-      "产品与体验",
-      "AI战略与转型",
-      "组织与管理"
-    ],
-    "owner": "jerry",
-    "summary": "今天不讲“做了什么网站”，也不讲工具清单。我们只回答一个问题："
-  },
-  {
-    "title": "今日工作计划（2026-03-18）",
-    "slug": "daily-work-brief-2026-03-18",
-    "date": "2026-03-18",
-    "tags": [
-      "组织与管理",
-      "项目与交付",
-      "报告与盘点"
-    ],
-    "owner": "jerry",
-    "summary": "今天所有工作统一围绕一个核心目标推进：为周日的“一键部署可验收”做倒排闭环。我们不是追求“并行开更多线”，而是要把多条任务线收敛到同一验收结果上，确保在一台独立机器上，能够完成“小虾 + 地图在线版”的可部署、可运行、可…"
-  },
-  {
-    "title": "AI转型会议纪要（原文版式保真）",
-    "slug": "ai-transformation-meeting-minutes-2026-03-18-original",
-    "date": "2026-03-18",
-    "tags": [
-      "组织与管理",
-      "项目与交付",
-      "报告与盘点"
-    ],
-    "owner": "jerry",
-    "summary": "AI转型会议纪要（原文版式保真）：核心观点与关键信息已整理在正文。"
-  },
-  {
-    "title": "AI转型会议纪要（可编辑版）",
-    "slug": "ai-transformation-meeting-minutes-2026-03-18-editable",
-    "date": "2026-03-18",
-    "tags": [
-      "组织与管理",
-      "项目与交付",
-      "报告与盘点"
-    ],
-    "owner": "jerry",
-    "summary": "团队转型与Al驱动的交付模式变革"
-  },
-  {
-    "title": "聚合数据 API 全量目录（美化版）",
-    "slug": "juhe-api-catalog-full-md",
+    "title": "丰图代码仓人员工作分析（汇总版）",
+    "slug": "fengtu-people-work-summary",
     "date": "2026-03-17",
     "tags": [
-      "数据与智能",
-      "平台与架构",
-      "报告与盘点"
+      "组织分析",
+      "研发管理",
+      "代码仓盘点"
     ],
-    "owner": "jerry",
-    "summary": "聚合数据 API 全量目录（美化版）：核心观点与关键信息已整理在正文。"
-  },
-  {
-    "title": "聚合数据 API 全量目录（CSV转Markdown表格）",
-    "slug": "juhe-api-catalog-full-csv",
-    "date": "2026-03-17",
-    "tags": [
-      "数据与智能",
-      "平台与架构",
-      "报告与盘点"
-    ],
-    "owner": "jerry",
-    "summary": "聚合数据 API 全量目录（CSV转Mark：核心观点与关键信息已整理在正文。"
-  },
-  {
-    "title": "G1产研相关项目现状总览（v1）",
-    "slug": "g1-tianshu-status-v1",
-    "date": "2026-03-17",
-    "tags": [
-      "组织与管理",
-      "空间智能",
-      "项目与交付"
-    ],
-    "owner": "jerry",
-    "summary": "把所有工作分成4层，避免互相踩踏："
+    "visibility": "internal"
   },
   {
     "title": "丰图代码仓人员工作分析（按最近提交）",
     "slug": "fengtu-repo-people-work-analysis-2026-03-17",
     "date": "2026-03-17",
     "tags": [
-      "AI战略与转型",
-      "组织与管理",
-      "研发效能"
+      "组织分析",
+      "代码仓盘点",
+      "研发管理",
+      "AI专项"
     ],
-    "owner": "jerry",
-    "summary": "丰图代码仓人员工作分析（按最近提交）：核心观点与关键信息已整理在正文。"
+    "visibility": "internal"
   },
   {
-    "title": "丰图代码仓人员工作分析（汇总版）",
-    "slug": "fengtu-people-work-summary",
+    "title": "G1产研相关项目现状总览（v1）",
+    "slug": "g1-tianshu-status-v1",
     "date": "2026-03-17",
     "tags": [
-      "组织与管理",
-      "研发效能",
-      "报告与盘点"
+      "天枢项目",
+      "G1",
+      "项目管理",
+      "地图智能体"
     ],
-    "owner": "jerry",
-    "summary": "丰图代码仓人员工作分析（汇总版）：核心观点与关键信息已整理在正文。"
+    "visibility": "internal"
   },
   {
-    "title": "北京情指客户交流方案（软硬件一体，面向G1总体规划）",
-    "slug": "beijing-qingzhi-soft-hardware-solution-2026-03-17",
+    "title": "聚合数据 API 全量目录（CSV版）",
+    "slug": "juhe-api-catalog-full-csv",
     "date": "2026-03-17",
     "tags": [
-      "行业与场景",
-      "项目与交付"
+      "聚合数据",
+      "API目录",
+      "CSV",
+      "数据盘点"
     ],
-    "owner": "jerry",
-    "type": "webslides",
-    "url": "./beijing-qingzhi-soft-hardware-solution-2026-03-17.html",
-    "summary": "北京城市级安全治理与智能研判底座（软硬一体）。"
+    "visibility": "public"
   },
   {
-    "title": "北京经开区招商局交流思路（纯招商与产业服务版）",
-    "slug": "beijing-jkq-zhaoshang-article-2026-03-17",
+    "title": "聚合数据 API 全量目录（Markdown版）",
+    "slug": "juhe-api-catalog-full-md",
     "date": "2026-03-17",
     "tags": [
-      "AI战略与转型",
-      "行业与场景"
+      "聚合数据",
+      "API目录",
+      "Markdown",
+      "数据盘点"
     ],
-    "owner": "jerry",
-    "type": "note",
-    "summary": "北京经开区这次交流，不应沿用公安项目逻辑，而应聚焦“招商、产业、企业服务、园区运营”四个关键词。"
-  },
-  {
-    "title": "北京经开区招商局交流方案（丰图能力融合版）",
-    "slug": "beijing-jkq-fengtu-integrated-solution-v2-2026-03-17",
-    "date": "2026-03-17",
-    "tags": [
-      "AI战略与转型",
-      "行业与场景"
-    ],
-    "owner": "jerry",
-    "type": "note",
-    "summary": "北京城市级安全治理与产业服务时空底座（软硬一体）。"
-  },
-  {
-    "title": "地图安全治理框架：从私网部署到隐私合规",
-    "slug": "map-security-governance-framework",
-    "date": "2026-03-15",
-    "tags": [
-      "产品与体验",
-      "安全与合规"
-    ],
-    "owner": "jerry",
-    "summary": "这篇文章合并《私网地图：安全与体验的平衡》与《隐私与合规优先：打造空间数据的安全基建》，形成一套可执行的地图安全治理框架，回答三个问题："
-  },
-  {
-    "title": "公司级 AI 专项周汇报（6页浓缩增强版）",
-    "slug": "company-ai-weekly-report",
-    "date": "2026-03-15",
-    "tags": [
-      "AI战略与转型",
-      "组织与管理",
-      "研发效能"
-    ],
-    "owner": "jerry",
-    "type": "webslides",
-    "url": "./company-ai-weekly-report.html",
-    "summary": "公司级 AI 专项周汇报（6页浓缩增强版）：核心观点与关键信息已整理在正文。"
-  },
-  {
-    "title": "公司级 AI 专项推进报告",
-    "slug": "company-ai-special-initiative-report",
-    "date": "2026-03-15",
-    "tags": [
-      "AI战略与转型",
-      "研发效能",
-      "数据与智能"
-    ],
-    "owner": "jerry",
-    "summary": "核心主线：业务战略落地（数据可信 + 决策智能） + 业务提效 + 管理提效"
-  },
-  {
-    "title": "AI Talking",
-    "slug": "ai-transformation",
-    "date": "2026-03-15",
-    "tags": [
-      "AI战略与转型",
-      "组织与管理",
-      "产品与体验"
-    ],
-    "owner": "jerry",
-    "type": "webslides",
-    "url": "./ai-transformation.html",
-    "summary": "AI Talking：核心观点与关键信息已整理在正文。"
+    "visibility": "public"
   },
   {
     "title": "AI 地图体验框架：从范式到落地",
     "slug": "ai-map-experience-framework",
     "date": "2026-03-15",
     "tags": [
-      "AI战略与转型",
-      "产品与体验"
+      "地图产品",
+      "AI体验",
+      "场景编排"
     ],
-    "owner": "jerry",
-    "summary": "这篇文章合并了《AI Native 地图范式：重新定义地图体验》与《生成式地图体验：用自然语言编排地图场景》的核心内容，目标是给出一套从理念到实施的统一框架："
+    "visibility": "public"
   },
   {
-    "title": "空间智能Lab：从地图到知识图谱",
-    "slug": "spatial-intelligence-lab",
-    "date": "2026-03-14",
+    "title": "AI Talking",
+    "slug": "ai-transformation",
+    "date": "2026-03-15",
     "tags": [
-      "产品与体验",
-      "数据与智能",
-      "空间智能"
+      "AI演讲",
+      "组织变革",
+      "产品战略"
     ],
-    "owner": "jerry",
-    "summary": "地图记录空间实体位置和属性，但缺少实体间语义关系。我们将地图转换为知识图谱，让空间智能从\"看得见\"进化到\"想得明\"。"
+    "visibility": "internal",
+    "type": "webslides",
+    "url": "./slides/ai-transformation.html"
   },
   {
-    "title": "场景化运营：从通用地图到行业套件",
-    "slug": "scenario-based-operations",
-    "date": "2026-03-14",
+    "title": "公司级 AI 专项推进报告",
+    "slug": "company-ai-special-initiative-report",
+    "date": "2026-03-15",
     "tags": [
-      "产品与体验",
-      "行业与场景"
+      "AI专项",
+      "组织转型",
+      "数据工厂",
+      "决策智能"
     ],
-    "owner": "jerry",
-    "summary": "企业不想买\"地图\"，而是买能解决实际问题的\"方案\"。我们正在从通用地图升级为场景化的行业套件。"
+    "visibility": "internal"
   },
   {
-    "title": "实时空间计算：让数据在流动中产生价值",
-    "slug": "realtime-spatial-computing",
-    "date": "2026-03-14",
+    "title": "公司级 AI 专项周汇报（6页浓缩增强版）",
+    "slug": "company-ai-weekly-report",
+    "date": "2026-03-15",
     "tags": [
-      "数据与智能",
-      "平台与架构",
-      "工程实践"
+      "AI专项",
+      "周报汇报",
+      "经营管理",
+      "6页版"
     ],
-    "owner": "jerry",
-    "summary": "物流调度、应急指挥、城市治理等场景中，传统批处理模式已无法满足实时响应需求。我们构建了基于时空索引的流式计算引擎，将响应时间从分钟级降到秒级。"
+    "visibility": "internal",
+    "type": "webslides",
+    "url": "./slides/company-ai-weekly-report.html"
   },
   {
-    "title": "共同构建开放有活力的的技术体系",
-    "slug": "open-tech-ecosystem",
-    "date": "2026-03-14",
+    "title": "地图安全治理框架：从私网部署到隐私合规",
+    "slug": "map-security-governance-framework",
+    "date": "2026-03-15",
     "tags": [
-      "组织与管理",
-      "平台与架构"
+      "数据安全",
+      "私有化部署",
+      "隐私合规"
     ],
-    "owner": "jerry",
-    "summary": "过去几年，技术圈反复在谈\"开放\"。"
-  },
-  {
-    "title": "开放平台3.0：从API到能力网格",
-    "slug": "open-platform-3-0",
-    "date": "2026-03-14",
-    "tags": [
-      "平台与架构",
-      "工程实践"
-    ],
-    "owner": "jerry",
-    "summary": "丰图开放平台最初采用经典REST API设计，每个接口完成一个完整功能。随着业务增长，问题逐渐显现："
-  },
-  {
-    "title": "多模态地图理解：从像素到语义的跨越",
-    "slug": "multimodal-map-understanding",
-    "date": "2026-03-14",
-    "tags": [
-      "产品与体验",
-      "数据与智能"
-    ],
-    "owner": "jerry",
-    "summary": "传统地图数据生产高度依赖人工标注："
-  },
-  {
-    "title": "GTC2026空间智能机会",
-    "slug": "gtc-spatial-intelligence-opportunity",
-    "date": "2026-03-14",
-    "tags": [
-      "AI战略与转型",
-      "空间智能"
-    ],
-    "owner": "jerry",
-    "summary": "重点不是趋势描述，而是回答三个问题："
-  },
-  {
-    "title": "边缘原生渲染：把地图计算搬到用户端",
-    "slug": "edge-native-rendering",
-    "date": "2026-03-14",
-    "tags": [
-      "产品与体验",
-      "工程实践"
-    ],
-    "owner": "jerry",
-    "summary": "将矢量数据而非栅格图片推送到端侧："
-  },
-  {
-    "title": "数据工厂：从手工作坊到自动化流水线",
-    "slug": "data-factory",
-    "date": "2026-03-14",
-    "tags": [
-      "研发效能",
-      "数据与智能",
-      "工程实践"
-    ],
-    "owner": "jerry",
-    "summary": "地图数据生产曾经高度依赖人工。我们构建了数据工厂，用自动化流水线管理采集、质检、标注、发布全生命周期。"
-  },
-  {
-    "title": "AI+产品：克制才是长期竞争力",
-    "slug": "ai-plus-product",
-    "date": "2026-03-14",
-    "tags": [
-      "AI战略与转型",
-      "产品与体验"
-    ],
-    "owner": "jerry",
-    "summary": "AI 无所不在、无所不能，但丰图不能\"为了 AI 而 AI\""
+    "visibility": "public"
   },
   {
     "title": "AI+ Engineer：从共识到现实的三年进化",
     "slug": "ai-engineer-evolution",
     "date": "2026-03-14",
     "tags": [
-      "AI战略与转型",
-      "组织与管理"
+      "AI工程",
+      "组织变革",
+      "技术趋势"
     ],
-    "owner": "jerry",
-    "summary": "大模型刚出现的时候，行业里其实有一个高度一致的判断：所有应用都会被重写。"
+    "visibility": "public"
+  },
+  {
+    "title": "AI+产品：克制才是长期竞争力",
+    "slug": "ai-plus-product",
+    "date": "2026-03-14",
+    "tags": [
+      "产品战略",
+      "AI治理",
+      "方法论"
+    ],
+    "visibility": "public"
+  },
+  {
+    "title": "数据工厂：从手工作坊到自动化流水线",
+    "slug": "data-factory",
+    "date": "2026-03-14",
+    "tags": [
+      "数据工程",
+      "自动化",
+      "质量体系"
+    ],
+    "visibility": "public"
+  },
+  {
+    "title": "边缘原生渲染：把地图计算搬到用户端",
+    "slug": "edge-native-rendering",
+    "date": "2026-03-14",
+    "tags": [
+      "地图引擎",
+      "边缘计算",
+      "性能优化"
+    ],
+    "visibility": "public"
+  },
+  {
+    "title": "GTC2026空间智能机会",
+    "slug": "gtc-spatial-intelligence-opportunity",
+    "date": "2026-03-14",
+    "tags": [
+      "空间智能",
+      "技术趋势",
+      "战略分析"
+    ],
+    "visibility": "public"
+  },
+  {
+    "title": "多模态地图理解：从像素到语义的跨越",
+    "slug": "multimodal-map-understanding",
+    "date": "2026-03-14",
+    "tags": [
+      "多模态AI",
+      "地图数据",
+      "模型应用"
+    ],
+    "visibility": "public"
+  },
+  {
+    "title": "开放平台3.0：从API到能力网格",
+    "slug": "open-platform-3-0",
+    "date": "2026-03-14",
+    "tags": [
+      "平台架构",
+      "API设计",
+      "工程实践"
+    ],
+    "visibility": "public"
+  },
+  {
+    "title": "共同构建开放有活力的的技术体系",
+    "slug": "open-tech-ecosystem",
+    "date": "2026-03-14",
+    "tags": [
+      "技术文化",
+      "组织协作",
+      "开放生态"
+    ],
+    "visibility": "public"
+  },
+  {
+    "title": "实时空间计算：让数据在流动中产生价值",
+    "slug": "realtime-spatial-computing",
+    "date": "2026-03-14",
+    "tags": [
+      "实时计算",
+      "时空数据",
+      "系统架构"
+    ],
+    "visibility": "public"
+  },
+  {
+    "title": "场景化运营：从通用地图到行业套件",
+    "slug": "scenario-based-operations",
+    "date": "2026-03-14",
+    "tags": [
+      "行业解决方案",
+      "产品运营",
+      "业务场景"
+    ],
+    "visibility": "public"
+  },
+  {
+    "title": "空间智能Lab：从地图到知识图谱",
+    "slug": "spatial-intelligence-lab",
+    "date": "2026-03-14",
+    "tags": [
+      "空间智能",
+      "知识图谱",
+      "应用探索"
+    ],
+    "visibility": "public"
   }
 ]

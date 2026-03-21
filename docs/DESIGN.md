@@ -18,9 +18,9 @@ flowchart LR
   C --> E["generate webslides html"]
   C --> F["copy static assets to dist/"]
   D --> G["dist/posts/posts.json"]
-  E --> H["dist/*.html"]
+  E --> H["dist/slides/*.html"]
   F --> I["dist/index.html app.js styles.css assets"]
-  G --> J["Cloudflare Pages deploy"]
+  G --> J["Cloudflare Pages deploy + Functions auth gate"]
   H --> J
   I --> J
 ```
@@ -52,7 +52,13 @@ flowchart LR
 - `app.js`
   - 浏览器端读取 `posts/posts.json`
   - 点击文章时拉取 `posts/<slug>.md`
-  - 对 `webslides` 直接嵌入 `<slug>.html`
+  - 对 `webslides` 直接嵌入 `slides/<slug>.html`
+- `functions/posts/posts.json.js`
+  - 根据登录态过滤 `public / internal` 文章索引
+- `functions/posts/[slug].js`
+  - 对内部 Markdown 正文做服务端鉴权
+- `functions/slides/[slug].js`
+  - 对内部幻灯片做服务端鉴权
 
 ## 4. 内容模型
 
@@ -68,6 +74,7 @@ tags:
   - AI
   - Notes
 type: webslides
+visibility: public
 draft: false
 summary: 一句话摘要
 ---
@@ -83,6 +90,9 @@ summary: 一句话摘要
   - 可选；支持数组
 - `type`
   - 可选；当前仅使用 `webslides`
+- `visibility`
+  - 可选；支持 `public` / `external` 与 `internal` / `private`
+  - 默认 `public`
 - `draft`
   - 可选；`true` 时跳过发布
 - `summary`
@@ -93,6 +103,7 @@ summary: 一句话摘要
 - 只有带 front matter 的 Markdown 才会进入公开索引
 - 没有 front matter 的 Markdown 视为草稿、档案或内部资料，不自动发布
 - `slug` 来自文件名，不单独配置
+- `visibility: internal` 的文章仅在已登录飞书用户请求时返回
 
 ## 5. 构建流程
 
@@ -118,7 +129,7 @@ summary: 一句话摘要
 4. 拷贝静态资源到 `dist/`
 5. 拷贝已发布的 Markdown 到 `dist/posts/`
 6. 生成 `dist/posts/posts.json`
-7. 为 `type: webslides` 的文章生成 `dist/<slug>.html`
+7. 为 `type: webslides` 的文章生成 `dist/slides/<slug>.html`
 8. 清理无关系统文件
 
 输出结果：
@@ -129,7 +140,7 @@ summary: 一句话摘要
 - `dist/assets/*`
 - `dist/posts/*.md`
 - `dist/posts/posts.json`
-- `dist/<webslides-slug>.html`
+- `dist/slides/<webslides-slug>.html`
 
 ## 6. Cloudflare Pages 集成
 
@@ -179,6 +190,19 @@ summary: 一句话摘要
 
 - `draft: true`
 - 无 front matter 的 Markdown
+
+## 8.1 运行时访问控制
+
+对于带 `visibility: internal` 的内容，Pages Functions 会在运行时做二次控制：
+
+- 未登录请求 `posts/posts.json`
+  - 自动过滤掉内部文章
+- 未登录请求 `posts/<slug>.md`
+  - 返回 401
+- 未登录请求 `slides/<slug>.html`
+  - 返回登录提示页
+
+这样可以同时覆盖首页列表、正文直链与 slides 直链，避免只靠前端隐藏。
 
 ## 9. 取舍说明
 

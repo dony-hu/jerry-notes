@@ -145,114 +145,25 @@ function pickBoolean(...values) {
   return false;
 }
 
+function normalizeVisibility(value) {
+  const raw = pickString(value).toLowerCase();
+  if (!raw) return 'public';
+  if (raw === 'public' || raw === 'external') return 'public';
+  if (raw === 'internal' || raw === 'private') return 'internal';
+  return '';
+}
+
 function firstHeading(markdown = '') {
   const match = normalizeLineEndings(markdown).match(/^#\s+(.+)$/m);
   return match ? match[1].trim() : '';
 }
 
-function stripMarkdownInline(text = '') {
-  return String(text)
-    .replace(/`([^`]+)`/g, '$1')
-    .replace(/\*\*([^*]+)\*\*/g, '$1')
-    .replace(/\*([^*]+)\*/g, '$1')
-    .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
-    .replace(/!\[[^\]]*\]\([^\)]+\)/g, '')
-    .replace(/[#>*_-]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function looksReadableSummary(text = '') {
-  if (!text || text.length < 16) return false;
-  if (text.includes('|') || text.includes('<') || text.includes('>')) return false;
-  if (text.includes('@part:') || text.includes('@tag:')) return false;
-
-  const clean = text.replace(/\s+/g, '');
-  const readableChars = (clean.match(/[\u4e00-\u9fffA-Za-z0-9，。！？；：“”‘’、,.!?;:()（）【】《》\-]/g) || []).length;
-  const ratio = readableChars / Math.max(clean.length, 1);
-  if (ratio < 0.88) return false;
-
-  const hasCJK = /[\u4e00-\u9fff]/.test(text);
-  const hasLatinWord = /[A-Za-z]{3,}/.test(text);
-  return hasCJK || hasLatinWord;
-}
-
-function firstSummary(markdown = '') {
-  const lines = normalizeLineEndings(markdown)
-    .split('\n')
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .filter((line) => !line.startsWith('#'))
-    .filter((line) => !line.startsWith('>'))
-    .filter((line) => !line.startsWith('@'))
-    .filter((line) => !line.startsWith('```'))
-    .filter((line) => !line.startsWith('!['))
-    .filter((line) => !/^\d+\.\s/.test(line))
-    .filter((line) => !/^[-*+]\s/.test(line));
-
-  for (const line of lines.slice(0, 24)) {
-    const candidate = stripMarkdownInline(line);
-    if (!looksReadableSummary(candidate)) continue;
-    return candidate.length > 110 ? `${candidate.slice(0, 110)}…` : candidate;
-  }
-
-  return '';
-}
-
-function fallbackSummary(title = '') {
-  const t = String(title || '').trim();
-  if (!t) return '这篇文章记录了一个完整主题，建议点开查看正文。';
-  if (t.length <= 22) return `${t}：核心观点与关键信息已整理在正文。`;
-  return `${t.slice(0, 22)}：核心观点与关键信息已整理在正文。`;
-}
-
-function toTimestamp(value) {
-  if (!value) return Number.NaN;
-  const input = String(value).trim();
-  if (!input) return Number.NaN;
-
-  const normalized = /\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}(:\d{2})?$/.test(input)
-    ? input.replace(' ', 'T')
-    : input;
-
-  const t = Date.parse(normalized);
-  return Number.isNaN(t) ? Number.NaN : t;
-}
-
-function resolvePostTimestamp(post) {
-  const candidates = [
-    post.datetime,
-    post.dateTime,
-    post.publishedAt,
-    post.published_at,
-    post.date,
-  ];
-
-  for (const value of candidates) {
-    const t = toTimestamp(value);
-    if (!Number.isNaN(t)) return t;
-  }
-
-  if (post.sourcePath) {
-    try {
-      return fs.statSync(post.sourcePath).mtimeMs;
-    } catch {
-      // ignore
-    }
-  }
-
-  return 0;
-}
-
 function comparePosts(a, b) {
-  const ta = resolvePostTimestamp(a);
-  const tb = resolvePostTimestamp(b);
-
-  if (ta !== tb) {
-    return tb - ta;
+  if (a.date !== b.date) {
+    return a.date < b.date ? 1 : -1;
   }
 
-  return b.slug.localeCompare(a.slug, 'zh-CN');
+  return a.slug.localeCompare(b.slug, 'zh-CN');
 }
 
 function toRecord(post) {
@@ -261,10 +172,9 @@ function toRecord(post) {
     slug: post.slug,
     date: post.date,
     tags: post.tags,
-    owner: post.owner || 'jerry',
+    visibility: post.visibility,
   };
 
-  if (post.datetime) record.datetime = post.datetime;
   if (post.type) record.type = post.type;
   if (post.url) record.url = post.url;
   if (post.summary) record.summary = post.summary;
@@ -298,13 +208,12 @@ export function collectPosts(rootDir) {
 
     const title = pickString(data.title, firstHeading(content));
     const date = pickString(data.date);
-    const datetime = pickString(data.datetime, data.dateTime, data.publishedAt, data.published_at);
     const tags = normalizeTags(data.tags);
     const typeValue = pickString(data.type);
     const type = typeValue || undefined;
-    const url = pickString(data.url) || (type === 'webslides' ? `./${slug}.html` : undefined);
-    const summary = pickString(data.summary, firstSummary(content), fallbackSummary(title)) || undefined;
-    const owner = pickString(data.owner).toLowerCase() || 'jerry';
+    const visibility = normalizeVisibility(data.visibility || data.access || data.audience);
+    const url = pickString(data.url) || (type === 'webslides' ? `./slides/${slug}.html` : undefined);
+    const summary = pickString(data.summary) || undefined;
     const fileErrors = [];
 
     if (!title) {
@@ -315,8 +224,8 @@ export function collectPosts(rootDir) {
       fileErrors.push(`${file}: missing date (add front matter date: YYYY-MM-DD)`);
     }
 
-    if (!['jerry', 'irene'].includes(owner)) {
-      fileErrors.push(`${file}: invalid owner "${owner}" (use owner: jerry or owner: irene)`);
+    if (!visibility) {
+      fileErrors.push(`${file}: invalid visibility (use public/external or internal/private)`);
     }
 
     if (fileErrors.length) {
@@ -328,12 +237,11 @@ export function collectPosts(rootDir) {
       title,
       slug,
       date,
-      datetime,
       tags,
-      owner,
       type,
       url,
       summary,
+      visibility,
       sourcePath: absolutePath,
       fileName: file,
       content,

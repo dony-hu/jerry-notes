@@ -2,9 +2,11 @@
 title: 公司级 AI 专项推进报告
 date: 2026-03-15
 tags:
-  - AI战略与转型
-  - 研发效能
-  - 数据与智能
+  - AI专项
+  - 组织转型
+  - 数据工厂
+  - 决策智能
+visibility: internal
 ---
 **专项Owner：胡达/谢三清**
 
