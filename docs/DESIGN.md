@@ -133,19 +133,19 @@ summary: 一句话摘要
 
 ## 6. Cloudflare Pages 集成
 
-### 6.1 推荐模式
+### 6.1 当前模式
 
-采用 Cloudflare Pages 的 Git integration：
+采用 GitHub Actions + Wrangler 的 Direct Upload：
 
-- 仓库平台：GitHub 或 GitLab
-- Build command：`npm run build`
-- Build output directory：`dist`
+- 仓库平台：GitHub
+- GitHub Actions 执行 `npm install` 与 `npm run build`
+- Wrangler 上传 `dist/` 到 Cloudflare Pages 项目
 
 优点：
 
-- 不需要额外维护 CI 发布脚本
-- 每次 push 自动部署
-- Preview 和 Production 流程统一
+- 不依赖 Pages Git integration
+- 可以继续复用现有 Direct Upload 项目
+- 构建过程与发布步骤都在仓库里显式可见
 
 ### 6.2 Node 版本
 

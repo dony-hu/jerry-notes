@@ -73,11 +73,12 @@
 
 ### 4.3 部署能力
 
-系统需要兼容 Cloudflare Pages 的 Git 集成模式：
+系统需要兼容当前采用的 Cloudflare Pages Direct Upload 模式：
 
-- 仓库 push 后自动触发构建
+- 仓库 push 后由 GitHub Actions 自动触发构建
 - 构建命令固定为 `npm run build`
 - 构建产物目录固定为 `dist`
+- 构建完成后通过 Wrangler 上传到对应 Pages 项目
 
 ### 4.4 运维与稳定性
 
