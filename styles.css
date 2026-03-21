@@ -288,6 +288,26 @@ body {
   color: var(--text);
   cursor: pointer;
 }
+
+.btn-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.btn-icon-feishu svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+
 .hidden { display: none; }
 .markdown-body {
   font-size: 17px;
@@ -449,6 +469,30 @@ body {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.6;
+}
+
+.mermaid-block {
+  margin: 1.15em 0 1.35em;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(12, 19, 36, 0.72);
+  overflow-x: auto;
+}
+
+.mermaid-diagram {
+  min-width: fit-content;
+}
+
+.mermaid-diagram svg {
+  display: block;
+  max-width: min(100%, 1120px);
+  height: auto;
+  margin: 0 auto;
+}
+
+.mermaid-diagram.is-error pre {
+  margin: 0;
 }
 
 .lightbox-overlay {
@@ -661,6 +705,10 @@ body {
   .auth-note {
     max-width: none;
     text-align: left;
+  }
+
+  .btn-with-icon {
+    justify-content: center;
   }
 
   .user-session {

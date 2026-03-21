@@ -25,6 +25,9 @@ const themeIconEl = themeToggleBtn?.querySelector('.theme-icon');
 
 let currentPost = null;
 let pendingAuthMessage = '';
+let mermaidLoaderPromise = null;
+
+const MERMAID_SCRIPT_SRC = './assets/vendor/mermaid.min.js?v=202603221255';
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -148,6 +151,7 @@ function mdToHtml(mdRaw = '') {
 
   let inCode = false;
   let codeLang = '';
+  let codeLines = [];
   let inUl = false;
   let inOl = false;
   let para = [];
@@ -186,19 +190,26 @@ function mdToHtml(mdRaw = '') {
       closeLists();
       if (!inCode) {
         inCode = true;
-        codeLang = line.trim().slice(3).trim();
-        html.push(`<pre><code class="lang-${escapeHtml(codeLang)}">`);
+        codeLang = line.trim().slice(3).trim().toLowerCase();
+        codeLines = [];
       } else {
+        const codeValue = codeLines.join('\n');
+        if (codeLang === 'mermaid') {
+          html.push(
+            `<div class="mermaid-block"><div class="mermaid-diagram" data-mermaid-source="${escapeHtml(encodeURIComponent(codeValue))}"></div></div>`,
+          );
+        } else {
+          html.push(`<pre><code class="lang-${escapeHtml(codeLang)}">${escapeHtml(codeValue)}</code></pre>`);
+        }
         inCode = false;
         codeLang = '';
-        html.push('</code></pre>');
+        codeLines = [];
       }
       continue;
     }
 
     if (inCode) {
-      html.push(escapeHtml(line));
-      html.push('\n');
+      codeLines.push(line);
       continue;
     }
 
@@ -302,9 +313,103 @@ function mdToHtml(mdRaw = '') {
   flushPara();
   closeLists();
 
-  if (inCode) html.push('</code></pre>');
+  if (inCode) {
+    const codeValue = codeLines.join('\n');
+    if (codeLang === 'mermaid') {
+      html.push(
+        `<div class="mermaid-block"><div class="mermaid-diagram" data-mermaid-source="${escapeHtml(encodeURIComponent(codeValue))}"></div></div>`,
+      );
+    } else {
+      html.push(`<pre><code class="lang-${escapeHtml(codeLang)}">${escapeHtml(codeValue)}</code></pre>`);
+    }
+  }
 
   return html.join('\n');
+}
+
+function getMermaidTheme() {
+  return document.body.getAttribute('data-theme') === THEME_LIGHT ? 'neutral' : 'dark';
+}
+
+function renderMermaidFallback(target, source) {
+  target.classList.add('is-error');
+  target.innerHTML = `<pre><code class="lang-mermaid">${escapeHtml(source)}</code></pre>`;
+}
+
+function loadMermaidLibrary() {
+  if (window.mermaid) {
+    return Promise.resolve(window.mermaid);
+  }
+
+  if (mermaidLoaderPromise) {
+    return mermaidLoaderPromise;
+  }
+
+  mermaidLoaderPromise = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = MERMAID_SCRIPT_SRC;
+    script.async = true;
+    script.onload = () => {
+      if (window.mermaid) {
+        resolve(window.mermaid);
+        return;
+      }
+      reject(new Error('Mermaid loaded without global object.'));
+    };
+    script.onerror = () => reject(new Error('Failed to load Mermaid bundle.'));
+    document.head.appendChild(script);
+  });
+
+  return mermaidLoaderPromise;
+}
+
+async function renderMermaidDiagrams(container = contentEl) {
+  if (!container?.querySelectorAll) return;
+
+  const diagrams = Array.from(container.querySelectorAll('.mermaid-diagram[data-mermaid-source]'));
+  if (!diagrams.length) return;
+
+  let mermaid;
+  try {
+    mermaid = await loadMermaidLibrary();
+  } catch (error) {
+    console.warn('failed to load mermaid', error);
+    diagrams.forEach((diagramEl) => {
+      const source = decodeURIComponent(diagramEl.dataset.mermaidSource || '');
+      renderMermaidFallback(diagramEl, source);
+    });
+    return;
+  }
+
+  mermaid.initialize({
+    startOnLoad: false,
+    securityLevel: 'loose',
+    theme: getMermaidTheme(),
+    flowchart: {
+      htmlLabels: true,
+      curve: 'basis',
+    },
+  });
+
+  for (let index = 0; index < diagrams.length; index += 1) {
+    const diagramEl = diagrams[index];
+    const source = decodeURIComponent(diagramEl.dataset.mermaidSource || '');
+
+    if (!source) continue;
+
+    try {
+      const renderId = `mermaid-${Date.now()}-${index}`;
+      const result = await mermaid.render(renderId, source);
+      diagramEl.classList.remove('is-error');
+      diagramEl.innerHTML = result.svg;
+      if (typeof result.bindFunctions === 'function') {
+        result.bindFunctions(diagramEl);
+      }
+    } catch (error) {
+      console.warn('failed to render mermaid diagram', error);
+      renderMermaidFallback(diagramEl, source);
+    }
+  }
 }
 
 function ensureLightbox() {
@@ -370,6 +475,7 @@ async function openPost(slug) {
 
     const text = await response.text();
     contentEl.innerHTML = mdToHtml(text);
+    await renderMermaidDiagrams(contentEl);
   }
 
   viewer.classList.remove('hidden');
@@ -598,6 +704,7 @@ function applyTheme(mode) {
   if (themeIconEl) {
     themeIconEl.textContent = real === THEME_LIGHT ? '🌙' : '☀️';
   }
+  void renderMermaidDiagrams(contentEl);
 }
 
 function initTheme() {
@@ -629,7 +736,7 @@ async function bootstrap() {
   renderList();
 
   if (location.hash) {
-    openPost(location.hash.replace('#', ''));
+    await openPost(location.hash.replace('#', ''));
   }
 }
 
