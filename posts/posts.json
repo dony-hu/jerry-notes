@@ -1,27 +1,15 @@
 [
   {
-    "title": "AI转型读后感汇总（自动排版版）",
-    "slug": "ai-transformation-reading-notes-typeset-2026-03-21",
+    "title": "AI转型读后感汇总（自动排版·按姓名）",
+    "slug": "ai-transformation-reading-notes-by-name-2026-03-21",
     "date": "2026-03-21",
-    "datetime": "2026-03-21 12:01:10",
+    "datetime": "2026-03-21 12:05:15",
     "tags": [
       "组织与管理",
       "项目与交付",
       "报告与盘点"
     ],
-    "summary": "共收录55篇AI转型读后感，自动排版便于阅读，正文保持原文内容。"
-  },
-  {
-    "title": "AI转型读后感汇总（原文合并）",
-    "slug": "ai-transformation-reading-notes-collection-2026-03-21",
-    "date": "2026-03-21",
-    "datetime": "2026-03-21 11:51:40",
-    "tags": [
-      "组织与管理",
-      "项目与交付",
-      "报告与盘点"
-    ],
-    "summary": "收录AI转型读后感原文共55篇，按源目录文件名顺序合并，正文不改写。"
+    "summary": "共收录55篇读后感，按姓名排序，逐人展示原文。"
   },
   {
     "title": "丰图研发日报（2026-03-20，特性版）",
