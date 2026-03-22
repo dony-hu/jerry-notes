@@ -479,7 +479,7 @@ body {
 }
 
 .post-card {
-  padding: 30px 34px 24px;
+  padding: 32px 36px 28px;
   border: 1px solid color-mix(in srgb, var(--border) 84%, transparent);
   border-radius: 22px;
   background:
@@ -500,7 +500,7 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 24px;
+  gap: 20px;
 }
 
 .post-date {
@@ -526,7 +526,7 @@ body {
 
 .post-summary {
   max-width: 62ch;
-  margin: 16px 0 0;
+  margin: 18px 0 0;
   color: color-mix(in srgb, var(--text) 72%, var(--muted) 28%);
   font-size: 15.5px;
   line-height: 1.82;
@@ -535,7 +535,7 @@ body {
 .post-card-foot {
   display: flex;
   justify-content: flex-end;
-  margin-top: 16px;
+  margin-top: 18px;
 }
 
 .post-visibility {
@@ -1149,7 +1149,7 @@ body[data-theme='light'] .mermaid-block {
   }
 
   .post-card {
-    padding: 20px 20px 18px;
+    padding: 22px 22px 20px;
   }
 
   .post-card-title-row {
@@ -1279,7 +1279,7 @@ body[data-theme='light'] .mermaid-block {
   }
 
   .post-card {
-    padding: 20px 18px 16px;
+    padding: 22px 20px 18px;
     border-radius: 16px;
   }
 
