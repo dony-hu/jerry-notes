@@ -535,12 +535,12 @@ body {
 .post-card-foot {
   display: flex;
   justify-content: flex-end;
-  margin-top: 16px;
+  margin-top: 20px;
 }
 
 .post-visibility {
   min-width: 52px;
-  padding: 5px 12px;
+  padding: 6px 12px;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.05em;
