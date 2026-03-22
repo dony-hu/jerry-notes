@@ -1,5 +1,18 @@
 [
   {
+    "title": "丰图为什么要做业务控制面与结果交付系统",
+    "slug": "fengtu-ai-control-plane-and-result-delivery-system-2026-03-22",
+    "date": "2026-03-22",
+    "datetime": "2026-03-22 16:02:00",
+    "tags": [
+      "AI战略与转型",
+      "组织与管理",
+      "产品与体验",
+      "项目与交付"
+    ],
+    "summary": "从群内围绕 OpenAI《Harness Engineering》、组织重构、控制面、公安布控场景的一段讨论中，提炼丰图在 AI 时代最值得抓住的主线：不是只上一个 AI 工具，而是把业务做成可控的人机协同结果交付系统。"
+  },
+  {
     "title": "AI转型读后感汇总（原文合并）",
     "slug": "ai-transformation-reading-notes-collection-2026-03-21",
     "date": "2026-03-21",
