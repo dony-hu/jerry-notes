@@ -663,10 +663,14 @@ async function loadAuthState() {
 
   try {
     const response = await fetch('/api/auth/feishu/me', { cache: 'no-store' });
+    if (!response.ok) {
+      throw new Error(`auth_state_http_${response.status}`);
+    }
     const authState = await response.json();
     renderAuthState(authState);
   } catch (e) {
     console.warn('failed to load auth state', e);
+    renderAuthState({ enabled: true, authenticated: false });
     setAuthNote('飞书登录状态读取失败，请稍后刷新重试。');
   }
 }
@@ -864,10 +868,6 @@ async function bootstrap() {
   if (location.hash) {
     await openPost(location.hash.replace('#', ''));
   }
-}
-
-bootstrap();
-}
 }
 
 bootstrap();
