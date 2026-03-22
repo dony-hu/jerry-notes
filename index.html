@@ -24,22 +24,25 @@
         <div class="site-actions">
           <div class="utility-bar">
             <div class="auth-controls">
-              <a id="login-btn" class="btn btn-small btn-with-icon hidden" href="/api/auth/feishu/login">
-                <span class="btn-icon btn-icon-feishu" aria-hidden="true">
-                  <svg viewBox="0 0 48 48" focusable="false">
-                    <path fill="#3370FF" d="M13 9c5.3-4.1 13.2-3.7 18 .8l5.5 5.1c4.9 4.6 5.6 12.2 1.7 17.6l-6.2-5.7c1.3-2.7.8-6-1.5-8.2l-5.5-5.1c-2.8-2.6-7.1-2.8-10.1-.7L13 9Z"/>
-                    <path fill="#00C2FF" d="M9.8 14.6c1.8 1.7 4.7 1.6 6.4-.2l2.9-3-1.4 9.3-5.2 5.3c-1.7 1.8-1.7 4.6 0 6.4 1.8 1.8 4.7 1.8 6.5 0l3.1-3.2 9.2-1.3-2.9 2.9c-1.8 1.8-1.8 4.7 0 6.5 1.8 1.7 4.6 1.7 6.4 0l7-7.1c3.2-3.2 3.2-8.5 0-11.7l-1.8-1.8-12.4 1.7 1.9-12.5-1.6-1.5c-3.2-3.2-8.5-3.2-11.7 0l-7 7.1c-1.7 1.7-1.8 4.6-.1 6.4Z"/>
-                    <path fill="#14C97B" d="M23.8 29.3 18.9 34c-2.8 2.7-7.1 2.7-9.9 0-2.8-2.8-2.8-7.2 0-10l4.9-4.7 2.3 6.7 7.6 3.3Z"/>
-                  </svg>
-                </span>
-                <span>飞书登录</span>
-              </a>
-              <div id="user-session" class="user-session hidden">
-                <img id="user-avatar" class="user-avatar hidden" alt="飞书头像" />
-                <div class="user-meta">
-                  <strong id="user-name">飞书用户</strong>
+              <div class="auth-row">
+                <a id="login-btn" class="btn btn-small btn-feishu hidden" href="/api/auth/feishu/login">
+                  <span class="feishu-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                      <path fill="#00C2FF" d="M7.4 3.2c2.8 0 4.4 1.5 4.4 4.2v1H9.7c-2.3 0-3.9-1.5-3.9-3.7 0-1 .3-1.7 1.1-1.5h.5z"/>
+                      <path fill="#14CF8E" d="M16.8 5.3c1.1 0 1.8.7 1.8 1.9 0 2.8-2.1 4.8-5.3 4.8h-1.5V9.9c0-2.8 2-4.6 4.8-4.6h.2z"/>
+                      <path fill="#0B5CFF" d="M9.2 11.3c1.6 0 2.8.8 2.8 2.4V18H9.8c-3 0-4.9-1.7-4.9-4 0-1.7 1.5-2.7 4.1-2.7h.2z"/>
+                      <path fill="#0F866C" d="M17.4 11.8c1 0 1.7.7 1.7 1.8 0 4-2.4 7.1-6 7.1h-1.3v-3c0-3.5 2.1-5.9 5.4-5.9h.2z"/>
+                    </svg>
+                  </span>
+                  <span>飞书登录</span>
+                </a>
+                <div id="user-session" class="user-session hidden">
+                  <img id="user-avatar" class="user-avatar hidden" alt="飞书头像" />
+                  <div class="user-meta">
+                    <strong id="user-name">飞书用户</strong>
+                  </div>
+                  <button id="logout-btn" class="btn btn-small" type="button">退出</button>
                 </div>
-                <button id="logout-btn" class="btn btn-small btn-quiet" type="button">退出</button>
               </div>
               <div id="auth-note" class="auth-note hidden" aria-live="polite"></div>
             </div>
@@ -99,15 +102,22 @@
       </section>
     </section>
 
-    <aside class="index-panel">
-      <div class="filter-title">索引筛选</div>
-      <button id="reset-filter" class="btn btn-small btn-quiet">重置筛选</button>
+    <aside id="index-panel" class="index-panel">
+      <div class="index-panel-head">
+        <div class="filter-title">索引筛选</div>
+        <button id="filter-toggle" class="btn btn-small filter-toggle-btn" type="button" aria-expanded="true">收起</button>
+      </div>
 
-      <h3>按主题标签</h3>
-      <div id="tag-filter" class="chips"></div>
+      <div class="index-panel-body" id="index-panel-body">
+        <button id="reset-filter" class="btn btn-small" type="button">重置筛选</button>
 
-      <h3>按年月</h3>
-      <div id="month-filter" class="chips"></div>
+        <h3>按主题标签</h3>
+        <div id="tag-filter" class="chips"></div>
+        <button id="tag-more" class="btn btn-small tag-more-btn hidden" type="button">展开更多</button>
+
+        <h3>按年月</h3>
+        <select id="month-filter" class="month-select" aria-label="按年月筛选"></select>
+      </div>
     </aside>
   </main>
 
@@ -115,7 +125,7 @@
     <div class="container">© <span id="year"></span> <span id="site-footer-text">我的个人站</span></div>
   </footer>
 
-  <script type="module" src="./site-shell.mjs?v=202603220812"></script>
+  <script type="module" src="./site-shell.mjs"></script>
   <script type="module" src="./app.js?v=202603220812"></script>
 </body>
 </html>

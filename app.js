@@ -1,4 +1,4 @@
-import siteConfig from './site.config.mjs?v=202603220812';
+import siteConfig from './site.config.mjs';
 
 let posts = [];
 let activeTag = null;
@@ -8,6 +8,9 @@ const postListEl = document.getElementById('post-list');
 const tagFilterEl = document.getElementById('tag-filter');
 const monthFilterEl = document.getElementById('month-filter');
 const resetFilterBtn = document.getElementById('reset-filter');
+const filterToggleBtn = document.getElementById('filter-toggle');
+const indexPanelEl = document.getElementById('index-panel');
+const tagMoreBtn = document.getElementById('tag-more');
 
 const viewer = document.getElementById('viewer');
 const contentEl = document.getElementById('post-content');
@@ -26,10 +29,38 @@ const authNoteEl = document.getElementById('auth-note');
 const themeIconEl = themeToggleBtn?.querySelector('.theme-icon');
 
 let currentPost = null;
+let isMobileFilterOpen = false;
+let showAllMobileTags = false;
 let pendingAuthMessage = '';
 let mermaidLoaderPromise = null;
 
 const MERMAID_SCRIPT_SRC = './assets/vendor/mermaid.min.js?v=202603221255';
+
+function isMobileViewport() {
+  return window.matchMedia('(max-width: 900px)').matches;
+}
+
+function selectedFilterCount() {
+  return Number(Boolean(activeTag)) + Number(Boolean(activeMonth));
+}
+
+function syncFilterPanelState() {
+  if (!indexPanelEl || !filterToggleBtn) return;
+
+  const count = selectedFilterCount();
+  const suffix = count > 0 ? `(${count})` : '';
+
+  if (isMobileViewport()) {
+    indexPanelEl.classList.toggle('collapsed-mobile', !isMobileFilterOpen);
+    filterToggleBtn.textContent = isMobileFilterOpen ? `收起${suffix}` : `筛选${suffix}`;
+    filterToggleBtn.setAttribute('aria-expanded', isMobileFilterOpen ? 'true' : 'false');
+  } else {
+    indexPanelEl.classList.remove('collapsed-mobile');
+    const collapsed = indexPanelEl.classList.contains('collapsed-desktop');
+    filterToggleBtn.textContent = collapsed ? `展开${suffix}` : `收起${suffix}`;
+    filterToggleBtn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+  }
+}
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -105,18 +136,28 @@ function renderList() {
 function renderFilters() {
   const tags = getAllTags(posts);
   const months = getAllMonths(posts);
+  const visibleTags =
+    isMobileViewport() && !showAllMobileTags && !activeTag ? tags.slice(0, 6) : tags;
 
-  tagFilterEl.innerHTML = tags
+  tagFilterEl.innerHTML = visibleTags
     .map(
       (tag) => `<button class="chip ${activeTag === tag ? 'active' : ''}" data-tag="${tag}">${tag}</button>`,
     )
     .join('');
 
-  monthFilterEl.innerHTML = months
-    .map(
-      (m) => `<button class="chip ${activeMonth === m ? 'active' : ''}" data-month="${m}">${m}</button>`,
-    )
+  if (tagMoreBtn) {
+    const shouldShow = isMobileViewport() && tags.length > 6 && !activeTag;
+    tagMoreBtn.classList.toggle('hidden', !shouldShow);
+    if (shouldShow) {
+      tagMoreBtn.textContent = showAllMobileTags ? '收起标签' : '展开更多标签';
+    }
+  }
+
+  monthFilterEl.innerHTML = [`<option value="">全部月份</option>`]
+    .concat(months.map((m) => `<option value="${m}" ${activeMonth === m ? 'selected' : ''}>${m}</option>`))
     .join('');
+
+  syncFilterPanelState();
 }
 
 function parseInline(text = '') {
@@ -593,17 +634,22 @@ if (tagFilterEl) {
     if (!el) return;
     const tag = el.dataset.tag;
     activeTag = activeTag === tag ? null : tag;
+    if (activeTag) showAllMobileTags = true;
     renderFilters();
     renderList();
   });
 }
 
+if (tagMoreBtn) {
+  tagMoreBtn.addEventListener('click', () => {
+    showAllMobileTags = !showAllMobileTags;
+    renderFilters();
+  });
+}
+
 if (monthFilterEl) {
-  monthFilterEl.addEventListener('click', (e) => {
-    const el = e.target.closest('button[data-month]');
-    if (!el) return;
-    const month = el.dataset.month;
-    activeMonth = activeMonth === month ? null : month;
+  monthFilterEl.addEventListener('change', () => {
+    activeMonth = monthFilterEl.value || null;
     renderFilters();
     renderList();
   });
@@ -613,10 +659,30 @@ if (resetFilterBtn) {
   resetFilterBtn.addEventListener('click', () => {
     activeTag = null;
     activeMonth = null;
+    showAllMobileTags = false;
     renderFilters();
     renderList();
   });
 }
+
+if (filterToggleBtn) {
+  filterToggleBtn.addEventListener('click', () => {
+    if (isMobileViewport()) {
+      isMobileFilterOpen = !isMobileFilterOpen;
+    } else {
+      indexPanelEl?.classList.toggle('collapsed-desktop');
+    }
+    syncFilterPanelState();
+  });
+}
+
+window.addEventListener('resize', () => {
+  if (!isMobileViewport()) {
+    isMobileFilterOpen = false;
+  }
+  syncFilterPanelState();
+  renderFilters();
+});
 
 backBtn.addEventListener('click', () => {
   viewer.classList.add('hidden');
