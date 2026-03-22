@@ -2,7 +2,7 @@ const siteConfig = {
   siteId: 'jerry-notes',
   siteTitle: 'Jerry的个人站',
   siteDescription: '记录想法、项目和日常笔记',
-  siteKicker: 'PUBLIC + INTERNAL NOTES',
+  siteKicker: '',
   heroDescription: '公开记录产品、项目与日常思考；登录后可查看内部工作手册、学习资料与阶段性复盘。',
   aboutText: '这里长期记录产品、项目、行业理解和日常思考。公开内容偏方法、观点和案例；登录后可继续查看内部工作手册、学习资料与阶段性复盘。',
   footerText: '我的个人站',

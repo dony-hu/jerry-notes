@@ -204,9 +204,13 @@ function firstHeading(markdown = '') {
 
 function stripMarkdownDecorators(line = '') {
   return String(line)
+    .replace(/<br\s*\/?>/gi, ' ')
+    .replace(/<\/?(strong|em|b|i|code|mark|small|sub|sup|span)[^>]*>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
     .replace(/!\[[^\]]*\]\([^)]+\)/g, '')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
     .replace(/[`*_>#]/g, '')
+    .replace(/@[^\s，。；：:、]+/g, '')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -226,30 +230,38 @@ function deriveSummary(markdown = '') {
 
     if (inCode || !trimmed) continue;
     if (trimmed.startsWith('#')) continue;
-    if (trimmed.startsWith('>')) continue;
     if (trimmed.startsWith('@')) continue;
     if (trimmed === '---') continue;
     if (trimmed.startsWith('![')) continue;
     if (trimmed.startsWith('|')) continue;
 
-    const normalized = stripMarkdownDecorators(
-      trimmed
-        .replace(/^>\s?/, '')
-        .replace(/^[-*+]\s+/, '')
-        .replace(/^\d+\.\s+/, ''),
-    );
+    const normalizedSource = trimmed
+      .replace(/^>\s?/, '')
+      .replace(/^[-*+]\s+/, '')
+      .replace(/^\d+\.\s+/, '')
+      .trim();
+
+    const plainSource = stripMarkdownDecorators(normalizedSource);
+
+    if (/^查看(原文|可编辑版|可编辑)/.test(plainSource)) continue;
+    if (/^(这个文件是|生成命令：|打开官网|打开黑板报)/.test(plainSource)) continue;
+    if (/\.md$/i.test(normalizedSource)) continue;
+
+    const normalized = plainSource;
 
     if (!normalized || normalized.length < 8) continue;
+    if (/^[·•\-=:：/| ]+$/.test(normalized)) continue;
 
     parts.push(normalized);
-    if (parts.join(' ').length >= 88) break;
+    if (parts.length === 1 && /[。！？]$/.test(normalized) && normalized.length >= 24) break;
+    if (parts.join(' ').length >= 96) break;
   }
 
   if (!parts.length) return undefined;
 
   const full = parts.join(' ').trim();
-  const summary = full.slice(0, 88).trim();
-  return summary ? `${summary}${full.length > 88 ? '…' : ''}` : undefined;
+  const summary = full.slice(0, 96).trim();
+  return summary ? `${summary}${full.length > 96 ? '…' : ''}` : undefined;
 }
 
 function comparePosts(a, b) {

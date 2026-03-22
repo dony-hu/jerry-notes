@@ -500,7 +500,7 @@ body {
 }
 
 .post-card {
-  padding: 14px 16px;
+  padding: 18px 22px 20px;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: rgba(19, 29, 51, 0.58);
@@ -518,7 +518,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
 .post-date {
@@ -527,19 +527,16 @@ body {
 }
 
 .post-link {
+  display: block;
   font-size: 19px;
   font-weight: 650;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 .post-summary {
-  margin: 8px 0 0;
+  margin: 14px 0 0;
   color: color-mix(in srgb, var(--text) 78%, var(--muted) 22%);
-  line-height: 1.75;
-}
-
-.post-meta {
-  margin-top: 10px;
+  line-height: 1.8;
 }
 
 .post-visibility {

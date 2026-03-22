@@ -124,9 +124,6 @@ function renderList() {
       </div>
       <a class="post-link" href="#${p.slug}" data-slug="${p.slug}">${p.title}</a>
       ${p.summary ? `<p class="post-summary">${escapeAttr(p.summary)}</p>` : ''}
-      <div class="post-meta">
-        <span>${(p.tags || []).join(' / ')}</span>
-      </div>
     </li>
   `,
     )
