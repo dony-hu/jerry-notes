@@ -1146,7 +1146,7 @@ body[data-theme='light'] .mermaid-block {
   }
 
   .post-card {
-    padding: 20px 20px 18px;
+    padding: 18px;
   }
 
   .post-card-title-row {
@@ -1349,6 +1349,16 @@ body[data-theme='light'] .mermaid-block {
 
   .viewer-actions-menu,
   .viewer-actions-trigger,
+  .viewer-actions-popover {
+    width: 100%;
+  }
+
+  .viewer-actions-popover {
+    position: static;
+    margin-top: 8px;
+  }
+}
+gger,
   .viewer-actions-popover {
     width: 100%;
   }
