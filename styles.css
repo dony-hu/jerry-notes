@@ -1253,13 +1253,14 @@ body[data-theme='light'] .mermaid-block {
     justify-items: stretch;
   }
 
-  .btn-feishu,
   .user-session {
     width: 100%;
   }
 
   .btn-feishu {
+    width: auto;
     justify-content: center;
+    align-self: flex-start;
     min-height: 40px;
     padding: 0 12px;
   }
