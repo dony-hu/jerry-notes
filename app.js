@@ -378,6 +378,52 @@ function getMermaidTheme() {
   return document.body.getAttribute('data-theme') === THEME_LIGHT ? 'neutral' : 'dark';
 }
 
+function getMermaidThemeVariables() {
+  if (document.body.getAttribute('data-theme') === THEME_LIGHT) {
+    return {
+      background: '#F8FAFE',
+      primaryColor: '#EEF4FF',
+      primaryBorderColor: '#7EA7E8',
+      primaryTextColor: '#16243E',
+      secondaryColor: '#EAFBF7',
+      secondaryBorderColor: '#65C8B7',
+      secondaryTextColor: '#123C44',
+      tertiaryColor: '#FFF4E6',
+      tertiaryBorderColor: '#E4B46A',
+      tertiaryTextColor: '#5F3710',
+      lineColor: '#7A8FB5',
+      textColor: '#1F3150',
+      fontSize: '18px',
+      fontFamily: '"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif',
+      nodeBorder: '#AFC3E8',
+      clusterBkg: '#F8FAFE',
+      clusterBorder: '#D5E1F7',
+      edgeLabelBackground: '#FFFFFF',
+    };
+  }
+
+  return {
+    background: '#111B2D',
+    primaryColor: '#192842',
+    primaryBorderColor: '#6E8FC3',
+    primaryTextColor: '#EAF0FF',
+    secondaryColor: '#132D33',
+    secondaryBorderColor: '#52B7A6',
+    secondaryTextColor: '#E7FFFB',
+    tertiaryColor: '#2E2418',
+    tertiaryBorderColor: '#CF9A52',
+    tertiaryTextColor: '#FFF2DE',
+    lineColor: '#7089B8',
+    textColor: '#E7EEFF',
+    fontSize: '18px',
+    fontFamily: '"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif',
+    nodeBorder: '#4A6088',
+    clusterBkg: '#111B2D',
+    clusterBorder: '#2A3B5C',
+    edgeLabelBackground: '#182339',
+  };
+}
+
 function renderMermaidFallback(target, source) {
   target.classList.add('is-error');
   target.innerHTML = `<pre><code class="lang-mermaid">${escapeHtml(source)}</code></pre>`;
@@ -432,9 +478,14 @@ async function renderMermaidDiagrams(container = contentEl) {
     startOnLoad: false,
     securityLevel: 'loose',
     theme: getMermaidTheme(),
+    themeVariables: getMermaidThemeVariables(),
     flowchart: {
       htmlLabels: true,
       curve: 'basis',
+      nodeSpacing: 64,
+      rankSpacing: 82,
+      padding: 24,
+      useMaxWidth: true,
     },
   });
 

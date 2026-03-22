@@ -242,12 +242,24 @@ E 层有六个引擎，方案和售前写材料的时候会用到：
 
 ```mermaid
 flowchart TD
-    A["客户说一句话<br/>帮我看看上个月朝阳区的盗窃警情高发点"]
-    B["智能席位（交互平面）<br/>听懂你的话 → 确认条件 → 展示结果 → 审批确认"]
-    C["域内智能中枢（执行平面）<br/>在客户本地运行<br/>1. 接入警情数据<br/>2. 地址清洗标准化（智址引擎）<br/>3. 空间聚合分析（智算引擎）<br/>4. 高发点挖掘（智研引擎）<br/>5. 生成专题地图 + 研判报告 + 巡防建议（智图引擎）<br/>6. 全程留痕（智律引擎）"]
-    D["输出结果<br/>高发部位专题地图｜研判报告（可打印）｜巡防勤务单（可下发）｜全程审计留痕"]
+    A["<div style='width:440px;padding:8px 10px;line-height:1.75'><div style='font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5B6B88'>用户入口</div><div style='margin-top:8px;font-size:28px;font-weight:800;color:#16243E'>客户说一句话</div><div style='margin-top:12px;font-size:22px;font-weight:600;color:#33476B'>帮我看看上个月朝阳区的盗窃警情高发点</div></div>"]
+    B["<div style='width:500px;padding:10px 12px;line-height:1.7'><div style='font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2C4D7D'>交互平面</div><div style='margin-top:8px;font-size:30px;font-weight:800;color:#11284B'>智能席位</div><div style='margin-top:12px;font-size:20px;font-weight:600;color:#36537F'>听懂需求 → 补全条件 → 展示结果 → 审批确认</div></div>"]
+    C["<div style='width:560px;padding:12px 16px;line-height:1.72'><div style='font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0D6B61'>执行平面</div><div style='margin-top:8px;font-size:30px;font-weight:800;color:#123C44'>域内智能中枢</div><div style='margin-top:10px;font-size:18px;font-weight:700;color:#2D5A63'>在客户本地运行，完成完整执行链路</div><div style='margin-top:14px;font-size:18px;color:#30515B'>1. 接入警情数据</div><div style='font-size:18px;color:#30515B'>2. 地址清洗标准化（智址引擎）</div><div style='font-size:18px;color:#30515B'>3. 空间聚合分析（智算引擎）</div><div style='font-size:18px;color:#30515B'>4. 高发点挖掘（智研引擎）</div><div style='font-size:18px;color:#30515B'>5. 生成专题地图、研判报告、巡防建议（智图引擎）</div><div style='font-size:18px;color:#30515B'>6. 全程留痕（智律引擎）</div></div>"]
+    D["<div style='width:560px;padding:10px 14px;line-height:1.72'><div style='font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7A4A12'>结果交付</div><div style='margin-top:8px;font-size:30px;font-weight:800;color:#5F3710'>输出结果</div><div style='margin-top:14px;font-size:18px;color:#6D4A1C'>高发部位专题地图</div><div style='font-size:18px;color:#6D4A1C'>研判报告（可打印）</div><div style='font-size:18px;color:#6D4A1C'>巡防勤务单（可下发）</div><div style='font-size:18px;color:#6D4A1C'>全程审计留痕</div></div>"]
 
-    A --> B --> C --> D
+    A -->|自然语言需求| B
+    B -->|调度执行| C
+    C -->|交付成品| D
+
+    classDef input fill:#EEF4FF,stroke:#A8BEEA,stroke-width:1.8px,color:#16243E;
+    classDef interact fill:#EAF2FF,stroke:#7EA7E8,stroke-width:1.8px,color:#11284B;
+    classDef engine fill:#EAFBF7,stroke:#65C8B7,stroke-width:1.8px,color:#123C44;
+    classDef result fill:#FFF4E6,stroke:#E4B46A,stroke-width:1.8px,color:#5F3710;
+
+    class A input
+    class B interact
+    class C engine
+    class D result
 ```
 
 
