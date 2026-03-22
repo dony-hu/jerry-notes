@@ -470,7 +470,7 @@ body {
 
 .post-list {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .post-list li {
@@ -1279,43 +1279,44 @@ body[data-theme='light'] .mermaid-block {
   }
 
   .post-card {
-    padding: 22px 20px 18px;
-    border-radius: 16px;
+    padding: 26px 24px 22px;
+    border-radius: 18px;
   }
 
   .post-card-title-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     align-items: start;
-    row-gap: 8px;
+    row-gap: 10px;
   }
 
   .post-link {
-    font-size: 17px;
-    line-height: 1.5;
+    font-size: 18px;
+    line-height: 1.52;
   }
 
   .post-date {
     font-size: 11px;
-    line-height: 1.4;
+    line-height: 1.45;
     text-align: left;
     padding-top: 0;
+    letter-spacing: 0.04em;
   }
 
   .post-summary {
     max-width: none;
-    margin-top: 14px;
+    margin-top: 18px;
     font-size: 14px;
-    line-height: 1.74;
+    line-height: 1.82;
   }
 
   .post-card-foot {
-    margin-top: 12px;
+    margin-top: 16px;
   }
 
   .post-visibility {
-    min-width: 44px;
-    padding: 4px 10px;
+    min-width: 46px;
+    padding: 5px 10px;
     font-size: 10px;
   }
 }
