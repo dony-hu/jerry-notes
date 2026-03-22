@@ -202,6 +202,56 @@ function firstHeading(markdown = '') {
   return match ? match[1].trim() : '';
 }
 
+function stripMarkdownDecorators(line = '') {
+  return String(line)
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[`*_>#]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function deriveSummary(markdown = '') {
+  const lines = normalizeLineEndings(markdown).split('\n');
+  const parts = [];
+  let inCode = false;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    if (trimmed.startsWith('```')) {
+      inCode = !inCode;
+      continue;
+    }
+
+    if (inCode || !trimmed) continue;
+    if (trimmed.startsWith('#')) continue;
+    if (trimmed.startsWith('>')) continue;
+    if (trimmed.startsWith('@')) continue;
+    if (trimmed === '---') continue;
+    if (trimmed.startsWith('![')) continue;
+    if (trimmed.startsWith('|')) continue;
+
+    const normalized = stripMarkdownDecorators(
+      trimmed
+        .replace(/^>\s?/, '')
+        .replace(/^[-*+]\s+/, '')
+        .replace(/^\d+\.\s+/, ''),
+    );
+
+    if (!normalized || normalized.length < 8) continue;
+
+    parts.push(normalized);
+    if (parts.join(' ').length >= 88) break;
+  }
+
+  if (!parts.length) return undefined;
+
+  const full = parts.join(' ').trim();
+  const summary = full.slice(0, 88).trim();
+  return summary ? `${summary}${full.length > 88 ? '…' : ''}` : undefined;
+}
+
 function comparePosts(a, b) {
   if (a.date !== b.date) {
     return a.date < b.date ? 1 : -1;
@@ -257,7 +307,7 @@ export function collectPosts(rootDir) {
     const type = typeValue || undefined;
     const visibility = normalizeVisibility(data.visibility || data.access || data.audience);
     const url = pickString(data.url) || (type === 'webslides' ? `./slides/${slug}.html` : undefined);
-    const summary = pickString(data.summary) || undefined;
+    const summary = pickString(data.summary) || deriveSummary(content);
     const fileErrors = [];
 
     if (!title) {

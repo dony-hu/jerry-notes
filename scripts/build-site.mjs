@@ -18,6 +18,8 @@ const ROOT_FILE_NAMES = new Set([
   '_redirects',
   'index.html',
   'app.js',
+  'site.config.mjs',
+  'site-shell.mjs',
   'styles.css',
   'slides.css',
   'MachineryAgePage.jpg',

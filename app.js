@@ -1,3 +1,5 @@
+import siteConfig from './site.config.mjs?v=202603220812';
+
 let posts = [];
 let activeTag = null;
 let activeMonth = null;
@@ -67,6 +69,10 @@ function filterPosts() {
   });
 }
 
+function escapeAttr(s = '') {
+  return escapeHtml(s).replaceAll('\n', ' ').trim();
+}
+
 function renderList() {
   const current = filterPosts();
 
@@ -78,13 +84,16 @@ function renderList() {
   postListEl.innerHTML = current
     .map(
       (p) => `
-    <li>
-      <a class="post-link" href="#${p.slug}" data-slug="${p.slug}">${p.title}</a>
-      <div class="post-meta">
-        <span>${p.date || ''}</span>
+    <li class="post-card ${p.visibility === 'internal' ? 'is-internal' : 'is-public'}">
+      <div class="post-card-head">
         <span class="post-visibility ${p.visibility === 'internal' ? 'is-internal' : 'is-public'}">
-          ${p.visibility === 'internal' ? '内部' : '外部'}
+          ${p.visibility === 'internal' ? '内部' : '公开'}
         </span>
+        <span class="post-date">${p.date || ''}</span>
+      </div>
+      <a class="post-link" href="#${p.slug}" data-slug="${p.slug}">${p.title}</a>
+      ${p.summary ? `<p class="post-summary">${escapeAttr(p.summary)}</p>` : ''}
+      <div class="post-meta">
         <span>${(p.tags || []).join(' / ')}</span>
       </div>
     </li>
@@ -534,7 +543,7 @@ function renderAuthState(authState = {}) {
   }
 
   if (!authenticated) {
-    setAuthNote(pendingAuthMessage || '当前仅显示外部文章，登录后可查看内部内容。');
+    setAuthNote(pendingAuthMessage || '登录后可查看内部文章与工作手册。');
     pendingAuthMessage = '';
     return;
   }
@@ -690,7 +699,7 @@ if (logoutBtn) {
   });
 }
 
-const THEME_KEY = 'jerry-notes-theme';
+const THEME_KEY = siteConfig.themeStorageKey || 'jerry-notes-theme';
 const THEME_LIGHT = 'light';
 const THEME_DARK = 'dark';
 
