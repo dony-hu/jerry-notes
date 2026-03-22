@@ -833,7 +833,8 @@ function applyTheme(mode) {
 }
 
 function initTheme() {
-  const mode = localStorage.getItem(THEME_KEY) || THEME_DARK;
+  const preset = document.documentElement.getAttribute('data-theme');
+  const mode = localStorage.getItem(THEME_KEY) || preset || THEME_DARK;
   applyTheme(mode);
 
   if (themeToggleBtn) {
@@ -863,6 +864,10 @@ async function bootstrap() {
   if (location.hash) {
     await openPost(location.hash.replace('#', ''));
   }
+}
+
+bootstrap();
+}
 }
 
 bootstrap();
