@@ -1275,12 +1275,11 @@ body[data-theme='light'] .mermaid-block {
     padding: 16px;
   }
 
-  .post-card {
-    padding: 16px;
-    border-radius: 14px;
+  .post-item {
+    padding: 14px 0;
   }
 
-  .post-card-title-row {
+  .post-item-title-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     align-items: start;
@@ -1306,7 +1305,7 @@ body[data-theme='light'] .mermaid-block {
     line-height: 1.74;
   }
 
-  .post-card-foot {
+  .post-item-foot {
     margin-top: 12px;
   }
 
@@ -1366,5 +1365,8 @@ gger,
   .viewer-actions-popover {
     position: static;
     margin-top: 8px;
+  }
+}
+  margin-top: 8px;
   }
 }

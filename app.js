@@ -115,13 +115,13 @@ function renderList() {
   postListEl.innerHTML = current
     .map(
       (p) => `
-    <li class="post-card ${p.visibility === 'internal' ? 'is-internal' : 'is-public'}">
-      <div class="post-card-title-row">
+    <li class="post-item ${p.visibility === 'internal' ? 'is-internal' : 'is-public'}">
+      <div class="post-item-title-row">
         <a class="post-link" href="#${p.slug}" data-slug="${p.slug}">${p.title}</a>
         <span class="post-date">${p.date || ''}</span>
       </div>
       ${p.summary ? `<p class="post-summary">${escapeAttr(p.summary)}</p>` : ''}
-      <div class="post-card-foot">
+      <div class="post-item-foot">
         <span class="post-visibility ${p.visibility === 'internal' ? 'is-internal' : 'is-public'}">
           ${p.visibility === 'internal' ? '内部' : '公开'}
         </span>
