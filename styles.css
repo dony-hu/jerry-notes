@@ -108,12 +108,6 @@ body[data-theme='light'] .post-summary {
   color: #465772;
 }
 
-body[data-theme='light'] .site-nav a {
-  background: #edf3ff;
-  border-color: #d8e1f2;
-  color: #38527c;
-}
-
 body[data-theme='light'] .btn-feishu {
   background: linear-gradient(180deg, rgba(245, 250, 255, 0.96), rgba(229, 239, 255, 0.9));
   border-color: rgba(153, 184, 232, 0.65);
@@ -445,24 +439,6 @@ body {
   margin-bottom: 0;
   max-width: 58ch;
   line-height: 1.7;
-}
-
-.site-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.site-nav a {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(110, 168, 255, 0.18);
-  background: rgba(110, 168, 255, 0.06);
-  font-size: 13px;
-  margin-right: 0;
 }
 
 .main-layout {
