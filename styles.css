@@ -503,12 +503,12 @@ body {
 .post-date {
   color: var(--muted);
   font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.45;
   white-space: nowrap;
   flex: 0 0 auto;
-  padding-top: 5px;
+  padding-top: 4px;
 }
 
 .post-link {
@@ -1287,26 +1287,26 @@ body[data-theme='light'] .mermaid-block {
   }
 
   .post-link {
-    font-size: 17px;
-    line-height: 1.5;
+    font-size: 16px;
+    line-height: 1.46;
   }
 
   .post-date {
     font-size: 11px;
-    line-height: 1.4;
+    line-height: 1.35;
     text-align: left;
     padding-top: 0;
   }
 
   .post-summary {
     max-width: none;
-    margin-top: 14px;
-    font-size: 14px;
-    line-height: 1.74;
+    margin-top: 10px;
+    font-size: 13.5px;
+    line-height: 1.68;
   }
 
   .post-item-foot {
-    margin-top: 12px;
+    margin-top: 10px;
   }
 
   .post-visibility {
@@ -1369,4 +1369,6 @@ gger,
 }
   margin-top: 8px;
   }
+}
+
 }

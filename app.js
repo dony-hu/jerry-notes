@@ -121,11 +121,11 @@ function renderList() {
         <span class="post-date">${p.date || ''}</span>
       </div>
       ${p.summary ? `<p class="post-summary">${escapeAttr(p.summary)}</p>` : ''}
+      ${p.visibility === 'internal' ? `
       <div class="post-item-foot">
-        <span class="post-visibility ${p.visibility === 'internal' ? 'is-internal' : 'is-public'}">
-          ${p.visibility === 'internal' ? '内部' : '公开'}
-        </span>
+        <span class="post-visibility is-internal">内部</span>
       </div>
+      ` : ''}
     </li>
   `,
     )
