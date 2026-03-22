@@ -397,11 +397,13 @@ body {
 .utility-bar {
   display: flex;
   align-items: flex-start;
+  justify-content: flex-end;
   gap: 10px;
 }
 
 .auth-controls {
   gap: 6px;
+  order: 1;
 }
 
 .auth-note {
@@ -415,6 +417,12 @@ body {
   padding: 7px 8px;
   border-radius: 999px;
   background: rgba(23, 35, 63, 0.55);
+}
+
+.btn-feishu,
+.user-session {
+  min-width: 210px;
+  justify-content: center;
 }
 
 .user-avatar {
@@ -575,8 +583,8 @@ body {
 
 .hidden { display: none; }
 .markdown-body {
-  font-size: 17px;
-  line-height: 1.95;
+  font-size: 15.5px;
+  line-height: 1.82;
   color: #e7edff;
 }
 
@@ -1053,13 +1061,14 @@ body[data-theme='light'] .mermaid-block {
 
   .utility-bar {
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: flex-start;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   .auth-row {
-    width: 100%;
+    width: auto;
+    justify-content: flex-end;
   }
 
   .auth-note {
@@ -1230,17 +1239,17 @@ body[data-theme='light'] .mermaid-block {
   }
 
   .utility-bar {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    display: flex;
     width: 100%;
+    justify-content: flex-end;
     align-items: center;
     gap: 10px;
   }
 
   .auth-row {
-    width: 100%;
-    justify-content: stretch;
-    align-items: stretch;
+    width: auto;
+    justify-content: flex-end;
+    align-items: center;
     gap: 10px;
   }
 
@@ -1250,11 +1259,11 @@ body[data-theme='light'] .mermaid-block {
 
   .auth-controls {
     min-width: 0;
-    justify-items: stretch;
+    justify-items: end;
   }
 
   .user-session {
-    width: 100%;
+    width: auto;
   }
 
   .btn-feishu {
