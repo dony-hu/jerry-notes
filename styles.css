@@ -100,10 +100,9 @@ body[data-theme='light'] .post-visibility.is-internal {
 }
 
 body[data-theme='light'] .post-card {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(250, 252, 255, 0.98));
-  border-color: #dce6f4;
-  box-shadow: 0 18px 36px rgba(73, 98, 136, 0.07);
+  background: rgba(255, 255, 255, 0.92);
+  border-color: #dde5f0;
+  box-shadow: 0 4px 14px rgba(73, 98, 136, 0.05);
 }
 
 body[data-theme='light'] .post-summary {
@@ -500,7 +499,7 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 20px;
+  gap: 14px;
 }
 
 .post-date {
@@ -1149,7 +1148,7 @@ body[data-theme='light'] .mermaid-block {
   }
 
   .post-card {
-    padding: 22px 22px 20px;
+    padding: 18px 18px 16px;
   }
 
   .post-card-title-row {
@@ -1361,4 +1360,6 @@ body[data-theme='light'] .mermaid-block {
     position: static;
     margin-top: 8px;
   }
+}
+
 }
