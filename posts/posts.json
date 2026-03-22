@@ -1,9 +1,21 @@
 [
   {
+    "title": "丰图为什么要认真读 Harness Engineering，以及后面那几张图",
+    "slug": "fengtu-ai-control-plane-and-result-delivery-system-2026-03-22",
+    "date": "2026-03-22",
+    "tags": [
+      "AI战略与转型",
+      "组织与管理",
+      "产品与体验",
+      "项目与交付"
+    ],
+    "visibility": "public",
+    "summary": "围绕向浩转发的 OpenAI《Harness Engineering》与后续几张关于组织、交付与合规的图，重新梳理丰图在 AI 时代最值得抓住的主线：不是只接一个模型，而是尽快建设业务控制面与结果交付系统。"
+  },
+  {
     "title": "向浩工作计划（2026-03-23~2026-03-27）",
     "slug": "xianghao-week-plan-2026-03-23-to-2026-03-27",
     "date": "2026-03-22",
-    "datetime": "2026-03-22 16:22:11",
     "tags": [
       "组织与管理",
       "项目与交付",
@@ -12,19 +24,6 @@
     ],
     "visibility": "internal",
     "summary": "围绕武汉团队沟通、外部会议与基础设施建设、丰图Claw小范围推广、PGIS项目验收，以及人口项目数据场景探索，明确向浩本周的推进重点与周目标。"
-  },
-  {
-    "title": "丰图为什么要做业务控制面与结果交付系统",
-    "slug": "fengtu-ai-control-plane-and-result-delivery-system-2026-03-22",
-    "date": "2026-03-22",
-    "datetime": "2026-03-22 16:02:00",
-    "tags": [
-      "AI战略与转型",
-      "组织与管理",
-      "产品与体验",
-      "项目与交付"
-    ],
-    "summary": "从群内围绕 OpenAI《Harness Engineering》、组织重构、控制面、公安布控场景的一段讨论中，提炼丰图在 AI 时代最值得抓住的主线：不是只上一个 AI 工具，而是把业务做成可控的人机协同结果交付系统。"
   },
   {
     "title": "AI转型读后感汇总（原文合并）",
