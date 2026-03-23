@@ -22,6 +22,14 @@ flowchart TB
     C["底层：现场智能体群<br/>销售 / 售前个人智能体<br/>项目级智能体<br/>客户用智能体"]
 
     A --> B --> C
+
+    classDef top fill:#17355f,stroke:#60a5fa,color:#f8fbff,stroke-width:2px;
+    classDef middle fill:#1d4b3a,stroke:#34d399,color:#f8fbff,stroke-width:2px;
+    classDef bottom fill:#4a2f16,stroke:#f59e0b,color:#fffaf5,stroke-width:2px;
+
+    class A top;
+    class B middle;
+    class C bottom;
 ```
 
 ### 1.1 顶层：中央智能体（核心）
@@ -79,13 +87,21 @@ flowchart TB
 ### 2.1 核心工作流
 
 ```mermaid
-flowchart TB
-    A["1. 现场（销售 / 售前）<br/>跟客户沟通（当面交流是人最大的价值）<br/>录音上传（关键信息采集）<br/>需求丢进系统"]
-    B["2. 中央智能体<br/>采集需求<br/>在知识体系里找方案<br/>沉淀工具<br/>自动迭代"]
-    C["3. 交付 / 后方<br/>看到全貌<br/>提供解决方案<br/>回传给现场"]
-    D["4. 现场<br/>拿着智能体（资料齐全）<br/>解决客户问题<br/>产生新需求"]
+flowchart LR
+    A["1. 现场触达<br/>销售 / 售前与客户沟通<br/>录音上传 / 需求入系统"]
+    B["2. 中央智能体<br/>采集需求 / 找方案<br/>沉淀工具 / 自动迭代"]
+    C["3. 交付 / 后方<br/>看到全貌 / 提供方案<br/>回传给现场"]
+    D["4. 现场闭环<br/>拿着智能体解决客户问题<br/>产生新需求并再次回流"]
 
     A --> B --> C --> D --> A
+
+    classDef scene fill:#3b2a68,stroke:#a78bfa,color:#f8fbff,stroke-width:2px;
+    classDef center fill:#17355f,stroke:#60a5fa,color:#f8fbff,stroke-width:2px;
+    classDef support fill:#1d4b3a,stroke:#34d399,color:#f8fbff,stroke-width:2px;
+
+    class A,D scene;
+    class B center;
+    class C support;
 ```
 
 ### 2.2 关键运作机制
@@ -160,6 +176,16 @@ flowchart TD
     E --> E1["面向新客户 / 新伙伴"]
     E --> E2["面向对公客户 / 分公司客户群"]
     A --> F["交付体系"]
+
+    classDef root fill:#17355f,stroke:#60a5fa,color:#f8fbff,stroke-width:2px;
+    classDef branch fill:#1f2937,stroke:#94a3b8,color:#f8fbff,stroke-width:1.6px;
+    classDef product fill:#1d4b3a,stroke:#34d399,color:#f8fbff,stroke-width:1.8px;
+    classDef market fill:#4a2f16,stroke:#f59e0b,color:#fffaf5,stroke-width:1.8px;
+
+    class A root;
+    class B,C,F branch;
+    class D,D1 product;
+    class E,E1,E2 market;
 ```
 
 ---
