@@ -305,7 +305,7 @@ function mdToHtml(mdRaw = '') {
       closeLists();
 
       const headers = splitTableRow(line);
-      html.push('<div class="table-wrap"><table class="md-table"><thead><tr>');
+      html.push('<div class="table-wrap"><div class="table-scroll-hint">← 左右滑动查看完整表格</div><table class="md-table"><thead><tr>');
       headers.forEach((header) => html.push(`<th>${parseInline(header)}</th>`));
       html.push('</tr></thead><tbody>');
 

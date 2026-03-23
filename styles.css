@@ -682,11 +682,16 @@ body {
   margin: 0.8em 0 1.1em;
   border: 1px solid var(--border);
   border-radius: 10px;
+  scrollbar-width: thin;
+}
+
+.table-scroll-hint {
+  display: none;
 }
 
 .md-table {
   width: max-content;
-  min-width: 100%;
+  min-width: max(100%, 640px);
   border-collapse: collapse;
   font-size: clamp(12px, 0.72vw, 14px);
   line-height: 1.5;
@@ -1205,6 +1210,37 @@ body[data-theme='light'] .mermaid-block {
     width: 100%;
     max-width: 100%;
     border-radius: 8px;
+  }
+
+  .table-wrap {
+    margin: 0.72em 0 1em;
+    border-radius: 8px;
+  }
+
+  .table-scroll-hint {
+    display: block;
+    position: sticky;
+    left: 0;
+    padding: 8px 10px 6px;
+    font-size: 11px;
+    line-height: 1.4;
+    color: var(--muted);
+    background: color-mix(in srgb, var(--card) 96%, black 4%);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    white-space: nowrap;
+  }
+
+  .md-table {
+    min-width: 560px;
+    font-size: 11.5px;
+    line-height: 1.42;
+  }
+
+  .md-table th,
+  .md-table td {
+    padding: 6px 8px;
+    white-space: normal;
+    word-break: break-word;
   }
 
   .md-figure {
