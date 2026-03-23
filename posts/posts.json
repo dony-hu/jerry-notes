@@ -1,5 +1,18 @@
 [
   {
+    "title": "今日工作计划（2026-03-23）",
+    "slug": "cto-daily-plan-2026-03-23",
+    "date": "2026-03-23",
+    "tags": [
+      "组织与管理",
+      "项目与交付",
+      "AI战略与转型",
+      "研发效能"
+    ],
+    "visibility": "internal",
+    "summary": "围绕吴江场景客户确认、后台运营中心、部署互联网化、离线版本标准化、生态会筹备、G1内部推广与市场支撑体系建设推进本周重点工作。"
+  },
+  {
     "title": "丰图为什么要认真读 Harness Engineering，以及后面那几张图",
     "slug": "fengtu-ai-control-plane-and-result-delivery-system-2026-03-22",
     "date": "2026-03-22",
