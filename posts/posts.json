@@ -14,6 +14,21 @@
     "summary": "基于一组现有页面整理出的对外演示版 slides，围绕企业困境、自动化工具、Skill 脚本、安全隔离、案例、产品定义与业务价值展开。"
   },
   {
+    "title": "基础产品部 AI沟通分享（演示版）",
+    "slug": "basic-product-ai-communication-2026-03-23-slides",
+    "date": "2026-03-23",
+    "tags": [
+      "组织与管理",
+      "AI战略与转型",
+      "平台与架构",
+      "项目与交付"
+    ],
+    "visibility": "internal",
+    "type": "webslides",
+    "url": "./slides/basic-product-ai-communication-2026-03-23-slides.html",
+    "summary": "面向基础产品部的内部分享 slides，围绕 AI 时代软件壁垒变化、未来产品形态、基础产品六项核心要求、组织扁平化与 AI 化工作方式展开。"
+  },
+  {
     "title": "本周工作计划（2026-03-23~2026-03-29）",
     "slug": "cto-daily-plan-2026-03-23",
     "date": "2026-03-23",
