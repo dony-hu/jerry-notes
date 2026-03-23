@@ -55,6 +55,20 @@
     "summary": "包含上周工作小结与本周整体计划，重点覆盖吴江场景验证、部署标准化、后台运营中心、市场支撑体系、生态会筹备与G1内部推广。"
   },
   {
+    "title": "基础产品部 AI 沟通分享（演示版）",
+    "slug": "foundation-product-ai-communication-2026-03-23-slides",
+    "date": "2026-03-23",
+    "tags": [
+      "AI战略与转型",
+      "基础产品",
+      "组织与管理"
+    ],
+    "visibility": "internal",
+    "type": "webslides",
+    "url": "./slides/foundation-product-ai-communication-2026-03-23-slides.html",
+    "summary": "面向基础产品部的AI沟通分享稿，围绕AI时代的软件革命、基础产品的能力要求、天级响应与小队化作战、以及AI化工作方式展开。"
+  },
+  {
     "title": "未来组织模式及运作模式",
     "slug": "future-organization-and-operating-model-2026-03-23",
     "date": "2026-03-23",
