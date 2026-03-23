@@ -1,5 +1,19 @@
 [
   {
+    "title": "AI Native 企业架构与产品表达（演示版）",
+    "slug": "ai-native-enterprise-architecture-review-2026-03-23-slides",
+    "date": "2026-03-23",
+    "tags": [
+      "AI战略与转型",
+      "产品与架构",
+      "企业级平台"
+    ],
+    "visibility": "internal",
+    "type": "webslides",
+    "url": "./slides/ai-native-enterprise-architecture-review-2026-03-23-slides.html",
+    "summary": "基于一组现有页面整理出的对外演示版 slides，围绕企业困境、自动化工具、Skill 脚本、安全隔离、案例、产品定义与业务价值展开。"
+  },
+  {
     "title": "本周工作计划（2026-03-23~2026-03-29）",
     "slug": "cto-daily-plan-2026-03-23",
     "date": "2026-03-23",
