@@ -27,6 +27,19 @@
     "summary": "包含上周工作小结与本周整体计划，重点覆盖吴江场景验证、部署标准化、后台运营中心、市场支撑体系、生态会筹备与G1内部推广。"
   },
   {
+    "title": "未来组织模式及运作模式",
+    "slug": "future-organization-and-operating-model-2026-03-23",
+    "date": "2026-03-23",
+    "tags": [
+      "AI战略与转型",
+      "组织与管理",
+      "平台与架构",
+      "产品与体验"
+    ],
+    "visibility": "internal",
+    "summary": "围绕三层智能体架构、全链路AI化闭环、单一资源库与AI自动维护机制，系统描述未来组织模式与运作方式。"
+  },
+  {
     "title": "G1武汉交付团队 AI转型分享（演示版）",
     "slug": "g1-wuhan-delivery-ai-transformation-sharing-2026-03-23-slides",
     "date": "2026-03-23",
