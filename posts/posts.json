@@ -14,6 +14,21 @@
     "summary": "基于一组现有页面整理出的对外演示版 slides，围绕企业困境、自动化工具、Skill 脚本、安全隔离、案例、产品定义与业务价值展开。"
   },
   {
+    "title": "基础产品部 AI沟通分享（25页 Web Slides版）",
+    "slug": "basic-product-ai-communication-2026-03-23-25p-slides",
+    "date": "2026-03-23",
+    "tags": [
+      "组织与管理",
+      "AI战略与转型",
+      "平台与架构",
+      "项目与交付"
+    ],
+    "visibility": "internal",
+    "type": "webslides",
+    "url": "./slides/basic-product-ai-communication-2026-03-23-25p-slides.html",
+    "summary": "基于“基础产品部 AI沟通分享（讨论版原文）”拆页形成的 25 页 Web Slides 版本，尽量保留原始表达方式与完整内容，适合网页演示、在线转发与投屏沟通。"
+  },
+  {
     "title": "基础产品部 AI沟通分享（25页PPT版）",
     "slug": "basic-product-ai-communication-2026-03-23-ppt-download",
     "date": "2026-03-23",
